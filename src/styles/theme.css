@@ -1,0 +1,69 @@
+:root {
+  --font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  --bg-desktop: #0a0e1a;
+  --bg-desktop-dot: #101830;
+  --bg-surface: #131b30;
+  --bg-titlebar: #161f38;
+  --bg-titlebar-active: #1c2748;
+  --bg-taskbar: #0c1122;
+
+  --border: #262f4d;
+  --border-strong: #37426b;
+
+  --fg: #dbe2f0;
+  --fg-dim: #8b96b4;
+  --fg-faint: #57628a;
+
+  --accent-amber: #c9a876;
+  --accent-green: #7fae8c;
+  --accent-blue: #7c9cc4;
+  --accent-rose: #c08585;
+  --accent-neutral: #7c8db5;
+  --accent-danger: #c07272;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  color: var(--fg);
+  background: var(--bg-desktop);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent-blue);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
