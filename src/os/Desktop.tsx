@@ -23,7 +23,7 @@ function initialCells(): Record<AppId, CellPos> {
 }
 
 export function Desktop() {
-  const { windows, openWindow } = useWindowManager();
+  const { windows, openWindow, clampWindowsToBounds } = useWindowManager();
   const [cells, setCells] = useState<Record<AppId, CellPos>>(initialCells);
   const [maxBounds, setMaxBounds] = useState({ maxCol: 3, maxRow: 5 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,12 +45,15 @@ export function Desktop() {
         );
         return changed ? next : prev;
       });
+      // Same idea for open windows: pull any window back inside bounds so
+      // its titlebar (the only way to move/resize it) stays reachable.
+      clampWindowsToBounds(width, height);
     };
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [clampWindowsToBounds]);
 
   const moveIcon = (id: AppId, rawPos: PixelPos) => {
     setCells((prev) => {

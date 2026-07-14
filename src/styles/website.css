@@ -198,6 +198,12 @@
   }
 
   .website-main {
+    /* .website-shell uses align-items: flex-start, so once it's a column
+       flex container (this breakpoint) website-main sizes to its content's
+       max-content width instead of the container width unless forced —
+       exactly what let the code-card's unbreakable content blow out the
+       whole page past the viewport. */
+    width: 100%;
     padding: 20px 20px 56px;
   }
 

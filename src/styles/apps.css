@@ -44,6 +44,11 @@
   font-size: 12px;
   overflow-x: auto;
   white-space: pre;
+  /* Without this, the pre's unbreakable content width leaks through
+     website-main's fit-content flex sizing (website-shell uses
+     align-items: flex-start) and inflates the whole page past the
+     viewport instead of just scrolling internally. */
+  max-width: 100%;
 }
 
 /* ---------- slides ---------- */

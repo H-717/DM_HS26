@@ -23,7 +23,8 @@ type Action =
   | { type: 'MINIMIZE'; id: AppId }
   | { type: 'RESTORE'; id: AppId }
   | { type: 'MOVE'; id: AppId; x: number; y: number }
-  | { type: 'RESIZE'; id: AppId; width: number; height: number };
+  | { type: 'RESIZE'; id: AppId; width: number; height: number }
+  | { type: 'CLAMP_TO_BOUNDS'; maxWidth: number; maxHeight: number };
 
 const STAGGER_STEP = 28;
 const STAGGER_MAX = 6;
@@ -116,6 +117,26 @@ function reducer(state: ManagerState, action: Action): ManagerState {
         },
       };
     }
+    // The desktop clips overflow, so a window left larger than or dragged
+    // outside a shrunk container would otherwise become partly or entirely
+    // unreachable (including its titlebar, the only way to move/resize it
+    // back). Pull every window's size and position back inside bounds
+    // whenever the container shrinks.
+    case 'CLAMP_TO_BOUNDS': {
+      const { maxWidth, maxHeight } = action;
+      let changed = false;
+      const windows: WindowMap = {};
+      for (const [id, w] of Object.entries(state.windows) as [AppId, WindowState | undefined][]) {
+        if (!w) continue;
+        const width = Math.max(1, Math.min(w.width, maxWidth));
+        const height = Math.max(1, Math.min(w.height, maxHeight));
+        const x = Math.min(Math.max(0, w.x), Math.max(0, maxWidth - width));
+        const y = Math.min(Math.max(0, w.y), Math.max(0, maxHeight - height));
+        if (width !== w.width || height !== w.height || x !== w.x || y !== w.y) changed = true;
+        windows[id] = { ...w, width, height, x, y };
+      }
+      return changed ? { ...state, windows } : state;
+    }
     default:
       return state;
   }
@@ -131,6 +152,7 @@ interface ManagerApi {
   toggleWindow: (id: AppId) => void;
   moveWindow: (id: AppId, x: number, y: number) => void;
   resizeWindow: (id: AppId, width: number, height: number) => void;
+  clampWindowsToBounds: (maxWidth: number, maxHeight: number) => void;
 }
 
 const WindowManagerContext = createContext<ManagerApi | null>(null);
@@ -149,6 +171,10 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
   );
   const resizeWindow = useCallback(
     (id: AppId, width: number, height: number) => dispatch({ type: 'RESIZE', id, width, height }),
+    [],
+  );
+  const clampWindowsToBounds = useCallback(
+    (maxWidth: number, maxHeight: number) => dispatch({ type: 'CLAMP_TO_BOUNDS', maxWidth, maxHeight }),
     [],
   );
   const toggleWindow = useCallback(
@@ -172,8 +198,20 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
       toggleWindow,
       moveWindow,
       resizeWindow,
+      clampWindowsToBounds,
     }),
-    [state.windows, openWindow, closeWindow, focusWindow, minimizeWindow, restoreWindow, toggleWindow, moveWindow, resizeWindow],
+    [
+      state.windows,
+      openWindow,
+      closeWindow,
+      focusWindow,
+      minimizeWindow,
+      restoreWindow,
+      toggleWindow,
+      moveWindow,
+      resizeWindow,
+      clampWindowsToBounds,
+    ],
   );
 
   return <WindowManagerContext.Provider value={value}>{children}</WindowManagerContext.Provider>;

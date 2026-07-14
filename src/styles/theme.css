@@ -29,6 +29,15 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Stops Android/Samsung Internet from auto-boosting font size on load,
+     which otherwise reads as the page being "zoomed in" until the user
+     manually pinch-zooms to force a relayout. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
 html,
 body,
 #root {
@@ -41,6 +50,7 @@ body {
   color: var(--fg);
   background: var(--bg-desktop);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 button {
@@ -50,6 +60,15 @@ button {
 
 a {
   color: var(--accent-blue);
+}
+
+/* Defensive cap so no image/code block/table can ever force the layout
+   wider than its container (the actual cause of the page rendering wider
+   than the viewport on mobile). */
+img,
+pre,
+table {
+  max-width: 100%;
 }
 
 :focus-visible {
