@@ -4,6 +4,7 @@ import { OfficeHoursApp } from '../apps/OfficeHours';
 import { ResourcesApp } from '../apps/Resources';
 import { SlidesApp } from '../apps/Slides';
 import { content } from '../content';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { ACCENT } from '../os/accents';
 import type { AppId } from '../os/types';
 
@@ -20,6 +21,7 @@ const NAV_ITEMS: { id: AppId; label: string }[] = [
 
 export function WebsiteView({ onDesktopMode }: WebsiteViewProps) {
   const [activeId, setActiveId] = useState<AppId>('about-me');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
@@ -78,9 +80,11 @@ export function WebsiteView({ onDesktopMode }: WebsiteViewProps) {
           </ul>
         </nav>
 
-        <button type="button" className="website-toggle" onClick={onDesktopMode}>
-          desktop mode
-        </button>
+        {!isMobile ? (
+          <button type="button" className="website-toggle" onClick={onDesktopMode}>
+            desktop mode
+          </button>
+        ) : null}
       </aside>
 
       <main className="website-main">

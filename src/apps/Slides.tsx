@@ -18,17 +18,17 @@ export function SlidesApp() {
       <tbody>
         {content.weeks.map((w) => (
           <tr key={w.week}>
-            <td>{w.week}</td>
-            <td>
+            <td data-label="Week">{w.week}</td>
+            <td data-label="Topic">
               {w.topic}
               {w.date ? <span className="slides-date"> ({w.date})</span> : null}
             </td>
-            <td>
+            <td data-label="Slides">
               <a href={w.slidesUrl} target="_blank" rel="noreferrer">
                 slides.pdf
               </a>
             </td>
-            <td>
+            <td data-label="Exercise">
               <a href={w.exerciseUrl} target="_blank" rel="noreferrer">
                 exercise.pdf
               </a>

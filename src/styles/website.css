@@ -206,3 +206,24 @@
     max-width: none;
   }
 }
+
+@media (max-width: 480px) {
+  .website-sidebar {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .website-nav-link {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  .website-main {
+    padding: 16px 14px 48px;
+    gap: 14px;
+  }
+
+  .website-section {
+    padding: 18px 16px;
+  }
+}

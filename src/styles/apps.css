@@ -70,6 +70,38 @@
   color: var(--fg-faint);
 }
 
+@media (max-width: 560px) {
+  .slides-table thead {
+    display: none;
+  }
+
+  .slides-table,
+  .slides-table tbody,
+  .slides-table tr,
+  .slides-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .slides-table tr {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .slides-table td {
+    border-bottom: none;
+    padding: 3px 0;
+  }
+
+  .slides-table td::before {
+    content: attr(data-label);
+    display: inline-block;
+    min-width: 68px;
+    color: var(--accent-blue);
+    font-weight: 600;
+  }
+}
+
 /* ---------- resources ---------- */
 
 .resource-section {
@@ -114,6 +146,17 @@
 .ics-footer {
   color: var(--fg-faint);
   font-size: 11px;
+}
+
+@media (max-width: 480px) {
+  .ics-fields {
+    grid-template-columns: 1fr;
+    gap: 2px 0;
+  }
+
+  .ics-fields dd {
+    margin: 0 0 8px;
+  }
 }
 
 /* ---------- terminal ---------- */
