@@ -3,6 +3,8 @@
 // need editing week to week — this is the one file to keep up to date.
 // ---------------------------------------------------------------------------
 
+import { version as pkgVersion } from '../package.json';
+
 export interface Week {
   week: number;
   topic: string;
@@ -110,3 +112,7 @@ export const content = {
 };
 
 export const osName = `${content.initials.toUpperCase()}OS`;
+
+// Single source of truth for the version shown in the site footer — bump
+// package.json's "version" field to change it everywhere it's displayed.
+export const version = `v${pkgVersion}`;

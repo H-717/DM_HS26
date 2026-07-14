@@ -3,7 +3,7 @@ import { AboutMeApp } from '../apps/AboutMe';
 import { OfficeHoursApp } from '../apps/OfficeHours';
 import { ResourcesApp } from '../apps/Resources';
 import { SlidesApp } from '../apps/Slides';
-import { content } from '../content';
+import { content, version } from '../content';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { ACCENT } from '../os/accents';
 import type { AppId } from '../os/types';
@@ -115,7 +115,7 @@ export function WebsiteView({ onDesktopMode }: WebsiteViewProps) {
           <span>
             {content.name} &bull; {content.school} &bull; Built with {content.framework}
           </span>
-          <span className="website-footer-version">v1.0.0</span>
+          <span className="website-footer-version">{version}</span>
         </footer>
       </main>
     </div>
