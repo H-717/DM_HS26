@@ -9,6 +9,7 @@ import {
   defaultCell,
   findFreeCell,
   pixelToNearestCell,
+  reflowCells,
   type CellPos,
   type PixelPos,
 } from './desktopLayout';
@@ -32,9 +33,17 @@ export function Desktop() {
     if (!el) return;
     const update = () => {
       const { width, height } = el.getBoundingClientRect();
-      setMaxBounds({
-        maxCol: Math.max(0, Math.floor((width - GRID_ORIGIN.x) / CELL.w) - 1),
-        maxRow: Math.max(0, Math.floor((height - GRID_ORIGIN.y) / CELL.h) - 1),
+      const maxCol = Math.max(0, Math.floor((width - GRID_ORIGIN.x) / CELL.w) - 1);
+      const maxRow = Math.max(0, Math.floor((height - GRID_ORIGIN.y) / CELL.h) - 1);
+      setMaxBounds({ maxCol, maxRow });
+      // The desktop clips overflow, so a shrink can otherwise strand icons
+      // in now out-of-bounds cells where they're invisible and unclickable.
+      setCells((prev) => {
+        const next = reflowCells(prev, APP_ORDER, maxCol, maxRow);
+        const changed = APP_ORDER.some(
+          (id) => prev[id].col !== next[id].col || prev[id].row !== next[id].row,
+        );
+        return changed ? next : prev;
       });
     };
     update();

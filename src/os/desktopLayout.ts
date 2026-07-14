@@ -32,7 +32,7 @@ export function defaultCell(index: number): CellPos {
   return { col: 0, row: index };
 }
 
-const cellKey = (c: CellPos) => `${c.col},${c.row}`;
+export const cellKey = (c: CellPos) => `${c.col},${c.row}`;
 
 // Nearest free cell to `desired`, searching outward ring by ring so a drag
 // can never land exactly on top of another icon.
@@ -56,4 +56,36 @@ export function findFreeCell(
     }
   }
   return desired;
+}
+
+// Keeps every icon inside [0, maxCol] x [0, maxRow], e.g. after the desktop
+// (which clips overflow) shrinks. Icons already in bounds and not colliding
+// keep their spot; anything pushed outside is walked back to the nearest
+// free in-bounds cell so it never becomes invisible/unreachable.
+export function reflowCells<K extends string>(
+  cells: Record<K, CellPos>,
+  order: readonly K[],
+  maxCol: number,
+  maxRow: number,
+): Record<K, CellPos> {
+  const inBounds = (c: CellPos) => c.col >= 0 && c.col <= maxCol && c.row >= 0 && c.row <= maxRow;
+  const occupied = new Set<string>();
+  const next = {} as Record<K, CellPos>;
+
+  for (const id of order) {
+    const current = cells[id];
+    const placed =
+      current && inBounds(current) && !occupied.has(cellKey(current))
+        ? current
+        : findFreeCell(
+            { col: clamp(current?.col ?? 0, 0, maxCol), row: clamp(current?.row ?? 0, 0, maxRow) },
+            occupied,
+            maxCol,
+            maxRow,
+          );
+    next[id] = placed;
+    occupied.add(cellKey(placed));
+  }
+
+  return next;
 }
