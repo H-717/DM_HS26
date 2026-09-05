@@ -5,11 +5,22 @@ import { Taskbar } from './os/Taskbar';
 import { WindowManagerProvider } from './os/WindowManagerContext';
 import { WebsiteView } from './website/WebsiteView';
 import { useIsMobile } from './hooks/useIsMobile';
+import { DeckView } from './slides/Deck';
+import { deckWeekFromHash, findDeck } from './slides/index';
 
 function App() {
   const [booted, setBooted] = useState(false);
   const isMobile = useIsMobile();
   const [websiteMode, setWebsiteMode] = useState<boolean>(isMobile);
+  const [hash, setHash] = useState(() => window.location.hash);
+
+  // '#/slides/1' opens presentation mode directly — no boot screen, no OS
+  // chrome — so the projector shows the deck the moment the link is opened.
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
 
   // The pixel-art desktop relies on mouse drag/resize and isn't usable on
   // touch screens, so bail back to the website view the moment the viewport
@@ -17,6 +28,20 @@ function App() {
   useEffect(() => {
     if (isMobile) setWebsiteMode(true);
   }, [isMobile]);
+
+  const deckWeek = deckWeekFromHash(hash);
+  const deck = deckWeek === null ? undefined : findDeck(deckWeek);
+  if (deck) {
+    return (
+      <DeckView
+        deck={deck}
+        onExit={() => {
+          window.location.hash = '';
+          setBooted(true);
+        }}
+      />
+    );
+  }
 
   if (!booted) {
     return <BootScreen onDone={() => setBooted(true)} />;

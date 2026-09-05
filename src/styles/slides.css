@@ -1,0 +1,457 @@
+/* ---------------------------------------------------------------------------
+   Presentation mode. Everything here is layout only — weekly decks never
+   need to touch this file. Sizing is driven by --u, which scales with the
+   viewport so the same deck fills a laptop screen and a lecture beamer.
+   --------------------------------------------------------------------------- */
+
+.deck {
+  --u: clamp(11px, 1.35vw + 0.35vh, 22px);
+  --pad: calc(var(--u) * 2.4);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-desktop);
+  background-image: radial-gradient(var(--bg-desktop-dot) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.deck-progress {
+  height: 3px;
+  background: var(--accent-blue);
+  transition: width 160ms ease-out;
+  flex: none;
+}
+
+.deck-stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--pad) calc(var(--pad) * 1.6);
+}
+
+.deck-stage > section {
+  width: 100%;
+  max-width: calc(var(--u) * 62);
+  max-height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.deck-foot {
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: calc(var(--u) * 0.6) calc(var(--u) * 1.4);
+  border-top: 1px solid var(--border);
+  background: var(--bg-taskbar);
+  color: var(--fg-faint);
+  font-size: calc(var(--u) * 0.78);
+}
+
+.deck-count {
+  color: var(--fg-dim);
+}
+
+.deck-exit {
+  position: absolute;
+  top: calc(var(--u) * 0.7);
+  right: calc(var(--u) * 0.7);
+  width: calc(var(--u) * 1.8);
+  height: calc(var(--u) * 1.8);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-surface);
+  color: var(--fg-faint);
+  cursor: pointer;
+  opacity: 0.25;
+  transition: opacity 120ms;
+}
+
+.deck-exit:hover {
+  opacity: 1;
+  color: var(--accent-danger);
+}
+
+.deck-notes {
+  position: absolute;
+  left: calc(var(--u) * 1.4);
+  right: calc(var(--u) * 1.4);
+  bottom: calc(var(--u) * 3);
+  padding: calc(var(--u) * 0.9);
+  border: 1px solid var(--accent-amber);
+  border-radius: 6px;
+  background: #0b1020f2;
+  color: var(--accent-amber);
+  font-size: calc(var(--u) * 0.85);
+  line-height: 1.5;
+}
+
+/* --- shared type scale ---------------------------------------------------- */
+
+.deck h1 {
+  margin: 0 0 calc(var(--u) * 0.8);
+  font-size: calc(var(--u) * 3.1);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.deck h2 {
+  margin: 0 0 calc(var(--u) * 1.2);
+  padding-bottom: calc(var(--u) * 0.5);
+  border-bottom: 1px solid var(--border);
+  font-size: calc(var(--u) * 1.85);
+  line-height: 1.2;
+  color: var(--accent-blue);
+}
+
+.deck h3 {
+  margin: 0 0 calc(var(--u) * 0.5);
+  font-size: calc(var(--u) * 1.05);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.deck p {
+  margin: 0 0 calc(var(--u) * 0.7);
+  font-size: calc(var(--u) * 1.12);
+  line-height: 1.6;
+}
+
+.deck code {
+  padding: 0 0.3em;
+  border-radius: 3px;
+  background: #ffffff10;
+  color: var(--accent-green);
+}
+
+.deck .katex {
+  font-size: 1.06em;
+}
+
+/* --- title / end ---------------------------------------------------------- */
+
+.s-title {
+  text-align: center;
+}
+
+.s-title .s-sub {
+  color: var(--fg-dim);
+  font-size: calc(var(--u) * 1.35);
+}
+
+.s-title .s-foot {
+  margin-top: calc(var(--u) * 2);
+  color: var(--fg-faint);
+  font-size: calc(var(--u) * 0.95);
+}
+
+.s-end {
+  display: inline-block;
+  margin-top: calc(var(--u) * 1.5);
+  text-align: left;
+}
+
+/* --- lists ---------------------------------------------------------------- */
+
+.s-lead {
+  color: var(--fg-dim);
+}
+
+.s-points,
+.s-agenda,
+.s-parts,
+.s-steps {
+  margin: 0;
+  padding-left: calc(var(--u) * 1.6);
+  font-size: calc(var(--u) * 1.18);
+  line-height: 1.65;
+}
+
+.s-points {
+  list-style: none;
+  padding-left: 0;
+}
+
+.s-points > li {
+  position: relative;
+  margin-bottom: calc(var(--u) * 0.7);
+  padding-left: calc(var(--u) * 1.5);
+}
+
+.s-points > li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent-blue);
+}
+
+.s-agenda > li,
+.s-parts > li,
+.s-steps > li {
+  margin-bottom: calc(var(--u) * 0.6);
+}
+
+.s-steps > li {
+  font-variant-numeric: tabular-nums;
+}
+
+.is-hidden {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 140ms, transform 140ms;
+}
+
+/* --- callout -------------------------------------------------------------- */
+
+.s-callout {
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 1.3);
+  border: 1px solid var(--border-strong);
+  border-left-width: calc(var(--u) * 0.35);
+  border-radius: 6px;
+  background: var(--bg-surface);
+}
+
+.s-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.tone-info {
+  border-left-color: var(--accent-blue);
+}
+.tone-info h3 {
+  color: var(--accent-blue);
+}
+.tone-warn {
+  border-left-color: var(--accent-rose);
+}
+.tone-warn h3 {
+  color: var(--accent-rose);
+}
+.tone-good {
+  border-left-color: var(--accent-green);
+}
+.tone-good h3 {
+  color: var(--accent-green);
+}
+
+.s-hint {
+  margin-top: calc(var(--u) * 1.2);
+}
+
+/* --- tables --------------------------------------------------------------- */
+
+.s-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: calc(var(--u) * 1.05);
+  font-variant-numeric: tabular-nums;
+}
+
+.s-table th,
+.s-table td {
+  padding: calc(var(--u) * 0.35) calc(var(--u) * 0.9);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.s-table th {
+  background: var(--bg-titlebar);
+  color: var(--accent-blue);
+}
+
+.s-table tr.is-marked td {
+  background: #7fae8c26;
+  color: var(--accent-green);
+}
+
+/* --- character grid (chessboards, tilings) -------------------------------- */
+
+.s-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), calc(var(--u) * 2.2));
+  justify-content: center;
+  gap: 2px;
+  margin: calc(var(--u) * 0.5) 0 calc(var(--u) * 1);
+}
+
+.s-cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--bg-surface);
+  font-size: calc(var(--u) * 0.9);
+  color: #0a0e1a;
+}
+
+/* Pieces are tinted by their letter so a tiling reads at a glance. */
+.s-cell[data-piece='A'] { background: #c9a876; }
+.s-cell[data-piece='B'] { background: #7fae8c; }
+.s-cell[data-piece='C'] { background: #7c9cc4; }
+.s-cell[data-piece='D'] { background: #c08585; }
+.s-cell[data-piece='E'] { background: #a58ec4; }
+.s-cell[data-piece='F'] { background: #6fb0ae; }
+.s-cell[data-piece='G'] { background: #cf9a6a; }
+.s-cell[data-piece='H'] { background: #93b06a; }
+.s-cell[data-piece='I'] { background: #6a92c4; }
+.s-cell[data-piece='J'] { background: #c47f9e; }
+.s-cell[data-piece='K'] { background: #b8a25e; }
+.s-cell[data-piece='L'] { background: #63a880; }
+.s-cell[data-piece='M'] { background: #8e9ed4; }
+.s-cell[data-piece='N'] { background: #d09a8a; }
+.s-cell[data-piece='O'] { background: #7fc0a8; }
+.s-cell[data-piece='P'] { background: #b48ec4; }
+
+.s-cell.is-hole {
+  background: repeating-linear-gradient(
+    45deg,
+    #1c2748,
+    #1c2748 4px,
+    #0a0e1a 4px,
+    #0a0e1a 8px
+  );
+  border: 1px solid var(--accent-danger);
+}
+
+.s-cell.is-empty {
+  background: transparent;
+}
+
+.s-legend {
+  text-align: center;
+  color: var(--fg-faint);
+  font-size: calc(var(--u) * 0.9) !important;
+}
+
+/* --- exercise ------------------------------------------------------------- */
+
+.s-ref {
+  padding: 0 calc(var(--u) * 0.5);
+  border-radius: 4px;
+  background: var(--accent-blue);
+  color: #0a0e1a;
+  font-size: 0.8em;
+}
+
+.s-prompt {
+  font-size: calc(var(--u) * 1.2);
+}
+
+/* --- quiz ----------------------------------------------------------------- */
+
+.s-quiz-q {
+  border-bottom: none;
+  color: var(--fg);
+}
+
+.s-quiz {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: calc(var(--u) * 0.6);
+  font-size: calc(var(--u) * 1.2);
+}
+
+.s-quiz > li {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 0.8);
+  padding: calc(var(--u) * 0.7) calc(var(--u) * 1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-surface);
+  transition: background 160ms, border-color 160ms, opacity 160ms;
+}
+
+.s-quiz-key {
+  color: var(--fg-faint);
+}
+
+.s-quiz > li.is-right {
+  border-color: var(--accent-green);
+  background: #7fae8c22;
+}
+
+.s-quiz > li.is-right .s-quiz-key {
+  color: var(--accent-green);
+}
+
+.s-quiz > li.is-wrong {
+  opacity: 0.35;
+}
+
+.s-explain {
+  margin-top: calc(var(--u) * 1.2);
+  color: var(--accent-green);
+}
+
+/* --- print: press `p` to lay every slide out, one per page ---------------- */
+
+.deck-printing {
+  position: static;
+  display: block;
+  height: auto;
+  overflow: visible;
+  cursor: default;
+}
+
+.deck-page {
+  display: grid;
+  place-items: center;
+  padding: var(--pad) calc(var(--pad) * 1.6);
+  min-height: 100vh;
+  border-bottom: 1px dashed var(--border);
+}
+
+.deck-page > section {
+  width: 100%;
+  max-width: calc(var(--u) * 62);
+}
+
+/* Reveal-by-click only makes sense live; on paper everything is visible. */
+.deck-printing .is-hidden {
+  opacity: 1;
+  transform: none;
+}
+
+@page {
+  size: landscape;
+  margin: 12mm;
+}
+
+@media print {
+  .deck-progress,
+  .deck-foot,
+  .deck-exit,
+  .deck-notes {
+    display: none;
+  }
+
+  .deck-page {
+    min-height: auto;
+    height: auto;
+    padding: 0;
+    border-bottom: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .deck-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+
+/* '#' means "a plain board square" in a grid slide — visible, but silent. */
+.s-cell[data-piece='#'] {
+  background: var(--bg-titlebar);
+  color: transparent;
+}

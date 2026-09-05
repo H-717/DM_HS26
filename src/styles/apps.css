@@ -253,3 +253,8 @@
   color: var(--fg-dim);
   font-size: 11px;
 }
+
+.slides-soon {
+  color: var(--fg-faint);
+  font-style: italic;
+}

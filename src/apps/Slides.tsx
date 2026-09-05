@@ -1,5 +1,22 @@
 import { content } from '../content';
 
+// '#' means "not published yet"; '#/slides/N' is an in-site deck rather than
+// a PDF, so it gets its own label.
+function linkLabel(url: string, pdfLabel: string) {
+  if (url === '#') return null;
+  return url.startsWith('#/slides/') ? 'present ▸' : pdfLabel;
+}
+
+function Cell({ url, pdfLabel }: { url: string; pdfLabel: string }) {
+  const label = linkLabel(url, pdfLabel);
+  if (!label) return <span className="slides-soon">soon</span>;
+  return (
+    <a href={url} target="_blank" rel="noreferrer">
+      {label}
+    </a>
+  );
+}
+
 export function SlidesApp() {
   if (content.weeks.length === 0) {
     return <p>No sessions yet — check back soon.</p>;
@@ -24,14 +41,10 @@ export function SlidesApp() {
               {w.date ? <span className="slides-date"> ({w.date})</span> : null}
             </td>
             <td data-label="Slides">
-              <a href={w.slidesUrl} target="_blank" rel="noreferrer">
-                slides.pdf
-              </a>
+              <Cell url={w.slidesUrl} pdfLabel="slides.pdf" />
             </td>
             <td data-label="Exercise">
-              <a href={w.exerciseUrl} target="_blank" rel="noreferrer">
-                exercise.pdf
-              </a>
+              <Cell url={w.exerciseUrl} pdfLabel="exercise.pdf" />
             </td>
           </tr>
         ))}

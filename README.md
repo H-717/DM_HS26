@@ -53,11 +53,52 @@ Drop the actual PDF files into `public/slides/` (e.g.
 `/slides/<filename>.pdf`. Until you have a real file, leave the URL as `'#'`
 — the link will render but not go anywhere.
 
+## Slides
+
+Each exercise session is a deck that lives in the site itself, at
+`#/slides/<week>` — open that URL and you get fullscreen presentation mode,
+no boot screen, no windows.
+
+**Presenting**
+
+| key | does |
+| --- | --- |
+| `→` `space` click | next (also steps through revealed bullets) |
+| `←` | back |
+| `Home` `End` | first / last slide |
+| `f` | fullscreen |
+| `n` | toggle speaker notes for the current slide |
+| `p` | lay out every slide, then open the print dialog → *Save as PDF* |
+| `Esc` | back to the site |
+
+**Writing a new week**
+
+1. Copy `src/slides/week01.ts` to `src/slides/week02.ts` and edit the
+   content. You only ever write data — a list of slide objects. The
+   available slide kinds and the text markup (`$LaTeX$`, `**bold**`,
+   `` `code` ``) are documented at the top of `src/slides/types.ts`.
+2. Register it in `src/slides/index.ts`:
+
+   ```diff
+   + import { week02 } from './week02';
+   - export const decks: Deck[] = [week01];
+   + export const decks: Deck[] = [week01, week02];
+   ```
+
+3. Add the week to `content.ts` with `slidesUrl: '#/slides/2'`.
+
+Layout, colours and typography live in `src/styles/slides.css` and are
+shared by every deck — weekly files never touch styling.
+
+Kahoot questions for each session are in `kahoot/weekNN.csv`, in the column
+order Kahoot's import template expects.
+
 ## Project structure
 
 ```
 src/
   content.ts          # all personal/course content — edit this weekly
+  slides/             # one file per week + the deck renderer
   App.tsx             # boot screen -> desktop or website mode
   os/                 # window manager: Desktop, Window, Taskbar, Icon,
                        # drag/snap layout, boot screen, app registry
