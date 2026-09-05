@@ -8,7 +8,7 @@ import type { Deck } from './types';
 export const week01: Deck = {
   week: 1,
   topic: 'Statements, Proofs & Propositional Logic',
-  date: 'Week of 21 Sep 2026',
+  date: 'Week 1',
   sheet: 'Exercise sheet 1',
 
   slides: [
@@ -39,7 +39,7 @@ export const week01: Deck = {
       body: [
         '**Short recap** of the week’s lecture ideas — 15 min, not a second lecture.',
         '**We solve the sheet together.** You try first, I ask, we discuss, then I write it up.',
-        '**The graded exercise is yours alone.** I give method, never the answer.',
+        '**One exercise each week is presented by one of you**, at the board. More on that in a moment.',
         'Interrupt me. A session where nobody interrupts is a session I ran badly.',
       ],
     },
@@ -55,7 +55,7 @@ export const week01: Deck = {
         '1.3 Formulas ↔ natural language',
         '1.4 Equivalence via function tables',
         '1.6 Simplifying a formula',
-        '1.5 (graded) — method only',
+        '1.5 — next week’s presentation exercise',
         'Kahoot',
       ],
       note: 'Rough timing: 15 min recap, 65 min exercises, 10 min Kahoot, 10 min buffer.',
@@ -165,7 +165,7 @@ export const week01: Deck = {
     {
       kind: 'grid',
       title: '1.1 · Ten cases, not forty-nine',
-      lead: 'Every square can be moved into the shaded wedge by one of the 8 symmetries.',
+      lead: 'Every square can be moved into the coloured wedge by one of the 8 symmetries.',
       cells: [
         'ABCD###',
         '#EFG###',
@@ -374,7 +374,7 @@ export const week01: Deck = {
         'G = ¬A ∧ (¬B ∨ C). Each of A, B, C appears exactly once. ∎',
       ],
       note:
-        'Stress the format: naming the rule is not decoration, it is the thing being graded. "obviously" scores zero points.',
+        'Stress the format: naming the rule is not decoration, it is the whole exercise. "obviously" is not a rule.',
     },
 
     {
@@ -388,24 +388,40 @@ export const week01: Deck = {
       ],
     },
 
-    // -- 1.5 graded ----------------------------------------------------------
+    // -- 1.5 / presentations -------------------------------------------------
+
+    // EDIT ME — fill in the real rules for the oral presentations once the
+    // course team publishes them (who presents, how long, how it counts).
+    {
+      kind: 'callout',
+      title: 'The presentation exercise',
+      tone: 'warn',
+      body: [
+        'Each week one exercise is **presented at the board by one of you**, instead of handed in.',
+        'You get the exercise a week ahead. You work it out at home; in the session you walk us through it.',
+        'Nobody is expected to be polished. Explaining a wrong turn out loud is worth more than a clean answer nobody follows.',
+        'I will ask questions while you present — that is help, not an exam.',
+      ],
+      note:
+        'EDIT ME before the first session: sign-up mechanism, length, and whether it affects the grade. Say it plainly — this is the thing first-years will be most anxious about.',
+    },
 
     {
       kind: 'exercise',
       ref: '1.5',
-      title: 'Two New Operators — GRADED (8 points)',
+      title: 'Two New Operators — for presentation',
       prompt: [
-        'Two binary operators ♡ and ♢ are given by their function tables. You are asked about commutativity, an equivalence of two compound formulas, and to build a given F from ♡ and ♢ alone.',
-        '**We will not solve this here.** It is graded, it must be your own work, and AI is not allowed for it.',
+        'Two binary operators ♡ and ♢ are given by their function tables. The exercise asks whether they are commutative, whether a given equivalence holds, and to build a specified F out of ♡ and ♢ alone.',
+        '**We are not solving this today** — it is next week’s presentation exercise. Here is how to attack it.',
       ],
       hint: [
-        'Method, not answers: a table over A, B, C has 8 rows — build one column per subformula, innermost first, and never skip a column.',
-        'For part 1: two operators are commutative iff swapping the two input columns leaves the output column unchanged. Check it, do not eyeball it.',
-        'For part 3: read the target table as "which rows are 0?" and work backwards from there.',
-        'Deadline is on Moodle. Stuck at 23:00 the night before? Email me — I answer.',
+        'A table over A, B, C has 8 rows. Build one column per subformula, innermost first, and never skip a column — that is where the marks and the mistakes both live.',
+        'Commutativity: swap the two input columns and check whether the output column is unchanged. Verify it, do not eyeball it.',
+        'For the last part: read the target table as "which rows are 0?" and work backwards from there.',
+        'Presenting it? Come find me beforehand if you want a sanity check.',
       ],
       note:
-        'Do NOT reveal that ♡ is → and ♢ is ⊕, even if asked directly. Redirect to the method.',
+        'Do not reveal that ♡ is → and ♢ is ⊕, even if asked directly — it is the whole first part. Redirect to the method.',
     },
 
     // -- wrap ----------------------------------------------------------------
@@ -417,7 +433,7 @@ export const week01: Deck = {
         'A statement has a truth value. A predicate does not, until you fix its variables.',
         'A → B is false in exactly one row. Learn that row.',
         'A correct chain of implications from a false assumption proves nothing.',
-        'Simplification proofs are graded on **named rules**, one per step.',
+        'Simplification proofs are written in **named rules**, one per step.',
         'Symmetry turns 49 cases into 10. Look for it before you start drawing.',
       ],
     },
@@ -434,7 +450,7 @@ export const week01: Deck = {
       kind: 'end',
       title: 'See you next week',
       points: [
-        'Sheet 1 is due on Moodle — check the exact date there.',
+        'Sheet 1 and its deadline are on Moodle.',
         'Slides and past sessions: my site (linked from Moodle).',
         'hserobyan@student.ethz.ch — genuinely, just email me.',
         'Next week: quantifiers and the start of set theory.',

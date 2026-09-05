@@ -59,19 +59,18 @@ export const content = {
 
   // EDIT ME — weekly exercise session. Set to 'TBD' fields until scheduled.
   session: {
-    day: 'TBD',
-    time: 'TBD',
+    day: 'Monday',
+    time: '16:15 – 18:00',
     room: 'TBD',
     notes:
-      'Exercise sessions run Mondays 16:15–18:00 and Tuesdays 14:15–16:00, ' +
-      'in groups of up to 25. Sign up for a group on Moodle — my slot and ' +
-      'room appear here as soon as the groups are assigned.',
+      'Room follows once the groups are assigned on Moodle — sign up there. ' +
+      'Groups are capped at 25.',
   },
 
   // EDIT ME — links shown on about-me and in the taskbar/terminal.
   links: [
-    { label: 'GitHub', url: '#' },
-    { label: 'LinkedIn', url: '#' },
+    { label: 'GitHub', url: 'https://github.com/H-717' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/hayk-serobyan-877aa9403/' },
   ] as LinkItem[],
 
   // EDIT ME — 2-3 sentences, one string per paragraph.
@@ -91,7 +90,7 @@ export const content = {
     {
       week: 1,
       topic: 'Statements, Proofs & Propositional Logic',
-      date: 'Week of 21 Sep',
+      date: '',
       slidesUrl: '#/slides/1',
       exerciseUrl: '#',
     },

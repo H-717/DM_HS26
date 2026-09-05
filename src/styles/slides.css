@@ -1,20 +1,43 @@
 /* ---------------------------------------------------------------------------
-   Presentation mode. Everything here is layout only — weekly decks never
-   need to touch this file. Sizing is driven by --u, which scales with the
-   viewport so the same deck fills a laptop screen and a lecture beamer.
+   Presentation mode. Layout only — weekly decks never touch this file.
+
+   The deck deliberately runs its OWN light palette rather than inheriting the
+   site's dark theme: lecture-hall projectors wash out dark backgrounds, and
+   printing a dark deck to PDF is a mess. All colours are the --s-* tokens
+   below, so re-theming the slides means editing one block.
+
+   Sizing is driven by --u, which scales with the viewport, so the same deck
+   fills a laptop screen and a beamer.
    --------------------------------------------------------------------------- */
 
 .deck {
-  --u: clamp(11px, 1.35vw + 0.35vh, 22px);
+  /* --fit is set per slide by Deck.tsx: if a slide's content is taller than
+     the stage, everything scales down until it fits. A slide that scrolls
+     mid-sentence is worse than a slightly smaller slide. */
+  --u-base: clamp(11px, 1.35vw + 0.35vh, 22px);
+  --fit: 1;
+  --u: calc(var(--u-base) * var(--fit));
   --pad: calc(var(--u) * 2.4);
+
+  --s-bg: #fbfaf7;
+  --s-panel: #f2f0ea;
+  --s-ink: #1d2027;
+  --s-ink-dim: #565b66;
+  --s-ink-faint: #8b909b;
+  --s-rule: #dcd9d1;
+  --s-rule-strong: #bfbbb1;
+
+  --s-accent: #2f5d8c;
+  --s-good: #3f7d5a;
+  --s-warn: #9c4f45;
+  --s-amber: #8a6a20;
+
   position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: var(--bg-desktop);
-  background-image: radial-gradient(var(--bg-desktop-dot) 1px, transparent 1px);
-  background-size: 28px 28px;
-  color: var(--fg);
+  background: var(--s-bg);
+  color: var(--s-ink);
   font-family: var(--font-mono);
   cursor: pointer;
   overflow: hidden;
@@ -22,7 +45,7 @@
 
 .deck-progress {
   height: 3px;
-  background: var(--accent-blue);
+  background: var(--s-accent);
   transition: width 160ms ease-out;
   flex: none;
 }
@@ -38,9 +61,6 @@
 .deck-stage > section {
   width: 100%;
   max-width: calc(var(--u) * 62);
-  max-height: 100%;
-  overflow-y: auto;
-  scrollbar-width: thin;
 }
 
 .deck-foot {
@@ -49,14 +69,14 @@
   justify-content: space-between;
   gap: 1rem;
   padding: calc(var(--u) * 0.6) calc(var(--u) * 1.4);
-  border-top: 1px solid var(--border);
-  background: var(--bg-taskbar);
-  color: var(--fg-faint);
+  border-top: 1px solid var(--s-rule);
+  background: var(--s-panel);
+  color: var(--s-ink-faint);
   font-size: calc(var(--u) * 0.78);
 }
 
 .deck-count {
-  color: var(--fg-dim);
+  color: var(--s-ink-dim);
 }
 
 .deck-exit {
@@ -65,32 +85,34 @@
   right: calc(var(--u) * 0.7);
   width: calc(var(--u) * 1.8);
   height: calc(var(--u) * 1.8);
-  border: 1px solid var(--border);
+  border: 1px solid var(--s-rule);
   border-radius: 4px;
-  background: var(--bg-surface);
-  color: var(--fg-faint);
+  background: var(--s-panel);
+  color: var(--s-ink-faint);
   cursor: pointer;
-  opacity: 0.25;
+  opacity: 0.3;
   transition: opacity 120ms;
 }
 
 .deck-exit:hover {
   opacity: 1;
-  color: var(--accent-danger);
+  color: var(--s-warn);
 }
 
+/* Speaker notes: for you, not the room. Toggled with `n`. */
 .deck-notes {
   position: absolute;
   left: calc(var(--u) * 1.4);
   right: calc(var(--u) * 1.4);
   bottom: calc(var(--u) * 3);
   padding: calc(var(--u) * 0.9);
-  border: 1px solid var(--accent-amber);
+  border: 1px solid var(--s-amber);
   border-radius: 6px;
-  background: #0b1020f2;
-  color: var(--accent-amber);
+  background: #fffaf0;
+  color: #6b5214;
   font-size: calc(var(--u) * 0.85);
   line-height: 1.5;
+  box-shadow: 0 6px 20px #1d20271f;
 }
 
 /* --- shared type scale ---------------------------------------------------- */
@@ -105,10 +127,10 @@
 .deck h2 {
   margin: 0 0 calc(var(--u) * 1.2);
   padding-bottom: calc(var(--u) * 0.5);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--s-rule);
   font-size: calc(var(--u) * 1.85);
   line-height: 1.2;
-  color: var(--accent-blue);
+  color: var(--s-accent);
 }
 
 .deck h3 {
@@ -127,8 +149,8 @@
 .deck code {
   padding: 0 0.3em;
   border-radius: 3px;
-  background: #ffffff10;
-  color: var(--accent-green);
+  background: #1d20270f;
+  color: #1f5c46;
 }
 
 .deck .katex {
@@ -142,13 +164,13 @@
 }
 
 .s-title .s-sub {
-  color: var(--fg-dim);
+  color: var(--s-ink-dim);
   font-size: calc(var(--u) * 1.35);
 }
 
 .s-title .s-foot {
   margin-top: calc(var(--u) * 2);
-  color: var(--fg-faint);
+  color: var(--s-ink-faint);
   font-size: calc(var(--u) * 0.95);
 }
 
@@ -161,7 +183,7 @@
 /* --- lists ---------------------------------------------------------------- */
 
 .s-lead {
-  color: var(--fg-dim);
+  color: var(--s-ink-dim);
 }
 
 .s-points,
@@ -169,7 +191,9 @@
 .s-parts,
 .s-steps {
   margin: 0;
-  padding-left: calc(var(--u) * 1.6);
+  /* Wide enough that a two-digit marker ("10.") still sits inside the box —
+     the stage scrolls, so anything hanging left of it gets clipped. */
+  padding-left: calc(var(--u) * 2.8);
   font-size: calc(var(--u) * 1.18);
   line-height: 1.65;
 }
@@ -189,13 +213,20 @@
   content: '▸';
   position: absolute;
   left: 0;
-  color: var(--accent-blue);
+  color: var(--s-accent);
 }
 
 .s-agenda > li,
 .s-parts > li,
 .s-steps > li {
   margin-bottom: calc(var(--u) * 0.6);
+  padding-left: calc(var(--u) * 0.3);
+}
+
+.s-agenda::marker,
+.s-agenda > li::marker,
+.s-steps > li::marker {
+  color: var(--s-ink-faint);
 }
 
 .s-steps > li {
@@ -212,10 +243,10 @@
 
 .s-callout {
   padding: calc(var(--u) * 1.1) calc(var(--u) * 1.3);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--s-rule);
   border-left-width: calc(var(--u) * 0.35);
   border-radius: 6px;
-  background: var(--bg-surface);
+  background: var(--s-panel);
 }
 
 .s-callout p:last-child {
@@ -223,22 +254,24 @@
 }
 
 .tone-info {
-  border-left-color: var(--accent-blue);
+  border-left-color: var(--s-accent);
 }
 .tone-info h3 {
-  color: var(--accent-blue);
+  color: var(--s-accent);
 }
 .tone-warn {
-  border-left-color: var(--accent-rose);
+  border-left-color: var(--s-warn);
+  background: #fdf3f1;
 }
 .tone-warn h3 {
-  color: var(--accent-rose);
+  color: var(--s-warn);
 }
 .tone-good {
-  border-left-color: var(--accent-green);
+  border-left-color: var(--s-good);
+  background: #f1f7f3;
 }
 .tone-good h3 {
-  color: var(--accent-green);
+  color: var(--s-good);
 }
 
 .s-hint {
@@ -257,18 +290,19 @@
 .s-table th,
 .s-table td {
   padding: calc(var(--u) * 0.35) calc(var(--u) * 0.9);
-  border: 1px solid var(--border);
+  border: 1px solid var(--s-rule-strong);
   text-align: center;
 }
 
 .s-table th {
-  background: var(--bg-titlebar);
-  color: var(--accent-blue);
+  background: var(--s-panel);
+  color: var(--s-accent);
 }
 
 .s-table tr.is-marked td {
-  background: #7fae8c26;
-  color: var(--accent-green);
+  background: #dff0e4;
+  color: #245c3c;
+  font-weight: 700;
 }
 
 /* --- character grid (chessboards, tilings) -------------------------------- */
@@ -286,38 +320,44 @@
   place-items: center;
   aspect-ratio: 1;
   border-radius: 3px;
-  background: var(--bg-surface);
+  background: var(--s-panel);
   font-size: calc(var(--u) * 0.9);
-  color: #0a0e1a;
+  color: #2a2016;
 }
 
 /* Pieces are tinted by their letter so a tiling reads at a glance. */
-.s-cell[data-piece='A'] { background: #c9a876; }
-.s-cell[data-piece='B'] { background: #7fae8c; }
-.s-cell[data-piece='C'] { background: #7c9cc4; }
-.s-cell[data-piece='D'] { background: #c08585; }
-.s-cell[data-piece='E'] { background: #a58ec4; }
-.s-cell[data-piece='F'] { background: #6fb0ae; }
-.s-cell[data-piece='G'] { background: #cf9a6a; }
-.s-cell[data-piece='H'] { background: #93b06a; }
-.s-cell[data-piece='I'] { background: #6a92c4; }
-.s-cell[data-piece='J'] { background: #c47f9e; }
-.s-cell[data-piece='K'] { background: #b8a25e; }
-.s-cell[data-piece='L'] { background: #63a880; }
-.s-cell[data-piece='M'] { background: #8e9ed4; }
-.s-cell[data-piece='N'] { background: #d09a8a; }
-.s-cell[data-piece='O'] { background: #7fc0a8; }
-.s-cell[data-piece='P'] { background: #b48ec4; }
+.s-cell[data-piece='A'] { background: #e8c88f; }
+.s-cell[data-piece='B'] { background: #a8d4b4; }
+.s-cell[data-piece='C'] { background: #a6c3e0; }
+.s-cell[data-piece='D'] { background: #e8aeae; }
+.s-cell[data-piece='E'] { background: #c9b3e2; }
+.s-cell[data-piece='F'] { background: #9ed4d2; }
+.s-cell[data-piece='G'] { background: #efbe94; }
+.s-cell[data-piece='H'] { background: #c6d99a; }
+.s-cell[data-piece='I'] { background: #9fbce6; }
+.s-cell[data-piece='J'] { background: #e8aac4; }
+.s-cell[data-piece='K'] { background: #ddc98a; }
+.s-cell[data-piece='L'] { background: #96ceae; }
+.s-cell[data-piece='M'] { background: #b8c3ee; }
+.s-cell[data-piece='N'] { background: #f0bcab; }
+.s-cell[data-piece='O'] { background: #a9e0c9; }
+.s-cell[data-piece='P'] { background: #d6b6e6; }
+
+/* '#' means "a plain board square" in a grid slide — visible, but silent. */
+.s-cell[data-piece='#'] {
+  background: #e4e1d9;
+  color: transparent;
+}
 
 .s-cell.is-hole {
   background: repeating-linear-gradient(
     45deg,
-    #1c2748,
-    #1c2748 4px,
-    #0a0e1a 4px,
-    #0a0e1a 8px
+    #cfcbc2,
+    #cfcbc2 4px,
+    #fbfaf7 4px,
+    #fbfaf7 8px
   );
-  border: 1px solid var(--accent-danger);
+  border: 1px solid var(--s-warn);
 }
 
 .s-cell.is-empty {
@@ -326,7 +366,7 @@
 
 .s-legend {
   text-align: center;
-  color: var(--fg-faint);
+  color: var(--s-ink-dim);
   font-size: calc(var(--u) * 0.9) !important;
 }
 
@@ -335,8 +375,8 @@
 .s-ref {
   padding: 0 calc(var(--u) * 0.5);
   border-radius: 4px;
-  background: var(--accent-blue);
-  color: #0a0e1a;
+  background: var(--s-accent);
+  color: #fff;
   font-size: 0.8em;
 }
 
@@ -348,7 +388,7 @@
 
 .s-quiz-q {
   border-bottom: none;
-  color: var(--fg);
+  color: var(--s-ink);
 }
 
 .s-quiz {
@@ -365,32 +405,32 @@
   align-items: baseline;
   gap: calc(var(--u) * 0.8);
   padding: calc(var(--u) * 0.7) calc(var(--u) * 1);
-  border: 1px solid var(--border);
+  border: 1px solid var(--s-rule);
   border-radius: 6px;
-  background: var(--bg-surface);
+  background: var(--s-panel);
   transition: background 160ms, border-color 160ms, opacity 160ms;
 }
 
 .s-quiz-key {
-  color: var(--fg-faint);
+  color: var(--s-ink-faint);
 }
 
 .s-quiz > li.is-right {
-  border-color: var(--accent-green);
-  background: #7fae8c22;
+  border-color: var(--s-good);
+  background: #e4f2e9;
 }
 
 .s-quiz > li.is-right .s-quiz-key {
-  color: var(--accent-green);
+  color: var(--s-good);
 }
 
 .s-quiz > li.is-wrong {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 .s-explain {
   margin-top: calc(var(--u) * 1.2);
-  color: var(--accent-green);
+  color: var(--s-good);
 }
 
 /* --- print: press `p` to lay every slide out, one per page ---------------- */
@@ -408,7 +448,7 @@
   place-items: center;
   padding: var(--pad) calc(var(--pad) * 1.6);
   min-height: 100vh;
-  border-bottom: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--s-rule);
 }
 
 .deck-page > section {
@@ -448,10 +488,4 @@
     break-after: auto;
     page-break-after: auto;
   }
-}
-
-/* '#' means "a plain board square" in a grid slide — visible, but silent. */
-.s-cell[data-piece='#'] {
-  background: var(--bg-titlebar);
-  color: transparent;
 }

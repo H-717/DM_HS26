@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import 'katex/dist/katex.min.css';
 import '../styles/slides.css';
 import { content } from '../content';
@@ -22,6 +22,34 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
 
   const slide = deck.slides[i];
   const maxStep = stepsOf(slide);
+
+  // Shrink the type scale until the current slide fits the stage. Runs before
+  // paint, so you never see the reflow. A revealed bullet can push a slide
+  // over the edge, hence the dependency on `step` too.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [fit, setFit] = useState(1);
+
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    const stage = stageRef.current;
+    const section = stage?.firstElementChild as HTMLElement | undefined;
+    if (!root || !stage || !section) return;
+
+    let scale = 1;
+    // Two passes: the first estimate is usually right, the second cleans up
+    // the rounding introduced by text re-wrapping at the smaller size.
+    for (let pass = 0; pass < 2; pass++) {
+      root.style.setProperty('--fit', String(scale));
+      const box = getComputedStyle(stage);
+      const room =
+        stage.clientHeight - parseFloat(box.paddingTop) - parseFloat(box.paddingBottom);
+      const needed = section.scrollHeight;
+      if (needed <= room) break;
+      scale = Math.max(0.5, scale * (room / needed) * 0.98);
+    }
+    setFit(scale);
+  }, [i, step, deck]);
 
   const next = useCallback(() => {
     if (step < maxStep) return setStep((s) => s + 1);
@@ -116,10 +144,15 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
   }
 
   return (
-    <div className="deck" onClick={next}>
+    <div
+      className="deck"
+      onClick={next}
+      ref={rootRef}
+      style={{ '--fit': fit } as CSSProperties}
+    >
       <div className="deck-progress" style={{ width: progress + '%' }} />
 
-      <div className="deck-stage">
+      <div className="deck-stage" ref={stageRef}>
         <SlideBody slide={slide} step={step} />
       </div>
 
