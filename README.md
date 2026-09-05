@@ -101,9 +101,16 @@ node scripts/kahoot-xlsx.mjs 05       # just week 5
 ```
 
 Then upload `kahoot/weekNN.xlsx` in Kahoot's *import questions from
-spreadsheet*. Limits their importer enforces: question ≤ 120 characters,
-each answer ≤ 75, time limit one of 5/10/20/30/60/90/120/240, and the
-correct-answer column a number 1–4 (or several, comma separated).
+spreadsheet*. The script refuses to write a file that breaks their rules:
+question ≤ 120 characters, each answer ≤ 75, time limit one of
+5/10/20/30/60/90/120/240, correct answer 1–4 pointing at a non-empty
+answer. Columns F and G are written as numbers, everything else as text.
+
+**If an import is rejected**, download Kahoot's own spreadsheet template
+and save it as `kahoot/template.xlsx`. The script then writes the question
+rows into that workbook from row 9 down and leaves the rest of their file
+untouched, so the header cannot be the problem. Without it the header is a
+reconstruction.
 
 ## Project structure
 

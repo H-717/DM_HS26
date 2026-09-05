@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Kahoot spreadsheet template (yours, not committed)
+kahoot/template.xlsx
