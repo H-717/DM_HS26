@@ -6,6 +6,10 @@ const JOKES = [
   'Why do programmers prefer dark mode? Because light attracts bugs.',
   "There are only 10 types of people: those who understand binary and those who don't.",
   'A student asked for extra time on the deadline. I said sure — take O(1) more days.',
+  '99 little bugs in the code, 99 little bugs. Take one down, patch it around... 127 little bugs in the code.',
+  'How do you comfort a bug? You console it.',
+  'Why did the programmer go broke? He used up all his cache.',
+  'What do you call 8 hobbits? A hobbyte.',
 ];
 
 export interface TerminalApi {
