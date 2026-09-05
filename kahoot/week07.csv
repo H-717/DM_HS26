@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"If ua + vb = 1 for some integers u and v, then gcd(a,b) is:","a","b","1","not determined",30,3
+"To compute the inverse of a modulo m you use:","the prime factorization","the extended Euclidean algorithm","Fermat only","trial and error",30,2
+"Given that 2 to the 12th is 1 mod 13, the exponent 2023 is reduced modulo:","13","12","2023","11",30,2
+"What is 2 to the 2023rd power modulo 13?","2","7","11","1",60,3
+"To show that n^5 + 7 = m^2 has no integer solution, work modulo:","2","4","11","10",60,3
+"ax = b mod m has a solution if and only if:","a divides b","gcd(a,m) divides b","m divides b","always",30,2
+"The system x = y1 mod n and x = y2 mod m, with gcd(n,m) = d, is solvable iff:","d divides y1","y1 equals y2","d divides y1 minus y2","always",30,3
+"The inverse of 142 modulo 553 is:","19","74","127","142",60,2

@@ -90,8 +90,20 @@ no boot screen, no windows.
 Layout, colours and typography live in `src/styles/slides.css` and are
 shared by every deck — weekly files never touch styling.
 
-Kahoot questions for each session are in `kahoot/weekNN.csv`, in the column
-order Kahoot's import template expects.
+## Kahoot
+
+Questions live in `kahoot/weekNN.csv` — that is the file you edit. Kahoot's
+importer only accepts `.xlsx`, so regenerate the spreadsheets with:
+
+```bash
+node scripts/kahoot-xlsx.mjs          # all weeks
+node scripts/kahoot-xlsx.mjs 05       # just week 5
+```
+
+Then upload `kahoot/weekNN.xlsx` in Kahoot's *import questions from
+spreadsheet*. Limits their importer enforces: question ≤ 120 characters,
+each answer ≤ 75, time limit one of 5/10/20/30/60/90/120/240, and the
+correct-answer column a number 1–4 (or several, comma separated).
 
 ## Project structure
 

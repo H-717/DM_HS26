@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"How many elements does the set {1, 0, {0}, 1} have?","2","3","4","it depends",30,2
+"Which is true for every set A?","the empty set is an element of A","the empty set is a subset of A","A is an element of A","A is an element of P(A)",30,2
+"Which A satisfies: A is a subset of P(A), and no element of A is a subset of P(A)?","{0}","{empty set}","the empty set","no such A exists",60,3
+"Is P(A union B) = P(A) union P(B) in general?","yes","no, take A={1} and B={2}","only for finite sets","only if A and B are disjoint",30,2
+"A is a subset of B if and only if P(A) is a subset of P(B). This is:","true","false","true only for finite sets","true only if A is nonempty",30,1
+"Why must a subset of size floor(n/2)+1 contain two elements summing to n?","induction","pigeonhole on the pairs {k, n-k}","because n is prime","because the subset is an interval",60,2
+"If a family is closed under union, intersection and complement in X, must it contain X?","no","yes","only if X is finite","only if the family is all of P(X)",30,2
+"The union of two families that are closed under union is:","always closed","not always closed","never closed","closed only if they are equal",30,2

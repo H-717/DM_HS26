@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"F |= G means:","F -> G is a formula","every assignment satisfying F satisfies G","F and G have the same symbols","G is satisfiable",30,2
+"Does A -> B |= not A -> not B hold?","yes","no, take A=0 and B=1","no, take A=1 and B=1","only if A is a tautology",30,2
+"Which is always true?","(A->B) or (B->A)","(A->B) and (B->A)","A and not A","A -> not A",30,1
+"((A->B) and (B->C)) and not(A->C) is:","a tautology","satisfiable but not valid","unsatisfiable","satisfiable only if C=1",30,3
+"Knights tell the truth, knaves lie. Which question reveals whether the left road is right?","Is A true?","Is A <-> B true?","Is A and B true?","Is B true?",60,2
+"In Z, is 'for all x there is y with xy=1' true?","yes","no, x=0 has no inverse","only for positive x","only for prime x",30,2
+"The negation of 'for all x, P(x)' is:","for all x, not P(x)","there is x with not P(x)","not there is x with P(x)","there is x with P(x)",30,2
+"Every even number > 2 is a sum of two primes. This statement is:","false","true and proved","a statement whose truth value is unknown","not a statement",30,3

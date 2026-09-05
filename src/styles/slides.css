@@ -229,8 +229,18 @@
   color: var(--s-ink-faint);
 }
 
+/* Worked steps carry their own labels ("1.", "Case A", a rule name), so the
+   list must not number them a second time. A rule down the left marks the
+   block as a derivation instead. */
+.s-steps {
+  list-style: none;
+  padding-left: calc(var(--u) * 1.1);
+  border-left: 2px solid var(--s-rule);
+}
+
 .s-steps > li {
   font-variant-numeric: tabular-nums;
+  padding-left: calc(var(--u) * 0.6);
 }
 
 .is-hidden {

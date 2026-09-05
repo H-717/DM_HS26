@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"For a * b = a squared plus b squared on the integers, which axiom fails first?","closure","associativity","neutral element","commutativity",30,2
+"The power set of a nonempty X under union is:","a group","a commutative monoid","neither","a non-commutative monoid",30,2
+"In a group, the inverse of a * b equals:","inverse of a, then inverse of b","inverse of b, then inverse of a","a * b","the neutral element",30,2
+"In a group, x * x = x implies:","x is the neutral element","x is a generator","nothing","x has no inverse",30,1
+"Cancellation (a*b = a*c implies b = c) works because:","the group is commutative","a has an inverse","the group is finite","of the neutral element alone",30,2
+"Can any nonempty countable set carry a group structure?","no","yes, transport one along a bijection","only if it is finite","only if it is infinite",30,2
+"An isomorphism maps a generator to:","the neutral element","a generator","an inverse","an arbitrary element",30,2
+"A homomorphism is injective if and only if its kernel is:","empty","the whole group","just the neutral element","a subgroup",30,3

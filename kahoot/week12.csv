@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"A DNF is read off from the rows where the formula equals:","0","1","undefined","either value",30,2
+"A CNF is read off from the 0-rows, with each literal:","kept as is","negated","dropped","doubled",30,2
+"In 'for all x (exists x P(x) and P(x)) or P(x)', which occurrence of x is free?","the first","the one after exists x","the last one","none of them",60,3
+"To show an interpretation is not a model you need:","all assignments","one assignment that falsifies it","a proof by induction","a full truth table",30,2
+"Which formula says the universe has at least 3 elements?","exists x exists y with x not equal y","for all x for all y, x = y","exists x, y, z that are pairwise different","exists x with P(x)",30,3
+"The connective that is 1 exactly when at least one side is 0 is:","AND","OR","NAND","XOR",30,3
+"Is NAND alone enough to express every propositional formula?","no","yes","only with negation added","only for two variables",30,2
+"Which of these is NOT valid in general?","exists x (F or G) equals (exists x F) or (exists x G)","exists x exists y F equals exists y exists x F","for all x exists y F equals exists y for all x F","all three are valid",60,3

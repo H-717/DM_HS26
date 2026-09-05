@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"To express 'x and y are cousins' without equality you must also rule out:","that they are siblings","that they are alive","that they have parents","nothing else",30,1
+"Alice picks a2 after seeing b1. Which formula says she has a winning strategy?","exists a1 exists a2 for all b1 for all b2","exists a1 for all b1 exists a2 for all b2","for all a1 exists b1 for all a2 exists b2","exists a2 for all a1 for all b1 for all b2",60,2
+"To prove 'if n^2 is odd then n is odd' indirectly you prove:","n odd implies n^2 odd","n even implies n^2 even","n^2 even implies n odd","n^2 odd implies n^2 even",30,2
+"42^n - 1 with n even factors as:","(42^n)(42^n) - 1","(42^(n/2) - 1)(42^(n/2) + 1)","42(42^(n-1) - 1)","it does not factor",30,2
+"n^3 + 2n + 6 is divisible by 3 because:","n^3 is always divisible by 3","checking n mod 3 = 0, 1, 2 covers every case","6 is divisible by 3","2n is always even",30,2
+"If p and p^2+2 are both prime then p equals:","2","3","5","any odd prime",30,2
+"To show 2^(1/n) is irrational you rewrite a^n = 2b^n as:","a^n = b^n","b^n + b^n = a^n","a^n - b^n = b^n","2a^n = b^n",30,2
+"In a proof by contradiction you negate:","the hypotheses","the conclusion","both","the proof pattern",20,2

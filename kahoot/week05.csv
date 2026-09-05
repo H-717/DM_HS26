@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"rho cubed contains the pairs joined by:","one edge","exactly three edges","at most three edges","any number of edges",30,2
+"rho star differs from the transitive closure by also containing:","the inverse pairs","the reflexive pairs","nothing","the symmetric pairs",30,2
+"On the positive integers, the composition of < and divides equals:","the empty relation","<","divides","equality",60,2
+"Is the union of divides and congruence mod 2 symmetric?","yes","no, (1,2) is in it but (2,1) is not","yes, because both parts are","only on even numbers",30,2
+"The union of a relation with its inverse is always:","transitive","symmetric","antisymmetric","an equivalence relation",30,2
+"The classes of (x1,y1) ~ (x2,y2) iff one is a positive multiple of the other are:","lines through the origin","open rays from the origin","circles","single points",30,2
+"Why check consistency before lifting an operation to classes?","to make it commutative","so the result does not depend on the representative","to make it associative","it is not necessary",60,2
+"If rho and sigma are antisymmetric, is their composition antisymmetric?","yes","no","only on finite sets","only if they are equal",30,2

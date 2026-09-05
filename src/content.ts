@@ -87,13 +87,19 @@ export const content = {
   // diff. Point slidesUrl at '#/slides/<week>' once the deck is registered
   // in src/slides/index.ts; use '#' until the exercise sheet is published.
   weeks: [
-    {
-      week: 1,
-      topic: 'Statements, Proofs & Propositional Logic',
-      date: '',
-      slidesUrl: '#/slides/1',
-      exerciseUrl: '#',
-    },
+    { week: 1, topic: 'Statements, Proofs & Propositional Logic', slidesUrl: '#/slides/1', exerciseUrl: '#' },
+    { week: 2, topic: 'Logical Consequence, Satisfiability & Quantifiers', slidesUrl: '#/slides/2', exerciseUrl: '#' },
+    { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3', exerciseUrl: '#' },
+    { week: 4, topic: 'Sets, Power Sets & the Pigeonhole Principle', slidesUrl: '#/slides/4', exerciseUrl: '#' },
+    { week: 5, topic: 'Relations & Equivalence Classes', slidesUrl: '#/slides/5', exerciseUrl: '#' },
+    { week: 6, topic: 'Orders, Functions & Countability', slidesUrl: '#/slides/6', exerciseUrl: '#' },
+    { week: 7, topic: 'Number Theory: gcd, Congruences & Modular Arithmetic', slidesUrl: '#/slides/7', exerciseUrl: '#' },
+    { week: 8, topic: 'Monoids, Groups & Homomorphisms', slidesUrl: '#/slides/8', exerciseUrl: '#' },
+    { week: 9, topic: 'Cyclic Groups, Diffie–Hellman, RSA & Rings', slidesUrl: '#/slides/9', exerciseUrl: '#' },
+    { week: 10, topic: 'Fields, Polynomials & Finite Fields', slidesUrl: '#/slides/10', exerciseUrl: '#' },
+    { week: 11, topic: 'Error-Correcting Codes & Proof Systems', slidesUrl: '#/slides/11', exerciseUrl: '#' },
+    { week: 12, topic: 'Normal Forms & the Semantics of Predicate Logic', slidesUrl: '#/slides/12', exerciseUrl: '#' },
+    { week: 13, topic: 'Prenex Form, Calculi & Resolution', slidesUrl: '#/slides/13', exerciseUrl: '#' },
   ] as Week[],
 
   // EDIT ME — recommended reading, cheatsheets, community links, etc.

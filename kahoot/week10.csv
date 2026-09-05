@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"F[x] modulo m(x) is a field exactly when m(x) is:","monic","irreducible","of prime degree","reducible",30,2
+"Is x squared plus 2 irreducible over GF(3)?","yes","no, it factors as (x+1)(x+2)","only over GF(2)","it is not a polynomial",30,2
+"Every finite integral domain is a field because:","it is commutative","an injective map from a finite set to itself is surjective","it has prime characteristic","it has no units",60,2
+"How many irreducible polynomials of degree 4 are there over GF(2)?","1","2","3","5",30,3
+"Dividing by 5x^2 + 2x + 1 over Z7, you repeatedly multiply by the inverse of 5, which is:","2","3","4","5",30,2
+"The inverse of x in GF(3)[x] modulo x squared plus 2 is:","1","2x","x","x + 1",30,3
+"With t shares of a degree t-1 sharing polynomial, the secret is:","still unknown","uniquely determined","known up to sign","one of two values",30,2
+"With only t-1 shares, how many values of the secret are still possible?","1","2","all q of them","q-1",30,3

@@ -1,0 +1,9 @@
+Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)
+"Before pulling quantifiers to the front, you must first:","negate the formula","rename bound variables to avoid clashes","build a truth table","remove all implications",30,2
+"A quantifier pulled out of the antecedent of an implication:","stays the same","flips","disappears","is doubled",30,2
+"'(P(x) entails P(x)) is equivalent to Q(x)' is:","a true statement","a false statement","not syntactically correct","a formula",30,3
+"The barber puzzle is resolved by concluding that:","the barber shaves himself","the barber does not shave himself","no such barber exists","the barber is not from Zurich",30,3
+"Which rule is unsound?","from F derive F or G","from F and G derive F","from not (F and G) derive (not F) and (not G)","from F and F implies G derive G",30,3
+"In resolution, deriving the empty clause shows the set is:","a tautology","satisfiable","unsatisfiable","complete",30,3
+"To prove G is a tautology by resolution you refute:","G","the negation of G","G and its negation","nothing",30,2
+"A calculus that is complete but not sound is:","impossible","the one that derives every formula","modus ponens alone","resolution",30,2

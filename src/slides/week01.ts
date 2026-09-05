@@ -16,7 +16,7 @@ export const week01: Deck = {
       kind: 'title',
       title: 'Exercise Session 1',
       subtitle: 'Statements, proofs, and propositional logic',
-      footnote: 'Discrete Mathematics · HS 2026 · Exercise sheet 1',
+      footnote: 'Discrete Mathematics · HS 2026 · practising on sheet 1',
     },
 
     {
@@ -26,7 +26,7 @@ export const week01: Deck = {
         'Hayk Serobyan · hserobyan@student.ethz.ch',
         'I sat exactly where you are sitting, last year.',
         'Ask me anything, during the session or by email. No question is too basic.',
-        'Slides + everything else: on my site, linked from Moodle.',
+        'Slides, worked solutions and everything else live on my site — I will put the link in the chat and on the board.',
       ],
       note:
         'Keep this to ~2 minutes. Say one sentence about why you liked the course — it sets the tone.',
@@ -42,6 +42,19 @@ export const week01: Deck = {
         '**One exercise each week is presented by one of you**, at the board. More on that in a moment.',
         'Interrupt me. A session where nobody interrupts is a session I ran badly.',
       ],
+    },
+
+    {
+      kind: 'callout',
+      title: 'About the exercises we work through',
+      tone: 'info',
+      body: [
+        'The sheets I have prepared are **last year’s**. I sat this course a year ago and kept everything.',
+        'This year’s sheets may be identical, may be similar, may be new. Either way the material is the same and the practice counts.',
+        'When your actual sheet lands on Moodle, that is the one that matters — bring it and we do that one.',
+      ],
+      note:
+        'Say this once, plainly, in week 1. It stops the "is this the real sheet?" question every single week.',
     },
 
     {
@@ -451,7 +464,7 @@ export const week01: Deck = {
       title: 'See you next week',
       points: [
         'Sheet 1 and its deadline are on Moodle.',
-        'Slides and past sessions: my site (linked from Moodle).',
+        'Slides and past sessions: my site — link on the board.',
         'hserobyan@student.ethz.ch — genuinely, just email me.',
         'Next week: quantifiers and the start of set theory.',
       ],
