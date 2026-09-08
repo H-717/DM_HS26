@@ -21,12 +21,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          # Must ship the same npm major that writes package-lock.json
-          # locally (npm 11), or `npm ci` rejects the lock over optional
-          # peer deps it would have resolved differently.
+          # 20 is EOL and warned on commander@15 wanting node >=22.12.
           node-version: 24
           cache: npm
-      - run: npm ci
+      # Not `npm ci`: @napi-rs/wasm-runtime declares @emnapi/core and
+      # @emnapi/runtime as optional peerDependencies, and npm on Windows
+      # (where this lock is written) leaves them out of the tree while npm
+      # on Linux expects them in it. `npm ci` treats that as the lock being
+      # out of sync and refuses to install. Nothing imports those packages —
+      # they sit behind rolldown's wasm32-wasi fallback, which a Linux
+      # runner never uses. `npm install` still honours the lock for every
+      # package that is in it, and resolves this one branch itself.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
