@@ -22,6 +22,10 @@
   --accent-neutral: #7c8db5;
   --accent-danger: #c07272;
 
+  /* Soft washes of the about-me accent, for filled chips and the avatar. */
+  --accent-amber-tint: rgba(201, 168, 118, 0.12);
+  --accent-amber-line: rgba(201, 168, 118, 0.38);
+
   color-scheme: dark;
 }
 
