@@ -41,7 +41,7 @@ export const content = {
   initials: 'HS',
 
   // EDIT ME — your ETH email.
-  email: 'hserobyan@student.ethz.ch',
+  email: 'hserobyan@ethz.ch',
 
   // EDIT ME — shown in the site footer.
   school: 'ETH Zurich',
@@ -63,8 +63,7 @@ export const content = {
     time: '16:15 – 18:00',
     room: 'TBD',
     notes:
-      'Room follows once the groups are assigned on Moodle — sign up there. ' +
-      'Groups are capped at 25.',
+      'Room follows once the groups are assigned on Moodle — sign up there. ',
   },
 
   // EDIT ME — links shown on about-me and in the taskbar/terminal.
@@ -75,31 +74,29 @@ export const content = {
 
   // EDIT ME — 2-3 sentences, one string per paragraph.
   bio: [
-    'I took Discrete Mathematics as a first-year student, so I remember which ' +
-      'parts actually hurt — and which ones only look scary.',
-    'My sessions are short on lecturing and long on solving things together. ' +
+    'I took Discrete Mathematics as a first-year student myself, ' +
+    'it\'s ok if you don\'t understand everything directly. ' +
       'Interrupt me whenever something does not land.',
-    'Stuck the night before a deadline? Email me. I would much rather answer ' +
-      'a question at 23:00 than grade a blank page.',
+    'Email me if you have any questions.',
   ],
 
   // EDIT ME EVERY WEEK — add one object per week. See README for an example
   // diff. Point slidesUrl at '#/slides/<week>' once the deck is registered
   // in src/slides/index.ts; use '#' until the exercise sheet is published.
   weeks: [
-    { week: 1, topic: 'Statements, Proofs & Propositional Logic', slidesUrl: '#/slides/1', exerciseUrl: '#' },
-    { week: 2, topic: 'Logical Consequence, Satisfiability & Quantifiers', slidesUrl: '#/slides/2', exerciseUrl: '#' },
-    { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3', exerciseUrl: '#' },
-    { week: 4, topic: 'Sets, Power Sets & the Pigeonhole Principle', slidesUrl: '#/slides/4', exerciseUrl: '#' },
-    { week: 5, topic: 'Relations & Equivalence Classes', slidesUrl: '#/slides/5', exerciseUrl: '#' },
-    { week: 6, topic: 'Orders, Functions & Countability', slidesUrl: '#/slides/6', exerciseUrl: '#' },
-    { week: 7, topic: 'Number Theory: gcd, Congruences & Modular Arithmetic', slidesUrl: '#/slides/7', exerciseUrl: '#' },
-    { week: 8, topic: 'Monoids, Groups & Homomorphisms', slidesUrl: '#/slides/8', exerciseUrl: '#' },
-    { week: 9, topic: 'Cyclic Groups, Diffie–Hellman, RSA & Rings', slidesUrl: '#/slides/9', exerciseUrl: '#' },
-    { week: 10, topic: 'Fields, Polynomials & Finite Fields', slidesUrl: '#/slides/10', exerciseUrl: '#' },
-    { week: 11, topic: 'Error-Correcting Codes & Proof Systems', slidesUrl: '#/slides/11', exerciseUrl: '#' },
-    { week: 12, topic: 'Normal Forms & the Semantics of Predicate Logic', slidesUrl: '#/slides/12', exerciseUrl: '#' },
-    { week: 13, topic: 'Prenex Form, Calculi & Resolution', slidesUrl: '#/slides/13', exerciseUrl: '#' },
+    // { week: 1, topic: 'Statements, Proofs & Propositional Logic', slidesUrl: '#/slides/1', exerciseUrl: '#' },
+    // { week: 2, topic: 'Logical Consequence, Satisfiability & Quantifiers', slidesUrl: '#/slides/2', exerciseUrl: '#' },
+    // { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3', exerciseUrl: '#' },
+    // { week: 4, topic: 'Sets, Power Sets & the Pigeonhole Principle', slidesUrl: '#/slides/4', exerciseUrl: '#' },
+    // { week: 5, topic: 'Relations & Equivalence Classes', slidesUrl: '#/slides/5', exerciseUrl: '#' },
+    // { week: 6, topic: 'Orders, Functions & Countability', slidesUrl: '#/slides/6', exerciseUrl: '#' },
+    // { week: 7, topic: 'Number Theory: gcd, Congruences & Modular Arithmetic', slidesUrl: '#/slides/7', exerciseUrl: '#' },
+    // { week: 8, topic: 'Monoids, Groups & Homomorphisms', slidesUrl: '#/slides/8', exerciseUrl: '#' },
+    // { week: 9, topic: 'Cyclic Groups, Diffie–Hellman, RSA & Rings', slidesUrl: '#/slides/9', exerciseUrl: '#' },
+    // { week: 10, topic: 'Fields, Polynomials & Finite Fields', slidesUrl: '#/slides/10', exerciseUrl: '#' },
+    // { week: 11, topic: 'Error-Correcting Codes & Proof Systems', slidesUrl: '#/slides/11', exerciseUrl: '#' },
+    // { week: 12, topic: 'Normal Forms & the Semantics of Predicate Logic', slidesUrl: '#/slides/12', exerciseUrl: '#' },
+    // { week: 13, topic: 'Prenex Form, Calculi & Resolution', slidesUrl: '#/slides/13', exerciseUrl: '#' },
   ] as Week[],
 
   // EDIT ME — recommended reading, cheatsheets, community links, etc.
@@ -115,35 +112,35 @@ export const content = {
         {
           label: 'Lecture recordings — ETH video portal',
           url: 'https://video.ethz.ch/lectures.html',
-          note: 'Worth a rewatch at 1.5× before the exam.',
+          note: 'In case you missed it, all videos are here.',
         },
-        {
-          label: 'Information Security & Cryptography group',
-          url: 'https://crypto.ethz.ch/teaching/',
-          note: 'Where the course material has historically lived.',
-        },
+        // {
+        //   label: 'Information Security & Cryptography group',
+        //   url: 'https://crypto.ethz.ch/teaching/',
+        //   note: 'Where the course material has historically lived.',
+        // },
       ],
     },
-    {
-      heading: 'Extra reading',
-      items: [
-        {
-          label: 'Maurer — Discrete Mathematics (the script)',
-          url: 'https://moodle-app2.let.ethz.ch/',
-          note: 'On Moodle. Ch. 2 logic, 3 sets, 4 number theory, 5 algebra, 6 logic again.',
-        },
-        {
-          label: 'Rosen — Discrete Mathematics and Its Applications',
-          url: 'https://search.library.ethz.ch/',
-          note: 'Available through the ETH library. Good for extra drill problems.',
-        },
-        {
-          label: 'A former student’s notes on the whole course',
-          url: 'https://cs.shivi.io/01-Semesters-(BSc)/Semester-1/Discrete-Maths/',
-          note: 'Lecture-by-lecture write-ups. Not official — but genuinely good.',
-        },
-      ],
-    },
+    // {
+    //   heading: 'Extra reading',
+    //   items: [
+    //     {
+    //       label: 'Maurer — Discrete Mathematics (the script)',
+    //       url: 'https://moodle-app2.let.ethz.ch/',
+    //       note: 'On Moodle. Ch. 2 logic, 3 sets, 4 number theory, 5 algebra, 6 logic again.',
+    //     },
+    //     {
+    //       label: 'Rosen — Discrete Mathematics and Its Applications',
+    //       url: 'https://search.library.ethz.ch/',
+    //       note: 'Available through the ETH library. Good for extra drill problems.',
+    //     },
+    //     {
+    //       label: 'A former student’s notes on the whole course',
+    //       url: 'https://cs.shivi.io/01-Semesters-(BSc)/Semester-1/Discrete-Maths/',
+    //       note: 'Lecture-by-lecture write-ups. Not official — but genuinely good.',
+    //     },
+    //   ],
+    // },
     {
       heading: 'Exam prep',
       items: [
@@ -155,7 +152,7 @@ export const content = {
         {
           label: 'VIS — Verein der Informatik Studierenden',
           url: 'https://vis.ethz.ch/',
-          note: 'Study rooms, exam prep events, and people to work with.',
+          note: 'Study rooms, exam prep events, and more.',
         },
       ],
     },

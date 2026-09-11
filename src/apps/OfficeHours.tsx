@@ -17,7 +17,7 @@ export function OfficeHoursApp() {
         </dd>
       </dl>
       {session.notes ? <p>{session.notes}</p> : null}
-      <p className="ics-footer">— {name}</p>
+      {/* <p className="ics-footer">— {name}</p> */}
     </div>
   );
 }
