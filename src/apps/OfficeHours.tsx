@@ -1,7 +1,7 @@
 import { content } from '../content';
 
 export function OfficeHoursApp() {
-  const { session, email, name } = content;
+  const { session, email } = content;
   return (
     <div className="app-office-hours">
       <dl className="ics-fields">
