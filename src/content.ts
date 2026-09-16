@@ -61,7 +61,8 @@ export const content = {
   session: {
     day: 'Monday',
     time: '16:15 – 18:00',
-    room: 'TBD',
+    bonustie: '18:10 - 20:00 (bonus)',
+    room: 'CHN D 46',
     notes:
       'Room follows once the groups are assigned on Moodle — sign up there. ',
   },

@@ -43,7 +43,7 @@ export function AboutMeApp() {
           </p>
           <p className="about-when">
             <span className="about-when-dot" aria-hidden="true" />
-            {session.day} &middot; {session.time} &middot; {session.room}
+            {session.day} &middot; {session.time} &middot; {session.bonustie} &middot; {session.room}
           </p>
         </div>
       </header>

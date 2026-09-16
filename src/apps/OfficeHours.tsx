@@ -7,7 +7,7 @@ export function OfficeHoursApp() {
       <dl className="ics-fields">
         <dt>Session</dt>
         <dd>
-          {session.day}, {session.time}
+          {session.day}, {session.time}, {session.bonustie}
         </dd>
         <dt>Room</dt>
         <dd>{session.room}</dd>
