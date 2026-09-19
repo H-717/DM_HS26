@@ -1,6 +1,10 @@
 // ---------------------------------------------------------------------------
 // Week 1 — everything you say on screen lives in this file. Edit freely.
 // See ./types.ts for the list of slide kinds and the text markup.
+//
+// Checked against: Exercise_01.pdf, Solution_01.pdf, the Moodle course page
+// and the HS2026 TA meeting slides. Wording of every exercise below is the
+// wording on the real sheet.
 // ---------------------------------------------------------------------------
 
 import type { Deck } from './types';
@@ -8,7 +12,7 @@ import type { Deck } from './types';
 export const week01: Deck = {
   week: 1,
   topic: 'Statements, Proofs & Propositional Logic',
-  date: 'Week 1',
+  date: 'Mon 21 Sep 2026',
   sheet: 'Exercise sheet 1',
 
   slides: [
@@ -16,20 +20,20 @@ export const week01: Deck = {
       kind: 'title',
       title: 'Exercise Session 1',
       subtitle: 'Statements, proofs, and propositional logic',
-      footnote: 'Discrete Mathematics · HS 2026 · practising on sheet 1',
+      footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
     {
       kind: 'points',
       title: 'Hi — I am your TA',
       points: [
-        'Hayk Serobyan · hserobyan@student.ethz.ch',
-        'I sat exactly where you are sitting, last year.',
+        'Hayk Serobyan · hserobyan@ethz.ch',
+        'Group **Q** · Mondays 16:15–18:00 · CHN D 46 · English.',
         'Ask me anything, during the session or by email. No question is too basic.',
-        'Slides, worked solutions and everything else live on my site — I will put the link in the chat and on the board.',
+        'Slides and worked solutions go on my site — https://h-717.github.io/DM_HS26',
       ],
       note:
-        'Keep this to ~2 minutes. Say one sentence about why you liked the course — it sets the tone.',
+        'Keep this to ~2 minutes. Write your email and the site URL on the board and leave it there all session.',
     },
 
     {
@@ -39,22 +43,55 @@ export const week01: Deck = {
       body: [
         '**Short recap** of the week’s lecture ideas — 15 min, not a second lecture.',
         '**We solve the sheet together.** You try first, I ask, we discuss, then I write it up.',
-        '**One exercise each week is presented by one of you**, at the board. More on that in a moment.',
+        'From week 3 on I will also go through **last week’s bonus problem** and the common mistakes.',
         'Interrupt me. A session where nobody interrupts is a session I ran badly.',
       ],
+      note:
+        'Say out loud, every week, whether what I write on the board is a proof sketch or a full write-up of the standard expected from them.',
+    },
+
+    // -- how the course actually works ---------------------------------------
+
+    {
+      kind: 'callout',
+      title: 'Exercise sheets — there is nothing to hand in',
+      tone: 'info',
+      body: [
+        'A new sheet appears on Moodle **every Thursday**, for the following week.',
+        'Nothing is collected and nothing is graded in writing. The only graded work is the **oral interview** (next slide).',
+        'Want feedback on something you wrote anyway? Bring it to me or email it. I am happy to read it.',
+        'Sheet 1 has **no bonus exercise**, no old-exam question, and a couple of exercises that need material from this week’s lectures.',
+      ],
+      note:
+        'This is the first thing first-years get wrong: they hunt for a submission deadline that does not exist. Say it plainly.',
     },
 
     {
       kind: 'callout',
-      title: 'About the exercises we work through',
-      tone: 'info',
+      title: 'Bonus points and the oral interviews',
+      tone: 'warn',
       body: [
-        'The sheets I have prepared are **last year’s**. I sat this course a year ago and kept everything.',
-        'This year’s sheets may be identical, may be similar, may be new. Either way the material is the same and the practice counts.',
-        'When your actual sheet lands on Moodle, that is the one that matters — bring it and we do that one.',
+        'From **sheet 3** (out 24 Sep) onwards, every sheet carries one bonus problem, worth up to **6 bonus points**.',
+        'Twice in the semester you have a **15-minute 1-to-1 session with me** and present your solution to that week’s bonus problem. You may bring your notes.',
+        'Your two weeks are added to a grade out of 12. Final grade = exam grade P **+ 0.25 · (B/12)**, rounded to the nearest quarter.',
+        'Bring your Legi. I am going to ask a few questions to check how much you let AI work.',
+        'AI is fine for learning but useless for the exam. Try not to use it for the bonus. If you do, at least understand your solution.',
       ],
+    //   note:
+    //     'The full rules, including how to swap your slot, are on the Moodle front page. Do not paraphrase the grading formula from memory — it is on screen.',
+    // },
+
+    // {
+    //   kind: 'points',
+    //   title: 'Three dates, then we start',
+    //   points: [
+    //     '**Wed 23 Sep, 23:59** — last chance to register/change your tutorial and oral group on Moodle.',
+    //     '**Wed 23 Sep, in the lecture** — the head TAs run a **mock interview** so you can see what an oral looks like. Sheet 0 is the script for it: you do not have to solve it and you are not interviewed on it.',
+    //     '**Thu 24 Sep** — sheet 3 goes up, with the first bonus problem on it.',
+    //     'Personal issues → dm26-team@lists.inf.ethz.ch. Anything other people might also wonder → the Student Forum.',
+    //   ],
       note:
-        'Say this once, plainly, in week 1. It stops the "is this the real sheet?" question every single week.',
+        'Check the oral schedule PDF before the session and tell them which oral group weeks are theirs if they already know their group.',
     },
 
     {
@@ -63,15 +100,17 @@ export const week01: Deck = {
         'Recap: what is a mathematical statement?',
         'Recap: the five connectives and function tables',
         'Recap: the standard proof patterns',
-        '1.1 The punctured chessboard',
-        '1.2 A false proof',
-        '1.3 Formulas ↔ natural language',
-        '1.4 Equivalence via function tables',
-        '1.6 Simplifying a formula',
-        '1.5 — next week’s presentation exercise',
+        'A punctured chessboard  (→ 1.1)',
+        'A false proof  (→ 1.2)',
+        'Formulas ↔ natural language  (→ 1.3)',
+        'Equivalence via function tables  (→ 1.4)',
+        'Two new operators  (→ 1.5)',
+        'Simplifying a formula  (→ 1.6)',
         'Kahoot',
       ],
-      note: 'Rough timing: 15 min recap, 65 min exercises, 10 min Kahoot, 10 min buffer.',
+      title: 'Today — a smaller twin of every exercise on sheet 1',
+      note:
+        'Say this out loud: we work a smaller version of each exercise here, and the sheet is the same six moves one size up. That framing is what stops the "why are we not doing the actual sheet" question. Rough timing: 10 min admin, 15 min recap, 55 min exercises, 10 min Kahoot, 15 min buffer. If the clock beats you, cut 1.5 part 2 — never 1.6, which is the one they will be marked on hardest.',
     },
 
     // -- recap ---------------------------------------------------------------
@@ -79,8 +118,7 @@ export const week01: Deck = {
     {
       kind: 'points',
       title: 'A mathematical statement',
-      lead: 'Lecture notes §2.1',
-      reveal: true,
+      lead: 'Lecture notes, Chapter 1',
       points: [
         'A **statement** is a sentence that is either **true** or **false** — no third option, no "it depends".',
         '"7 is prime" ✓  ·  "Every even number > 2 is a sum of two primes" ✓ (we just don’t know which)',
@@ -89,7 +127,7 @@ export const week01: Deck = {
         'Statements combine with ¬, ∧, ∨, →, ↔ into new statements.',
       ],
       note:
-        'Push on the Goldbach example: truth value exists even though nobody knows it. Truth ≠ provability-by-us.',
+        'Push on the Goldbach example: the truth value exists even though nobody knows it. Truth ≠ provability-by-us.',
     },
 
     {
@@ -105,12 +143,12 @@ export const week01: Deck = {
       ],
       markRows: [2],
       note:
-        'Spend the time on row 3: A → B is false ONLY here. And on rows 1-2: a false premise makes the implication true. This is the single most common source of confusion all semester.',
+        'Spend the time on row 3: A → B is false ONLY here. And on rows 1-2: a false premise makes the implication true. This is the single most common source of confusion all semester. Also point out the row order 00, 01, 10, 11 — keep it, it is the convention the solutions use.',
     },
 
     {
       kind: 'callout',
-      title: 'The one that trips everyone up',
+      title: 'Be careful',
       tone: 'warn',
       body: [
         'A → B is **true whenever A is false**. "If the moon is cheese, then 1 = 2" is a true statement.',
@@ -122,7 +160,6 @@ export const week01: Deck = {
     {
       kind: 'points',
       title: 'Proof patterns you already own',
-      reveal: true,
       points: [
         '**Direct**: assume A, chain implications, arrive at B.',
         '**Contraposition**: prove ¬B → ¬A instead of A → B. Same statement, often easier.',
@@ -141,303 +178,307 @@ export const week01: Deck = {
         'idempotence · commutativity · associativity · absorption · distributivity · double negation · De Morgan',
         'Plus the definition of →:  F → G ≡ ¬F ∨ G',
         'Plus the constants:  F ∧ ¬F ≡ ⊥ · F ∨ ¬F ≡ ⊤ · F ∧ ⊤ ≡ F · F ∨ ⊥ ≡ F · F ∧ ⊥ ≡ ⊥ · F ∨ ⊤ ≡ ⊤',
-        'Exercise 1.6 asks for a proof in **exactly this currency** — one named rule per step.',
+        'Exercise 1.6 asks for a proof in **exactly this currency** — one named rule per step, and the rules may be applied to whole formulas, not just to propositional symbols (§2.3.5).',
       ],
+      note:
+        'Have the lemma open on your laptop so you can quote the rule numbers the way the official solution does.',
     },
 
     // -- 1.1 -----------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '1.1',
-      title: 'The Punctured Chessboard  (⋆)',
+      ref: 'Warm-up',
+      title: '1.1, but on a board we can actually draw',
       prompt: [
-        'P(k) = 1 iff: for **every** choice of punctured square, the remaining k² − 1 squares can be covered by non-overlapping L-shaped pieces of 3 squares.',
-        'We want to prove P(7) = 1 by case distinction.',
+        'A k × k board with one square punctured. P(k) = 1 whenever this holds:',
+        '"No matter which square is punctured, the remaining k² − 1 squares can be covered completely with non-overlapping L-shaped pieces of three squares."',
+        'The sheet asks you for k = 7. Here, take **k = 4**.',
+        '**Is P(4) = 1? And how many different cases does the proof consider?**',
       ],
-      parts: [
-        'What is the smallest number of cases you have to consider? (Use the symmetries of the board.)',
-        'Carry out the proof for two of the cases.',
-      ],
-      note: 'Give them 4 minutes on part 1 before revealing. Ask: "how many squares are there? and how many really different ones?"',
+      note:
+        'Three minutes on this. Every idea 1.1 needs is here, at a size that fits on the board. Ask "how many squares are there — and how many really different ones?" Do not hand them the symmetry argument.',
     },
 
     {
-      kind: 'points',
-      title: '1.1 · First, a sanity check',
+      kind: 'solution',
       reveal: true,
-      points: [
-        '7² − 1 = 48, and 3 | 48. Good — otherwise we could stop right here.',
-        'Naively: 49 squares ⇒ 49 cases. That is a lot of chessboards to draw.',
-        'But the board has symmetries: 4 rotations × 2 (mirror) = **8** symmetries.',
-        'If a tiling exists for square s, rotating/reflecting it gives a tiling for every square in the orbit of s.',
-        'So we only need **one representative per orbit**.',
+      ref: 'Warm-up',
+      title: 'Three cases, and a trick that scales',
+      steps: [
+        'Count first: 4² − 1 = 15, and 3 | 15. The piece count works out.',
+        'The same 8 symmetries fold all 16 squares into the wedge r ≤ c ≤ 2.',
+        'That leaves (1,1), (1,2), (2,2) — **3 cases**, against 10 for the 7 × 7.',
+        'Now each case is easy. Cut the board into four 2 × 2 quadrants.',
+        'Put one L-piece in the middle, taking one square from each quadrant that does **not** hold the hole.',
+        'Every quadrant now has exactly 3 squares left — and 3 squares of a 2 × 2 block **is** an L-piece. ∎',
       ],
+      note:
+        'Say that this quadrant trick works for every 2ⁿ × 2ⁿ board. It is the kind of fact that makes the idea stick, and it costs one sentence.',
     },
 
     {
       kind: 'grid',
-      title: '1.1 · Ten cases, not forty-nine',
-      lead: 'Every square can be moved into the coloured wedge by one of the 8 symmetries.',
+      title: 'Warm-up · Hole in a corner, five pieces',
+      lead: 'E is the middle piece — it takes one square from each of the other three quadrants.',
       cells: [
-        'ABCD###',
-        '#EFG###',
-        '##HI###',
-        '###J###',
-        '#######',
-        '#######',
-        '#######',
+        '.ABB',
+        'AAEB',
+        'CEED',
+        'CCDD',
       ],
       legend:
-        'Representatives: rows r ≤ columns c ≤ 4. That is 1 + 2 + 3 + 4 = **10** cases, and no two of them are equivalent.',
+        'A finishes the hole’s own quadrant. B, C and D each finish theirs, because E left exactly 3 squares behind in each.',
       note:
-        'If someone asks for a formal count: Burnside on the 8 symmetries gives (49+1+1+1+7+7+7+7)/8 = 80/8 = 10. Same answer.',
+        'Draw the quadrant lines on the board before showing this — the picture only lands once they see the four 2 × 2 blocks.',
     },
 
-    {
-      kind: 'grid',
-      title: '1.1 · Case: the centre square',
-      lead: 'The elegant one — no search needed.',
-      cells: [
-        'AAAABBB',
-        'AAAABBB',
-        'AAAABBB',
-        'DDD.BBB',
-        'DDDCCCC',
-        'DDDCCCC',
-        'DDDCCCC',
-      ],
-      legend:
-        'Four 3×4 rectangles pinwheel around the hole. Every 3×4 rectangle splits into two 2×3 blocks, and a 2×3 block is exactly two L-pieces. Done.',
-      note:
-        'This is the case worth showing on the board. The pinwheel idea generalises and students remember it.',
-    },
-
-    {
-      kind: 'grid',
-      title: '1.1 · Case: a corner square',
-      lead: 'Hole at (1,1). One explicit tiling — 16 pieces, each a colour.',
-      cells: [
-        '.AABBCC',
-        'DAEBFFC',
-        'DDEEFGG',
-        'HHIIJGK',
-        'HLIJJKK',
-        'MLLNOOP',
-        'MMNNOPP',
-      ],
-      legend:
-        'Exhibiting one valid tiling **is** the proof for this case. You do not owe anyone an explanation of how you found it.',
-      note:
-        'Worth saying out loud: for existence statements, a witness is a complete proof. All ten cases work out; two are all the exercise asks for.',
-    },
 
     // -- 1.2 -----------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '1.2',
-      title: 'A False Proof  (⋆⋆)',
+      ref: 'Warm-up',
+      title: 'The same trap, without the algebra',
       prompt: [
-        '**Claim:** 1 is the largest natural number.',
-        '**"Proof":**  n is the largest natural number ⇒ n² ≤ n ⇒ n(n−1) = n² − n ≤ 0 ⇒ 0 ≤ n ≤ 1 ⇒ n = 1.',
-        'Find the mistake.',
+        '**Claim:** 0 is the largest natural number.',
+        '**"Proof":**  n is the largest natural number ⇒ 2n ≤ n ⇒ n ≤ 0 ⇒ n = 0.',
+        'Every implication really is correct. So what is wrong?',
       ],
-      note: 'Let them hunt. Most will attack the algebra — every single implication is actually fine. That is the point.',
+      note:
+        'This is 1.2 with n² replaced by 2n. Nobody gets stuck on the algebra, so they reach the actual point faster.',
     },
 
     {
       kind: 'solution',
-      ref: '1.2',
-      title: 'Every step is correct. The proof is still wrong.',
       reveal: true,
+      ref: 'Warm-up',
+      title: 'Nothing is wrong with the proof. Something is wrong with the claim.',
       steps: [
-        'n² ≤ n: correct — n² is a natural number and n is the largest one. ✓',
-        'n(n−1) ≤ 0 and hence 0 ≤ n ≤ 1: correct. ✓',
-        'n = 1: correct. ✓',
-        'So what was proved is: **if** a largest natural number exists, **then** it equals 1.',
-        'That is a statement of the form H → C. The claim asserted C on its own.',
-        'The unstated assumption H — "a largest natural number exists" — is false. ℕ is unbounded.',
-        '**Moral:** proving H → C proves nothing about C until you have proved H.',
+        '2n is a natural number and n is the largest one, so 2n ≤ n. ✓',
+        'Subtract n from both sides: n ≤ 0. And n ∈ ℕ, so n = 0. ✓',
+        'So the chain proves: **if** a largest natural number exists, **then** it equals 0.',
+        'Hold that thought — the sheet’s 1.2 proves it equals **1**, by exactly the same kind of chain.',
+        'Both proofs are correct. They contradict each other. So the shared assumption must be false — and it is: ℕ has no largest element.',
+        '**Moral:** a chain of correct implications out of a false assumption proves nothing at all.',
       ],
       note:
-        'Connect forward: this is exactly why the → column looks the way it does. A true implication out of a false hypothesis carries no information.',
+        'Do this one before 1.2 and the punchline writes itself: two valid proofs, contradictory conclusions, same false assumption.',
     },
+
 
     // -- 1.3 -----------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '1.3',
-      title: 'Interpreting Formulas in Natural Language',
+      ref: 'Warm-up',
+      title: 'Same exercise, different story',
       prompt: [
-        'A = "Mario forgot to pay his rent."   B = "Mario is getting evicted."',
+        'A = "Ana revised for the exam."   B = "Ana passed the exam."',
       ],
       parts: [
-        'Interpret F₁ = ¬B → ¬A and F₂ = (A ∧ B) ∨ (¬A ∧ ¬B).',
-        'Formalise F₃: "Mario neither forgot to pay his rent nor is he getting evicted." and F₄: "Mario either forgot to pay his rent or he is getting evicted, but not both."',
-        'Negate F₃ and F₄, both as formulas and as sentences.',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '1.3',
-      title: 'Reading the formulas',
-      reveal: true,
-      steps: [
-        'F₁ = ¬B → ¬A: "If Mario is not getting evicted, then he did not forget to pay his rent."',
-        'F₁ ≡ A → B — it is the **contraposition**. Same statement, different sentence.',
-        'F₂ = (A ∧ B) ∨ (¬A ∧ ¬B): "Either both happened, or neither did", i.e. F₂ ≡ A ↔ B.',
-        'F₃ = ¬A ∧ ¬B  ≡ ¬(A ∨ B).  ("neither … nor" is De Morgan in disguise.)',
-        'F₄ = (A ∨ B) ∧ ¬(A ∧ B)  ≡ (A ∧ ¬B) ∨ (¬A ∧ B)  — exclusive or.',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '1.3',
-      title: 'Negating them',
-      reveal: true,
-      steps: [
-        '¬F₃ ≡ ¬(¬A ∧ ¬B) ≡ A ∨ B.',
-        '"Mario forgot to pay his rent, or he is getting evicted (or both)."',
-        '¬F₄ ≡ ¬((A ∧ ¬B) ∨ (¬A ∧ B)) ≡ (A ∧ B) ∨ (¬A ∧ ¬B) ≡ A ↔ B.',
-        '"Mario forgot to pay his rent if and only if he is getting evicted."',
-        'Note ¬F₄ ≡ F₂: the negation of XOR is exactly ↔.',
+        'Interpret G₁ = ¬B → ¬A and G₂ = (A ∧ B) ∨ (¬A ∧ ¬B) in words.',
+        'Formalise G₃: "Ana neither revised nor passed." and G₄: "Ana either revised or passed, but not both."',
+        'Negate G₄ — as a formula, and as a sentence.',
       ],
       note:
-        'Emphasise: the negation of "either-or-but-not-both" is NOT "neither". Students get this wrong on the exam every year.',
+        'The sheet’s 1.3 with a new story and one negation instead of two. Anyone who prepared finishes in 60 seconds; anyone who did not gets their first win of the semester.',
     },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Warm-up',
+      title: 'Worked through',
+      steps: [
+        'G₁ = ¬B → ¬A: "If Ana did not pass, then she did not revise."',
+        'That is the **contraposition** of A → B, so G₁ ≡ A → B.',
+        'G₂: "Either she revised and passed, or she did neither." — i.e. G₂ ≡ A ↔ B.',
+        'G₃ = ¬A ∧ ¬B.   ("neither … nor")',
+        'G₄ = (¬A ∧ B) ∨ (A ∧ ¬B).   ("… but not both" — exclusive or)',
+        '¬G₄ ≡ (A ∧ B) ∨ (¬A ∧ ¬B) ≡ G₂:  "Ana passed if and only if she revised."',
+        'The negation of XOR is ↔ — **not** "neither". That is the trap, and it is worth marks every year.',
+      ],
+    },
+
 
     // -- 1.4 -----------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '1.4',
-      title: 'Logical Equivalence via Function Tables',
+      ref: 'Warm-up',
+      title: 'Two variables instead of three',
       prompt: [
-        'Compute the function table of  F = (B → C) → ( ¬(A → C) ∧ ¬(A ∨ B) ).',
-        'Then find an equivalent formula in which each propositional symbol appears **at most once**.',
+        'G = (A → B) → ( (A ∧ ¬B) ∧ ¬A )',
+      ],
+      parts: [
+        'Compute the function table of G — four rows, not eight.',
+        'Give an equivalent formula in which each symbol appears at most once.',
       ],
       hint: [
-        'Before filling in 8 rows: look hard at the right-hand side of the outer →.',
+        'Look hard at the right-hand side of the outer → before you write anything down.',
       ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '1.4',
-      title: 'The right-hand side is never true',
-      reveal: true,
-      steps: [
-        '¬(A → C) ≡ ¬(¬A ∨ C) ≡ A ∧ ¬C.  So it forces **A = 1**.',
-        '¬(A ∨ B) ≡ ¬A ∧ ¬B.  So it forces **A = 0**.',
-        'Their conjunction demands A ∧ ¬A ≡ ⊥. The consequent is unsatisfiable.',
-        'So F ≡ (B → C) → ⊥ ≡ ¬(B → C) ≡ ¬(¬B ∨ C) ≡ **B ∧ ¬C**.',
-        'A does not occur at all — so B ∧ ¬C already answers part 2.',
-      ],
+      note:
+        'Exactly the shape of 1.4: a self-contradictory consequent collapses the implication to the negation of its antecedent. Half the rows, so it fits on the board.',
     },
 
     {
       kind: 'table',
-      title: '1.4 · The full table',
-      lead: 'F is 1 exactly on the two rows with B = 1, C = 0.',
-      headers: ['A', 'B', 'C', 'B → C', '¬(A→C)', '¬(A∨B)', 'RHS', 'F'],
+      title: 'Warm-up · The table',
+      lead: 'G is 1 on exactly one row.',
+      headers: ['A', 'B', 'A → B', 'A ∧ ¬B', '¬A', 'RHS', 'G'],
       rows: [
-        ['0', '0', '0', '1', '0', '1', '0', '0'],
-        ['0', '0', '1', '1', '0', '0', '0', '0'],
-        ['0', '1', '0', '0', '0', '0', '0', '1'],
-        ['0', '1', '1', '1', '0', '0', '0', '0'],
-        ['1', '0', '0', '1', '1', '0', '0', '0'],
-        ['1', '0', '1', '1', '0', '0', '0', '0'],
-        ['1', '1', '0', '0', '1', '0', '0', '1'],
-        ['1', '1', '1', '1', '0', '0', '0', '0'],
+        ['0', '0', '1', '0', '1', '0', '0'],
+        ['0', '1', '1', '0', '1', '0', '0'],
+        ['1', '0', '0', '1', '0', '0', '1'],
+        ['1', '1', '1', '0', '0', '0', '0'],
       ],
-      markRows: [2, 6],
+      markRows: [2],
       note:
-        'Point at the all-zero RHS column: that is the whole exercise. Doing the table first also works, it is just slower.',
+        'The RHS column is all zeros — that is the whole exercise, and it is the same observation 1.4 wants.',
     },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Warm-up',
+      title: 'Why the right-hand side is never true',
+      steps: [
+        'A ∧ ¬B forces **A = 1**.  ¬A forces **A = 0**.',
+        'Their conjunction therefore contains A ∧ ¬A ≡ ⊥ — the consequent is unsatisfiable.',
+        'So G ≡ (A → B) → ⊥ ≡ ¬(A → B) ≡ ¬(¬A ∨ B) ≡ **A ∧ ¬B**.',
+        'Each of A and B appears once, so that answers part 2.',
+        'Check it against the table: the only 1 sits at A = 1, B = 0. ✓',
+        '1.4 is this same collapse, with a third variable hiding it.',
+      ],
+    },
+
+
+    // -- 1.5 -----------------------------------------------------------------
+
+    {
+      kind: 'table',
+      title: 'Warm-up · Two easier operators',
+      lead: 'Same game as 1.5, but nothing ever leaves two variables.',
+      headers: ['A', 'B', 'A ★ B', 'A ◆ B'],
+      rows: [
+        ['0', '0', '0', '1'],
+        ['0', '1', '1', '1'],
+        ['1', '0', '0', '1'],
+        ['1', '1', '0', '0'],
+      ],
+      note:
+        '★ is ¬A ∧ B and ◆ is NAND — do not say so yet, it is a nice thing for them to notice at the end.',
+    },
+
+    {
+      kind: 'exercise',
+      ref: 'Warm-up',
+      title: 'Commutative? And one equivalence to settle',
+      prompt: ['With ★ and ◆ defined by the table on the previous slide:'],
+      parts: [
+        'Is ★ commutative? Is ◆? Argue by comparing function tables.',
+        'Prove or disprove:  (A ★ B) ◆ (B ★ A) ≡ A ◆ B.',
+      ],
+      note:
+        'Part 2 is a four-row table instead of eight, and the answer falls out of a single row. Same lesson as 1.5, a third of the writing.',
+    },
+
+    {
+      kind: 'table',
+      title: 'Warm-up · Everything you need, in one table',
+      lead: 'Build the last two columns live, left to right.',
+      headers: ['A', 'B', 'A ★ B', 'B ★ A', '(A★B) ◆ (B★A)', 'A ◆ B'],
+      rows: [
+        ['0', '0', '0', '0', '1', '1'],
+        ['0', '1', '1', '0', '1', '1'],
+        ['1', '0', '0', '1', '1', '1'],
+        ['1', '1', '0', '0', '1', '0'],
+      ],
+      markRows: [3],
+      note:
+        'The marked row is the entire answer to part 2. Everything above it agrees, which is exactly why one row is enough.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Warm-up',
+      title: 'The verdicts',
+      steps: [
+        'A ★ B and B ★ A differ on rows 01 and 10, so **★ is not commutative**.',
+        'A ◆ B and B ◆ A agree on every row, so **◆ is commutative**.',
+        'Part 2: A ★ B and B ★ A can never both be 1 — the first needs A = 0, the second needs A = 1.',
+        'So (A ★ B) ◆ (B ★ A) is 1 on every row: the left-hand side is a **tautology**.',
+        'But A ◆ B is 0 at A = B = 1. One differing row ⇒ **not equivalent**. ∎',
+        'One row kills an equivalence. Establishing one costs you every row.',
+      ],
+      note:
+        'If someone spots that ★ is ¬A ∧ B and ◆ is NAND, let them say it — then point out that the tables settled it without needing the names at all.',
+    },
+
 
     // -- 1.6 -----------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '1.6',
-      title: 'Simplifying a Formula  (⋆)',
+      ref: 'Warm-up',
+      title: 'The same write-up, five steps instead of six',
       prompt: [
-        'F = ( (¬A ∨ ¬B) ∧ ¬A ) ∧ ( (¬B ∧ ¬A) ∨ C )',
-        'Find G ≡ F in which A, B, C each appear at most once, and prove F ≡ G with **at most 6 steps**, naming one rule per step.',
+        'H = ( (A ∨ B) ∧ A ) ∧ ( ¬A ∨ C )',
+        'Find G ≡ H in which A, B and C each appear at most once, and prove H ≡ G naming **one rule per step**.',
       ],
-      note: 'Ask what the first bracket looks like. Someone will spot absorption.',
+      note:
+        'The answer is visible by eye: A has to be true, and then C has to be. Say that out loud — the exercise is the write-up, not the answer.',
     },
 
     {
       kind: 'solution',
-      ref: '1.6',
-      title: 'Six steps, one named rule each',
       reveal: true,
+      ref: 'Warm-up',
+      title: 'Written the way the sheet wants it',
       steps: [
-        'F ≡ ¬A ∧ ( (¬B ∧ ¬A) ∨ C )    — **absorption**: (X ∨ Y) ∧ X ≡ X, with X = ¬A',
-        '≡ ( ¬A ∧ (¬B ∧ ¬A) ) ∨ ( ¬A ∧ C )    — **distributivity**',
-        '≡ ( ¬A ∧ (¬A ∧ ¬B) ) ∨ ( ¬A ∧ C )    — **commutativity**',
-        '≡ ( (¬A ∧ ¬A) ∧ ¬B ) ∨ ( ¬A ∧ C )    — **associativity**',
-        '≡ ( ¬A ∧ ¬B ) ∨ ( ¬A ∧ C )    — **idempotence**',
-        '≡ ¬A ∧ ( ¬B ∨ C )    — **distributivity**',
-        'G = ¬A ∧ (¬B ∨ C). Each of A, B, C appears exactly once. ∎',
+        'H ≡ A ∧ ( ¬A ∨ C )    — **absorption**: (X ∨ Y) ∧ X ≡ X, with X = A',
+        '≡ ( A ∧ ¬A ) ∨ ( A ∧ C )    — **distributivity**',
+        '≡ ⊥ ∨ ( A ∧ C )    — **F ∧ ¬F ≡ ⊥**',
+        '≡ ( A ∧ C ) ∨ ⊥    — **commutativity of ∨**',
+        '≡ A ∧ C    — **F ∨ ⊥ ≡ F**',
+        'G = A ∧ C. B has vanished; A and C appear once each. ∎',
       ],
       note:
-        'Stress the format: naming the rule is not decoration, it is the whole exercise. "obviously" is not a rule.',
+        'Step 4 is the one to linger on: the allowed rule is written F ∨ ⊥ ≡ F, so you must commute first. Pedantic — and exactly the pedantry 1.6 is marking.',
     },
 
     {
       kind: 'callout',
-      title: 'Sanity-check your simplifications',
+      title: 'Always sanity-check a simplification',
       tone: 'good',
       body: [
-        'G = ¬A ∧ (¬B ∨ C) is 1 only when A = 0 and (B = 0 or C = 1).',
-        'Spot-check F on A=0, B=1, C=0: first bracket ¬A = 1, second bracket (0 ∧ 1) ∨ 0 = 0 ⇒ F = 0 = G ✓',
-        'Two minutes of spot-checking catches almost every algebra slip.',
-      ],
-    },
-
-    // -- 1.5 / presentations -------------------------------------------------
-
-    // EDIT ME — fill in the real rules for the oral presentations once the
-    // course team publishes them (who presents, how long, how it counts).
-    {
-      kind: 'callout',
-      title: 'The presentation exercise',
-      tone: 'warn',
-      body: [
-        'Each week one exercise is **presented at the board by one of you**, instead of handed in.',
-        'You get the exercise a week ahead. You work it out at home; in the session you walk us through it.',
-        'Nobody is expected to be polished. Explaining a wrong turn out loud is worth more than a clean answer nobody follows.',
-        'I will ask questions while you present — that is help, not an exam.',
+        'G = A ∧ C is 1 only when A = 1 **and** C = 1.',
+        'Spot-check H on A = 1, B = 0, C = 0: first bracket (1 ∨ 0) ∧ 1 = 1, second bracket ¬1 ∨ 0 = 0 ⇒ H = 0 = G ✓',
+        'Pick a row where you expect 0 and a row where you expect 1. Two minutes of this catches almost every algebra slip.',
       ],
       note:
-        'EDIT ME before the first session: sign-up mechanism, length, and whether it affects the grade. Say it plainly — this is the thing first-years will be most anxious about.',
+        'Make them do the check, not you. It is the single habit that saves the most marks in the written exam.',
     },
 
-    {
-      kind: 'exercise',
-      ref: '1.5',
-      title: 'Two New Operators — for presentation',
-      prompt: [
-        'Two binary operators ♡ and ♢ are given by their function tables. The exercise asks whether they are commutative, whether a given equivalence holds, and to build a specified F out of ♡ and ♢ alone.',
-        '**We are not solving this today** — it is next week’s presentation exercise. Here is how to attack it.',
-      ],
-      hint: [
-        'A table over A, B, C has 8 rows. Build one column per subformula, innermost first, and never skip a column — that is where the marks and the mistakes both live.',
-        'Commutativity: swap the two input columns and check whether the output column is unchanged. Verify it, do not eyeball it.',
-        'For the last part: read the target table as "which rows are 0?" and work backwards from there.',
-        'Presenting it? Come find me beforehand if you want a sanity check.',
-      ],
-      note:
-        'Do not reveal that ♡ is → and ♢ is ⊕, even if asked directly — it is the whole first part. Redirect to the method.',
-    },
 
     // -- wrap ----------------------------------------------------------------
+
+    {
+      kind: 'callout',
+      title: 'Now go and do the real sheet',
+      tone: 'warn',
+      body: [
+        'Everything today was a smaller twin of sheet 1. The sheet asks the **same six questions, one size up**.',
+        '1.1 → the board is 7 × 7, so 10 cases instead of 3.  ·  1.2 → n² instead of 2n, same false assumption.',
+        '1.3 → Bob, not Ana, and both negations.  ·  1.4 → three variables, eight rows.',
+        '1.5 → ♡ and ♢, and part 2 needs two 8-row tables.  ·  1.6 → six steps instead of five.',
+        'If today made sense, the sheet is now bookwork. Official solutions go up on Moodle — check yours against them.',
+      ],
+      note:
+        'Do not skip this slide, it is the whole bridge between the session and their homework. Say plainly that you deliberately worked smaller versions so everyone could keep up, and that the sheet is the same moves.',
+    },
 
     {
       kind: 'points',
@@ -446,27 +487,30 @@ export const week01: Deck = {
         'A statement has a truth value. A predicate does not, until you fix its variables.',
         'A → B is false in exactly one row. Learn that row.',
         'A correct chain of implications from a false assumption proves nothing.',
+        'To disprove an equivalence, one row is enough. To prove one, you need every row.',
         'Simplification proofs are written in **named rules**, one per step.',
-        'Symmetry turns 49 cases into 10. Look for it before you start drawing.',
+        'Symmetry turned 16 cases into 3 — and turns 49 into 10 on the sheet. Look for it before you start drawing.',
       ],
     },
 
     {
       kind: 'title',
       title: 'Kahoot',
-      subtitle: 'Five questions · join at kahoot.it',
-      footnote: 'Questions are in kahoot/week01.csv in the site repo.',
-      note: 'Open the Kahoot in a second window before the session starts.',
+      subtitle: 'Join at kahoot.it',
+      footnote: 'Everything on it came up in the last hour.',
+      note:
+        'Open the Kahoot in a second window BEFORE the session starts, and have the game PIN up before you switch. If you are using Emil’s quiz, read every question first: his is written for his own group and may lean on something you did not cover. kahoot/week01.csv in this repo is your own 8-question set as a fallback — it maps 1:1 onto this deck.',
     },
 
     {
       kind: 'end',
       title: 'See you next week',
       points: [
-        'Sheet 1 and its deadline are on Moodle.',
-        'Slides and past sessions: my site — link on the board.',
-        'hserobyan@student.ethz.ch — genuinely, just email me.',
-        'Next week: quantifiers and the start of set theory.',
+        'Nothing to hand in for sheet 1 — but do it anyway, that is what the exam is.',
+        'Register your tutorial and oral group by Wed 23 Sep, 23:59.',
+        'Mock interview in Wednesday’s lecture. Sheet 3, with the first bonus problem, lands Thursday.',
+        'hserobyan@ethz.ch — genuinely, just email me.',
+        'Next week: logical consequence, satisfiability, and the first quantifiers.',
       ],
     },
   ],
