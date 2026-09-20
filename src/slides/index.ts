@@ -43,8 +43,11 @@ export function findDeck(week: number): Deck | undefined {
   return decks.find((d) => d.week === week);
 }
 
-/** Parses '#/slides/3' -> 3. Returns null for anything else. */
+/**
+ * Parses '#/slides/3' -> 3, ignoring any '?...' the hash carries (the
+ * speaker-notes unlock rides along there). Returns null for anything else.
+ */
 export function deckWeekFromHash(hash: string): number | null {
-  const m = /^#\/slides\/(\d+)$/.exec(hash);
+  const m = /^#\/slides\/(\d+)(?:\?.*)?$/.exec(hash);
   return m ? Number(m[1]) : null;
 }

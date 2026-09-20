@@ -7,12 +7,20 @@ import { WebsiteView } from './website/WebsiteView';
 import { useIsMobile } from './hooks/useIsMobile';
 import { DeckView } from './slides/Deck';
 import { deckWeekFromHash, findDeck } from './slides/index';
+import { consumeAdminParam } from './slides/admin';
 
 function App() {
   const [booted, setBooted] = useState(false);
   const isMobile = useIsMobile();
   const [websiteMode, setWebsiteMode] = useState<boolean>(isMobile);
   const [hash, setHash] = useState(() => window.location.hash);
+
+  // An `?admin=<phrase>` in the opening URL unlocks speaker notes on this
+  // device for good. Spend it before the first paint so the deck never
+  // renders in the wrong state.
+  useEffect(() => {
+    void consumeAdminParam();
+  }, []);
 
   // '#/slides/1' opens presentation mode directly — no boot screen, no OS
   // chrome — so the projector shows the deck the moment the link is opened.

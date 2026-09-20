@@ -36,22 +36,21 @@ Every week, add one object to the `weeks` array in `src/content.ts`:
        topic: 'Introduction',
        date: '',
        slidesUrl: '#',
-       exerciseUrl: '#',
      },
 +    {
 +      week: 2,
 +      topic: 'Sorting Algorithms',
 +      date: 'Oct 6',
 +      slidesUrl: '/slides/week02-slides.pdf',
-+      exerciseUrl: '/slides/week02-exercise.pdf',
 +    },
    ] as Week[],
 ```
 
-Drop the actual PDF files into `public/slides/` (e.g.
-`public/slides/week02-slides.pdf`) and point `slidesUrl`/`exerciseUrl` at
-`/slides/<filename>.pdf`. Until you have a real file, leave the URL as `'#'`
-— the link will render but not go anywhere.
+For an in-site deck, point `slidesUrl` at `#/slides/<week>` once the deck is
+registered in `src/slides/index.ts`. For a PDF, drop the file into
+`public/slides/` (e.g. `public/slides/week02-slides.pdf`) and point
+`slidesUrl` at `/slides/<filename>.pdf`. Until either exists, leave the URL
+as `'#'` — the row shows a greyed-out `soon`.
 
 ## Slides
 
@@ -67,7 +66,7 @@ no boot screen, no windows.
 | `←` | back |
 | `Home` `End` | first / last slide |
 | `f` | fullscreen |
-| `n` | toggle speaker notes for the current slide |
+| `n` | toggle speaker notes — unlocked devices only, see below |
 | `p` | lay out every slide, then open the print dialog → *Save as PDF* |
 | `Esc` | back to the site |
 
@@ -89,6 +88,38 @@ no boot screen, no windows.
 
 Layout, colours and typography live in `src/styles/slides.css` and are
 shared by every deck — weekly files never touch styling.
+
+**Speaker notes are locked to your own devices**
+
+The notes are written for whoever is running the session — timings, what to
+say out loud, which part to cut when the clock beats you. `n` does nothing
+until a device has been unlocked once, so a student at the lectern keyboard
+cannot put them on the projector.
+
+To unlock a device, open the site once with the phrase attached:
+
+```
+https://<your-site>/?admin=<phrase>#/slides/1
+```
+
+The phrase is checked, then wiped from the address bar, and the unlock is
+written to `localStorage`. That binds it to **that browser profile on that
+machine**: it survives reloads, new wifi, and being offline, and it does not
+travel to a phone, a lecture-hall PC, or a colleague's laptop. Repeat the URL
+once per device you actually present from. To undo it, open
+`?admin=lock` on that device.
+
+Rotate the phrase whenever you like — only its SHA-256 lives in the repo:
+
+```
+node scripts/admin-hash.mjs 'my new phrase'   # paste into PHRASE_HASH
+```
+
+> This is a lock on the `n` key, not encryption. The decks compile into the
+> public JS bundle, notes and all, so someone who opens DevTools and digs
+> can still read them. It stops accidents and curiosity, not a determined
+> reader. If you ever need the stronger version, the notes have to be either
+> encrypted at build time or stripped from the deployed bundle entirely.
 
 ## Kahoot
 

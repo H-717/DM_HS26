@@ -4,6 +4,7 @@ import 'katex/dist/katex.min.css';
 import '../styles/slides.css';
 import { content } from '../content';
 import { Rich } from './Rich';
+import { ADMIN_EVENT, isAdmin } from './admin';
 import type { Deck, Slide } from './types';
 
 // How many extra "clicks" a slide needs before moving on — progressive reveal.
@@ -18,6 +19,8 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
   const [i, setI] = useState(0);
   const [step, setStep] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
+  // Only this device may reveal the notes — see src/slides/admin.ts.
+  const [admin, setAdmin] = useState(isAdmin);
   const [printing, setPrinting] = useState(false);
 
   const slide = deck.slides[i];
@@ -59,6 +62,17 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
     }
   }, [step, maxStep, i, deck.slides.length]);
 
+  useEffect(() => {
+    const sync = () => setAdmin(isAdmin());
+    window.addEventListener(ADMIN_EVENT, sync);
+    return () => window.removeEventListener(ADMIN_EVENT, sync);
+  }, []);
+
+  // Losing admin mid-session must also put the notes away.
+  useEffect(() => {
+    if (!admin) setShowNotes(false);
+  }, [admin]);
+
   const prev = useCallback(() => {
     if (step > 0) return setStep((s) => s - 1);
     if (i > 0) {
@@ -93,7 +107,7 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
           setStep(0);
           break;
         case 'n':
-          setShowNotes((v) => !v);
+          if (admin) setShowNotes((v) => !v);
           break;
         case 'p':
           // Render every slide stacked, then hand it to the browser's
@@ -111,7 +125,7 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [next, prev, deck.slides.length, onExit]);
+  }, [next, prev, deck.slides.length, onExit, admin]);
 
   const progress = useMemo(
     () => ((i + 1) / deck.slides.length) * 100,
@@ -165,7 +179,7 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
         </span>
       </footer>
 
-      {showNotes && slide.note ? (
+      {admin && showNotes && slide.note ? (
         <aside className="deck-notes">
           <Rich text={slide.note} />
         </aside>
