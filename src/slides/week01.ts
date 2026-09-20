@@ -3,8 +3,8 @@
 // See ./types.ts for the list of slide kinds and the text markup.
 //
 // Checked against: Exercise_01.pdf, Solution_01.pdf, the Moodle course page
-// and the HS2026 TA meeting slides. Wording of every exercise below is the
-// wording on the real sheet.
+// and the HS2026 TA meeting slides. The exercises below are our own adapted
+// warm-ups: nothing on screen quotes or points at a numbered sheet exercise.
 // ---------------------------------------------------------------------------
 
 import type { Deck } from './types';
@@ -42,7 +42,7 @@ export const week01: Deck = {
       tone: 'info',
       body: [
         '**Short recap** of the week’s lecture ideas — 15 min, not a second lecture.',
-        '**We solve the sheet together.** You try first, I ask, we discuss, then I write it up.',
+        '**We solve problems together.** You try first, I ask, we discuss, then I write it up.',
         'From week 3 on I will also go through **last week’s bonus problem** and the common mistakes.',
         'Interrupt me. A session where nobody interrupts is a session I ran badly.',
       ],
@@ -100,17 +100,17 @@ export const week01: Deck = {
         'Recap: what is a mathematical statement?',
         'Recap: the five connectives and function tables',
         'Recap: the standard proof patterns',
-        'A punctured chessboard  (→ 1.1)',
-        'A false proof  (→ 1.2)',
-        'Formulas ↔ natural language  (→ 1.3)',
-        'Equivalence via function tables  (→ 1.4)',
-        'Two new operators  (→ 1.5)',
-        'Simplifying a formula  (→ 1.6)',
+        'A punctured chessboard',
+        'A proof you cannot fault',
+        'Formulas ↔ natural language',
+        'Equivalence via function tables',
+        'Two new operators',
+        'Simplifying a formula',
         'Kahoot',
       ],
-      title: 'Today — a smaller twin of every exercise on sheet 1',
+      title: 'Today',
       note:
-        'Say this out loud: we work a smaller version of each exercise here, and the sheet is the same six moves one size up. That framing is what stops the "why are we not doing the actual sheet" question. Rough timing: 10 min admin, 15 min recap, 55 min exercises, 10 min Kahoot, 15 min buffer. If the clock beats you, cut 1.5 part 2 — never 1.6, which is the one they will be marked on hardest.',
+        'These are our own problems, not the sheet — never put an exercise number on screen, just teach the move. Rough timing: 10 min admin, 15 min recap, 55 min exercises, 10 min Kahoot, 15 min buffer. If the clock beats you, cut part 2 of the two-operator problem — never the simplification, which is the one they will be marked on hardest.',
     },
 
     // -- recap ---------------------------------------------------------------
@@ -164,7 +164,7 @@ export const week01: Deck = {
         '**Direct**: assume A, chain implications, arrive at B.',
         '**Contraposition**: prove ¬B → ¬A instead of A → B. Same statement, often easier.',
         '**Contradiction**: assume A ∧ ¬B, derive something false.',
-        '**Case distinction**: split into finitely many cases, cover all of them. (→ 1.1)',
+        '**Case distinction**: split into finitely many cases, cover all of them.',
         '**Induction**: base case, then step n → n+1.',
         'Choosing the pattern is 80% of the work. Writing it down is the other 20%.',
       ],
@@ -178,26 +178,26 @@ export const week01: Deck = {
         'idempotence · commutativity · associativity · absorption · distributivity · double negation · De Morgan',
         'Plus the definition of →:  F → G ≡ ¬F ∨ G',
         'Plus the constants:  F ∧ ¬F ≡ ⊥ · F ∨ ¬F ≡ ⊤ · F ∧ ⊤ ≡ F · F ∨ ⊥ ≡ F · F ∧ ⊥ ≡ ⊥ · F ∨ ⊤ ≡ ⊤',
-        'Exercise 1.6 asks for a proof in **exactly this currency** — one named rule per step, and the rules may be applied to whole formulas, not just to propositional symbols (§2.3.5).',
+        'A simplification proof is written in **exactly this currency** — one named rule per step, and the rules may be applied to whole formulas, not just to propositional symbols (§2.3.5).',
       ],
       note:
         'Have the lemma open on your laptop so you can quote the rule numbers the way the official solution does.',
     },
 
-    // -- 1.1 -----------------------------------------------------------------
+    // -- punctured board -----------------------------------------------------
 
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: '1.1, but on a board we can actually draw',
+      title: 'A board we can actually draw',
       prompt: [
         'A k × k board with one square punctured. P(k) = 1 whenever this holds:',
         '"No matter which square is punctured, the remaining k² − 1 squares can be covered completely with non-overlapping L-shaped pieces of three squares."',
-        'The sheet asks you for k = 7. Here, take **k = 4**.',
+        'Take **k = 4**.',
         '**Is P(4) = 1? And how many different cases does the proof consider?**',
       ],
       note:
-        'Three minutes on this. Every idea 1.1 needs is here, at a size that fits on the board. Ask "how many squares are there — and how many really different ones?" Do not hand them the symmetry argument.',
+        'Three minutes on this. Every idea the general problem needs is here, at a size that fits on the board. Ask "how many squares are there — and how many really different ones?" Do not hand them the symmetry argument.',
     },
 
     {
@@ -208,7 +208,7 @@ export const week01: Deck = {
       steps: [
         'Count first: 4² − 1 = 15, and 3 | 15. The piece count works out.',
         'The same 8 symmetries fold all 16 squares into the wedge r ≤ c ≤ 2.',
-        'That leaves (1,1), (1,2), (2,2) — **3 cases**, against 10 for the 7 × 7.',
+        'That leaves (1,1), (1,2), (2,2) — **3 cases** instead of 16.',
         'Now each case is easy. Cut the board into four 2 × 2 quadrants.',
         'Put one L-piece in the middle, taking one square from each quadrant that does **not** hold the hole.',
         'Every quadrant now has exactly 3 squares left — and 3 squares of a 2 × 2 block **is** an L-piece. ∎',
@@ -234,19 +234,19 @@ export const week01: Deck = {
     },
 
 
-    // -- 1.2 -----------------------------------------------------------------
+    // -- a proof from a false assumption --------------------------------------
 
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: 'The same trap, without the algebra',
+      title: 'A proof you cannot fault',
       prompt: [
         '**Claim:** 0 is the largest natural number.',
         '**"Proof":**  n is the largest natural number ⇒ 2n ≤ n ⇒ n ≤ 0 ⇒ n = 0.',
         'Every implication really is correct. So what is wrong?',
       ],
       note:
-        'This is 1.2 with n² replaced by 2n. Nobody gets stuck on the algebra, so they reach the actual point faster.',
+        '2n rather than n² on purpose: nobody gets stuck on the algebra, so they reach the actual point faster.',
     },
 
     {
@@ -258,21 +258,21 @@ export const week01: Deck = {
         '2n is a natural number and n is the largest one, so 2n ≤ n. ✓',
         'Subtract n from both sides: n ≤ 0. And n ∈ ℕ, so n = 0. ✓',
         'So the chain proves: **if** a largest natural number exists, **then** it equals 0.',
-        'Hold that thought — the sheet’s 1.2 proves it equals **1**, by exactly the same kind of chain.',
-        'Both proofs are correct. They contradict each other. So the shared assumption must be false — and it is: ℕ has no largest element.',
+        'Now make the same move on n + 1: it is a natural number too, so n + 1 ≤ n, that is **1 ≤ 0**.',
+        'That is false outright, and every step getting there was correct. So the assumption is what breaks: ℕ has no largest element.',
         '**Moral:** a chain of correct implications out of a false assumption proves nothing at all.',
       ],
       note:
-        'Do this one before 1.2 and the punchline writes itself: two valid proofs, contradictory conclusions, same false assumption.',
+        'The punchline writes itself: two correct chains out of the same assumption, one of them landing on 1 ≤ 0.',
     },
 
 
-    // -- 1.3 -----------------------------------------------------------------
+    // -- formalising natural language ------------------------------------------
 
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: 'Same exercise, different story',
+      title: 'Formulas into words, words into formulas',
       prompt: [
         'A = "Ana revised for the exam."   B = "Ana passed the exam."',
       ],
@@ -282,7 +282,7 @@ export const week01: Deck = {
         'Negate G₄ — as a formula, and as a sentence.',
       ],
       note:
-        'The sheet’s 1.3 with a new story and one negation instead of two. Anyone who prepared finishes in 60 seconds; anyone who did not gets their first win of the semester.',
+        'One negation, not two. Anyone who prepared finishes in 60 seconds; anyone who did not gets their first win of the semester.',
     },
 
     {
@@ -302,24 +302,24 @@ export const week01: Deck = {
     },
 
 
-    // -- 1.4 -----------------------------------------------------------------
+    // -- function tables ---------------------------------------------------------
 
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: 'Two variables instead of three',
+      title: 'Two variables, four rows',
       prompt: [
         'G = (A → B) → ( (A ∧ ¬B) ∧ ¬A )',
       ],
       parts: [
-        'Compute the function table of G — four rows, not eight.',
+        'Compute the function table of G — all four rows.',
         'Give an equivalent formula in which each symbol appears at most once.',
       ],
       hint: [
         'Look hard at the right-hand side of the outer → before you write anything down.',
       ],
       note:
-        'Exactly the shape of 1.4: a self-contradictory consequent collapses the implication to the negation of its antecedent. Half the rows, so it fits on the board.',
+        'The shape to teach: a self-contradictory consequent collapses the implication to the negation of its antecedent. Two variables, so it fits on the board.',
     },
 
     {
@@ -335,7 +335,7 @@ export const week01: Deck = {
       ],
       markRows: [2],
       note:
-        'The RHS column is all zeros — that is the whole exercise, and it is the same observation 1.4 wants.',
+        'The RHS column is all zeros — that is the whole exercise.',
     },
 
     {
@@ -349,17 +349,17 @@ export const week01: Deck = {
         'So G ≡ (A → B) → ⊥ ≡ ¬(A → B) ≡ ¬(¬A ∨ B) ≡ **A ∧ ¬B**.',
         'Each of A and B appears once, so that answers part 2.',
         'Check it against the table: the only 1 sits at A = 1, B = 0. ✓',
-        '1.4 is this same collapse, with a third variable hiding it.',
+        'Any consequent that cannot be satisfied collapses the same way, however many variables hide it.',
       ],
     },
 
 
-    // -- 1.5 -----------------------------------------------------------------
+    // -- two new operators --------------------------------------------------------
 
     {
       kind: 'table',
-      title: 'Warm-up · Two easier operators',
-      lead: 'Same game as 1.5, but nothing ever leaves two variables.',
+      title: 'Warm-up · Two new operators',
+      lead: 'Two operators you have not met, defined by nothing but their columns.',
       headers: ['A', 'B', 'A ★ B', 'A ◆ B'],
       rows: [
         ['0', '0', '0', '1'],
@@ -381,7 +381,7 @@ export const week01: Deck = {
         'Prove or disprove:  (A ★ B) ◆ (B ★ A) ≡ A ◆ B.',
       ],
       note:
-        'Part 2 is a four-row table instead of eight, and the answer falls out of a single row. Same lesson as 1.5, a third of the writing.',
+        'Part 2 is a four-row table and the answer falls out of a single row — the whole lesson, a third of the writing.',
     },
 
     {
@@ -418,12 +418,12 @@ export const week01: Deck = {
     },
 
 
-    // -- 1.6 -----------------------------------------------------------------
+    // -- simplification in named rules ----------------------------------------------
 
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: 'The same write-up, five steps instead of six',
+      title: 'Five steps, each one with a name',
       prompt: [
         'H = ( (A ∨ B) ∧ A ) ∧ ( ¬A ∨ C )',
         'Find G ≡ H in which A, B and C each appear at most once, and prove H ≡ G naming **one rule per step**.',
@@ -436,7 +436,7 @@ export const week01: Deck = {
       kind: 'solution',
       reveal: true,
       ref: 'Warm-up',
-      title: 'Written the way the sheet wants it',
+      title: 'Written the way it has to be written',
       steps: [
         'H ≡ A ∧ ( ¬A ∨ C )    — **absorption**: (X ∨ Y) ∧ X ≡ X, with X = A',
         '≡ ( A ∧ ¬A ) ∨ ( A ∧ C )    — **distributivity**',
@@ -446,7 +446,7 @@ export const week01: Deck = {
         'G = A ∧ C. B has vanished; A and C appear once each. ∎',
       ],
       note:
-        'Step 4 is the one to linger on: the allowed rule is written F ∨ ⊥ ≡ F, so you must commute first. Pedantic — and exactly the pedantry 1.6 is marking.',
+        'Step 4 is the one to linger on: the allowed rule is written F ∨ ⊥ ≡ F, so you must commute first. Pedantic — and exactly the pedantry these proofs are marked on.',
     },
 
     {
@@ -467,17 +467,16 @@ export const week01: Deck = {
 
     {
       kind: 'callout',
-      title: 'Now go and do the real sheet',
+      title: 'Now go and practise',
       tone: 'warn',
       body: [
-        'Everything today was a smaller twin of sheet 1. The sheet asks the **same six questions, one size up**.',
-        '1.1 → the board is 7 × 7, so 10 cases instead of 3.  ·  1.2 → n² instead of 2n, same false assumption.',
-        '1.3 → Bob, not Ana, and both negations.  ·  1.4 → three variables, eight rows.',
-        '1.5 → ♡ and ♢, and part 2 needs two 8-row tables.  ·  1.6 → six steps instead of five.',
-        'If today made sense, the sheet is now bookwork. Official solutions go up on Moodle — check yours against them.',
+        'Six moves came up today: **symmetry then cases · a false assumption · formalising sentences · function tables · a new operator read off its table · simplification in named rules**.',
+        'That is the whole of this week. Nothing else is hiding.',
+        'The sheet on Moodle asks for those same moves, bigger. Nothing is collected — do it anyway, that is what the exam is.',
+        'Official solutions go up on Moodle. Check yours against them, and bring me anything that did not match.',
       ],
       note:
-        'Do not skip this slide, it is the whole bridge between the session and their homework. Say plainly that you deliberately worked smaller versions so everyone could keep up, and that the sheet is the same moves.',
+        'Do not skip this slide, it is the bridge between the session and their own work. Name the six moves off the screen; do not walk them through the sheet exercise by exercise.',
     },
 
     {
@@ -489,7 +488,7 @@ export const week01: Deck = {
         'A correct chain of implications from a false assumption proves nothing.',
         'To disprove an equivalence, one row is enough. To prove one, you need every row.',
         'Simplification proofs are written in **named rules**, one per step.',
-        'Symmetry turned 16 cases into 3 — and turns 49 into 10 on the sheet. Look for it before you start drawing.',
+        'Symmetry turned 16 cases into 3. Look for it before you start drawing.',
       ],
     },
 
