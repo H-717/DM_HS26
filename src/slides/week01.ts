@@ -506,10 +506,8 @@ export const week01: Deck = {
       title: 'See you next week',
       points: [
         'Nothing to hand in for sheet 1 — but do it anyway, that is what the exam is.',
-        'Register your tutorial and oral group by Wed 23 Sep, 23:59.',
-        'Mock interview in Wednesday’s lecture. Sheet 3, with the first bonus problem, lands Thursday.',
         'hserobyan@ethz.ch — genuinely, just email me.',
-        'Next week: logical consequence, satisfiability, and the first quantifiers.',
+        'https://h-717.github.io/DM_HS26/'
       ],
     },
   ],
