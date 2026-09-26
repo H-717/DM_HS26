@@ -129,29 +129,29 @@ export const week02: Deck = {
       kind: 'solution',
       reveal: true,
       ref: 'Exercise 1',
-      title: 'Parts 1 and 4',
+      title: 'Parts 1 and 2',
       steps: [
         '1. True. By the table, ¬B ∧ (A → B) is true only for the truth assignment A = 0, B = 0. For this assignment ¬A is also true. Hence ¬B ∧ (A → B) ⊨ ¬A.',
-        '4. True. Consider any truth assignment to A, B, C for which (A → B) ∧ (A → C) is true. We show that A → (B ∧ C) is true.',
-        'If A = 0, then A → (B ∧ C) is true.',
-        'If A = 1, then B is true since A → B is true, and C is true since A → C is true. So B ∧ C is true, and hence A → (B ∧ C) is true.',
+        '2. False. For the truth assignment A = 0, B = 1, the formula A → B is true, but B → A is false. So B → A is not a logical consequence of A → B.',
+        'B → A is the converse of A → B. The contrapositive ¬B → ¬A would be a logical consequence.',
       ],
-      note: 'Part 4 needs no 8-row table: the case distinction on A already covers every assignment.',
+      note: 'To disprove: one assignment is enough. To prove: the argument has to cover every assignment.',
     },
 
     {
       kind: 'solution',
       reveal: true,
       ref: 'Exercise 1',
-      title: 'Parts 2 and 3',
+      title: 'Parts 3 and 4',
       steps: [
-        '2. False. For the truth assignment A = 0, B = 1, the formula A → B is true, but B → A is false. So B → A is not a logical consequence of A → B.',
-        'B → A is the converse of A → B. The contrapositive ¬B → ¬A would be a logical consequence.',
         '3. True. Suppose some truth assignment makes (A → B) ∨ (A → ¬B) false. Then both disjuncts are false.',
         'A → B is false only if A = 1 and B = 0. A → ¬B is false only if A = 1 and B = 1.',
         'B cannot be 0 and 1 at the same time, a contradiction. So the formula is true for all truth assignments.',
+        '4. True. Consider any truth assignment to A, B, C for which (A → B) ∧ (A → C) is true. We show that A → (B ∧ C) is true.',
+        'If A = 0, then A → (B ∧ C) is true.',
+        'If A = 1, then B is true since A → B is true, and C is true since A → C is true. So B ∧ C is true, and hence A → (B ∧ C) is true.',
       ],
-      note: 'To disprove: one assignment is enough. To prove: the argument has to cover every assignment.',
+      note: 'Part 4 needs no 8-row table: the case distinction on A already covers every assignment.',
     },
 
     // -- satisfiability ------------------------------------------------------------
