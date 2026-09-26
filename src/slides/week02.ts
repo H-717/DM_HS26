@@ -190,44 +190,44 @@ export const week02: Deck = {
       ref: 'Exercise 3',
       title: 'Knights and knaves',
       prompt: [
-        'Knights always tell the truth, knaves always lie. Let B = "the islander is a knight" and A = "the left road leads to the village". We ask the islander about the truth value of a formula F, and the answer is "True" or "False".',
+        'On an island, knights always tell the truth and knaves always lie. You meet two islanders, Ana and Ben. Let A = "Ana is a knight" and B = "Ben is a knight".',
       ],
       parts: [
-        'Give the function table of the answer, depending on B and F.',
-        'Find F such that every islander answers "True".',
-        'We ask F = ¬B ∧ A. What can we conclude from each possible answer?',
+        'An islander of type K (K = 1 for a knight) makes a statement S. Explain why the formula K ↔ S is then true.',
+        'Ana says: "Ben is a knave." Ben says: "Ana and I are of the same type." Write one formula in A and B for each statement, and determine who is a knight and who is a knave.',
+        'Can any islander say "I am a knave"?',
       ],
       note:
-        '8 minutes with discussion. These are the steps needed for the sheet exercise, without solving it. Do not solve the sheet version on the board.',
+        '8 minutes with discussion. Part 1 is the rule the sheet exercise also needs. Do not go further than that towards the sheet.',
     },
 
     {
       kind: 'table',
-      title: 'Exercise 3.1',
-      lead: 'A knight answers with the truth value of F, a knave with the truth value of ¬F.',
-      headers: ['B', 'F', 'answer'],
+      title: 'Exercise 3.2',
+      lead: 'Ana’s statement gives A ↔ ¬B, Ben’s gives B ↔ (A ↔ B). Both have to be true.',
+      headers: ['A', 'B', 'A ↔ ¬B', 'A ↔ B', 'B ↔ (A ↔ B)'],
       rows: [
-        ['0', '0', '1'],
-        ['0', '1', '0'],
-        ['1', '0', '0'],
-        ['1', '1', '1'],
+        ['0', '0', '0', '1', '0'],
+        ['0', '1', '1', '0', '0'],
+        ['1', '0', '1', '0', '1'],
+        ['1', '1', '0', '1', '1'],
       ],
-      note: 'The answer column is exactly B ↔ F. Let them notice it.',
+      markRows: [2],
     },
 
     {
       kind: 'solution',
       reveal: true,
       ref: 'Exercise 3',
-      title: 'Parts 2 and 3',
+      title: 'Solutions',
       steps: [
-        'From the table, the answer has the truth value of B ↔ F.',
-        '2. We need B ↔ F to be true on every row, so F must have the same truth value as B. Take F = B, i.e. "Are you a knight?". A knight says "True", and a knave lies and also says "True".',
-        '3. For F = ¬B ∧ A the answer is B ↔ (¬B ∧ A). It is "True" only for A = 0, B = 0: the islander is a knave and the left road leads to the jungle.',
-        'The answer "False" fits A = 1 as well as A = 0, so in that case we learn nothing about the roads.',
-        'For the sheet: for each of the four combinations of A and B, write down the answer you want. The table from part 1 then tells you which value F must have.',
+        '1. If K = 1, the islander is a knight, so S is true. If K = 0, the islander is a knave, so S is false. In both cases K and S have the same truth value, so K ↔ S is true.',
+        '2. By part 1, A ↔ ¬B and B ↔ (A ↔ B) are both true. By the table, the only truth assignment satisfying both is A = 1, B = 0.',
+        'So Ana is a knight and Ben is a knave. Check: Ana says truthfully that Ben is a knave, and Ben lies when he says they are of the same type.',
+        '3. No. By part 1, such an islander would make K ↔ ¬K true, but K ↔ ¬K is unsatisfiable: it is false for K = 0 and for K = 1.',
       ],
-      note: 'Stop here. They can finish the sheet exercise at home from the last line.',
+      note:
+        'Part 3 ties back to satisfiability. If someone notices that the last column of the table is just A, let them explain why.',
     },
 
     // -- predicate logic -----------------------------------------------------------
