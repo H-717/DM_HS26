@@ -85,7 +85,7 @@ export const content = {
   // in src/slides/index.ts; use '#' until the deck exists.
   weeks: [
     { week: 1, topic: 'Statements, Proofs & Propositional Logic', slidesUrl: '#/slides/1' },
-    // { week: 2, topic: 'Logical Consequence, Satisfiability & Quantifiers', slidesUrl: '#/slides/2' },
+    { week: 2, topic: 'Logical Consequence, Satisfiability & Quantifiers', slidesUrl: '#/slides/2' },
     // { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3' },
     // { week: 4, topic: 'Sets, Power Sets & the Pigeonhole Principle', slidesUrl: '#/slides/4' },
     // { week: 5, topic: 'Relations & Equivalence Classes', slidesUrl: '#/slides/5' },

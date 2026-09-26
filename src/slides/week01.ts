@@ -423,7 +423,7 @@ export const week01: Deck = {
     {
       kind: 'exercise',
       ref: 'Warm-up',
-      title: 'Five steps, each one with a name',
+      title: 'Every step has a name',
       prompt: [
         'H = ( (A ∨ B) ∧ A ) ∧ ( ¬A ∨ C )',
         'Find G ≡ H in which A, B and C each appear at most once, and prove H ≡ G naming **one rule per step**.',
@@ -438,15 +438,16 @@ export const week01: Deck = {
       ref: 'Warm-up',
       title: 'Written the way it has to be written',
       steps: [
-        'H ≡ A ∧ ( ¬A ∨ C )    — **absorption**: (X ∨ Y) ∧ X ≡ X, with X = A',
-        '≡ ( A ∧ ¬A ) ∨ ( A ∧ C )    — **distributivity**',
+        'H ≡ ( A ∧ ( A ∨ B ) ) ∧ ( ¬A ∨ C )    — **commutativity of ∧**',
+        '≡ A ∧ ( ¬A ∨ C )    — **absorption**',
+        '≡ ( A ∧ ¬A ) ∨ ( A ∧ C )    — **first distributive law**',
         '≡ ⊥ ∨ ( A ∧ C )    — **F ∧ ¬F ≡ ⊥**',
         '≡ ( A ∧ C ) ∨ ⊥    — **commutativity of ∨**',
         '≡ A ∧ C    — **F ∨ ⊥ ≡ F**',
         'G = A ∧ C. B has vanished; A and C appear once each. ∎',
       ],
       note:
-        'Step 4 is the one to linger on: the allowed rule is written F ∨ ⊥ ≡ F, so you must commute first. Pedantic — and exactly the pedantry these proofs are marked on.',
+        'Six steps, two of them commutativity. Absorption is stated as A ∧ (A ∨ B) ≡ A and the constant rule as F ∨ ⊥ ≡ F, so both need a commutativity step first. Pedantic — and exactly the pedantry these proofs are marked on.',
     },
 
     {
