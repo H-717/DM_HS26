@@ -3,10 +3,15 @@
 // See ./types.ts for the list of slide kinds and the text markup.
 //
 // Checked against: Exercise_02.pdf, Solution_02_with_grading_scheme.pdf and
-// the lecture notes (Def. 2.6–2.11, Lemma 2.1–2.3, §2.3.5, §2.4.1–2.4.8).
-// The exercises below are our own twins of the sheet's: same moves, different
-// formulas. Exercise 2.3 is the graded interview exercise and is deliberately
-// not discussed, hinted at, or paraphrased anywhere in this deck.
+// the lecture notes (Def. 2.7–2.11, Lemma 2.3, §2.4.1–2.4.8). By the
+// session (Mon 28 Sep, 16:15) the lecture has covered §2.1–2.5.
+//
+// Each exercise is a twin of one on the sheet — same shape, other formulas:
+//   Exercise 1 ↔ 2.1   Exercise 2 ↔ 2.2   Exercise 3 ↔ 2.4
+//   Exercise 4 ↔ 2.5   Exercise 5 ↔ 2.6
+// 2.3 is the graded interview exercise and is not touched anywhere. Its
+// part 1 asks for the definition of ≡ and for Lemma 2.2, so neither is
+// recapped on screen. Nothing on screen names a sheet exercise.
 // ---------------------------------------------------------------------------
 
 import type { Deck } from './types';
@@ -21,161 +26,80 @@ export const week02: Deck = {
     {
       kind: 'title',
       title: 'Exercise Session 2',
-      subtitle: 'Logical consequence, satisfiability, and a first look at predicate logic',
+      subtitle: 'Logical consequence, satisfiability, quantifiers',
       footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
     {
-      kind: 'callout',
-      title: 'Before we start',
-      tone: 'info',
-      body: [
-        'The **oral interviews start this week.** If yours is in the week of 28 September, the graded exercise is the one marked GRADED on sheet 2.',
-        'I will **not** discuss that exercise today — the solution has to be your own work. Everything else on the sheet is fair game.',
-        'Bring your **Legi** and, if you like, your own handwritten notes.',
-        'Sheet 3 appears on Moodle on Thursday, as every week.',
+      kind: 'points',
+      title: 'This week',
+      points: [
+        'The oral interviews start this week. If yours is this week, prepare the graded exercise on sheet 2.',
+        'We will not look at that exercise today, it has to be your own work.',
+        'Bring your Legi. Handwritten notes are allowed.',
+      ],
+      note: '2 minutes. If someone asks about the graded exercise: after your interview.',
+    },
+
+    {
+      kind: 'points',
+      title: 'A word on formality',
+      points: [
+        'In this course the write-up is graded, not only the idea. This holds for the interviews and for the exam.',
+        'If you prove an equivalence step by step, each step uses one rule and says which one. Commutativity is a rule too, so it is a step too.',
+        'When you justify a step, use the definitions from the script, not your own paraphrase.',
+        'When in doubt, write the justification down. A missing reason costs more often than an extra sentence.',
       ],
       note:
-        '2 minutes. If anyone asks about the graded exercise during the session, the answer is always "after your interview". Do not answer "just a small hint" either.',
+        'Say it relaxed, not as a warning. People who took the course before say this is what they underestimated. 2 minutes.',
     },
 
     {
       kind: 'agenda',
       title: 'Today',
       items: [
-        'Last week, written properly: equivalence proofs by the rules',
-        'Recap: equivalence, logical consequence, tautology, satisfiability',
+        'Recap: consequence, tautology, satisfiability',
         'Logical consequence',
-        'Satisfiability and tautologies',
-        'An equivalence proof, step by step',
-        'Knights and knaves: what does an answer tell you?',
-        'Recap and practice: quantifiers and predicates',
-        'Short questions, exam style',
+        'Satisfiable or tautology?',
+        'Knights and knaves',
+        'Recap: quantifiers',
+        'Formalising statements with quantifiers',
+        'Short questions',
         'Kahoot',
       ],
       note:
-        'Timing for 90 min: 3 admin · 10 formal rules · 7 recap · 10 consequence · 7 satisfiability · 8 equivalence proof · 10 knights · 17 quantifiers · 5 short questions · 10 Kahoot · 3 wrap. If you are behind at the knights, cut part (c) there; if still behind, the short questions become homework. Never cut the equivalence proof.',
-    },
-
-    // -- formal rules ----------------------------------------------------------
-
-    {
-      kind: 'callout',
-      title: 'Feedback from last week — you were right',
-      tone: 'warn',
-      body: [
-        'Last week I called a simplification "five steps". By the rules this course grades with, it has **six**.',
-        'The missing step was a **commutativity**. In this course, commutativity is a rule of Lemma 2.1 like any other, and applying it is a proof step of its own.',
-        'So today: first the exact rule set, then last week’s proof written to that standard, then the places where steps usually go missing.',
-      ],
-      note:
-        'Own it plainly and move on — 30 seconds. Students trust a TA who corrects himself more than one who is never wrong.',
-    },
-
-    {
-      kind: 'table',
-      title: 'Lemma 2.1, exactly as the script states it',
-      lead: 'The orientation matters: a rule applies only to a formula of exactly this shape.',
-      headers: ['', 'Equivalence', 'Name'],
-      rows: [
-        ['1)', 'A ∧ A ≡ A   and   A ∨ A ≡ A', 'idempotence'],
-        ['2)', 'A ∧ B ≡ B ∧ A   and   A ∨ B ≡ B ∨ A', 'commutativity of ∧ and ∨'],
-        ['3)', '(A ∧ B) ∧ C ≡ A ∧ (B ∧ C)   and   (A ∨ B) ∨ C ≡ A ∨ (B ∨ C)', 'associativity'],
-        ['4)', 'A ∧ (A ∨ B) ≡ A   and   A ∨ (A ∧ B) ≡ A', 'absorption'],
-        ['5)', 'A ∧ (B ∨ C) ≡ (A ∧ B) ∨ (A ∧ C)', 'first distributive law'],
-        ['6)', 'A ∨ (B ∧ C) ≡ (A ∨ B) ∧ (A ∨ C)', 'second distributive law'],
-        ['7)', '¬¬A ≡ A', 'double negation'],
-        ['8)', '¬(A ∧ B) ≡ ¬A ∨ ¬B   and   ¬(A ∨ B) ≡ ¬A ∧ ¬B', 'de Morgan’s rules'],
-      ],
-      markRows: [1, 3, 4, 5],
-      note:
-        'The marked rows are where the orientation bites: absorption has the lone A on the LEFT, both distributive laws have the factor on the LEFT. (A ∨ B) ∧ A is not literally of the form A ∧ (A ∨ B).',
-    },
-
-    {
-      kind: 'callout',
-      title: 'The rules of the game for an equivalence proof',
-      tone: 'good',
-      body: [
-        '**Allowed rules:** F → G ≡ ¬F ∨ G · the rules of Lemma 2.1 · and F ∧ ¬F ≡ ⊥, F ∧ ⊥ ≡ ⊥, F ∨ ⊥ ≡ F, F ∨ ¬F ≡ ⊤, F ∧ ⊤ ≡ F, F ∨ ⊤ ≡ ⊤.',
-        'Each rule may be applied to whole **subformulas**, not just to propositional symbols (§2.3.5, lifting).',
-        '**One step = one rule, applied once, and named.** Two double negations in two places are two steps.',
-        '**Commutativity costs a step.** So does associativity, applied as in Lemma 2.1 3).',
-        'A rule may be used in either direction — an equivalence is symmetric.',
-      ],
-      note:
-        'This is the wording the official sheets use for step-counted proofs. Read the bold parts out loud.',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Last week',
-      title: 'H = ((A ∨ B) ∧ A) ∧ (¬A ∨ C), written to the standard',
-      steps: [
-        'H ≡ (A ∧ (A ∨ B)) ∧ (¬A ∨ C)    (commutativity of ∧)',
-        '≡ A ∧ (¬A ∨ C)    (absorption)',
-        '≡ (A ∧ ¬A) ∨ (A ∧ C)    (first distributive law)',
-        '≡ ⊥ ∨ (A ∧ C)    (F ∧ ¬F ≡ ⊥)',
-        '≡ (A ∧ C) ∨ ⊥    (commutativity of ∨)',
-        '≡ A ∧ C    (F ∨ ⊥ ≡ F)',
-        '**Six steps.** Step 1 is the one I skipped last week: absorption needs the A on the left.',
-      ],
-      note:
-        'Step 5 is the same phenomenon at the other end: the rule is F ∨ ⊥ ≡ F, not ⊥ ∨ F ≡ F. Both commutativity steps are required.',
-    },
-
-    {
-      kind: 'points',
-      title: 'Where missing steps hide',
-      reveal: true,
-      points: [
-        'Turning (X ∨ Y) ∧ X into X: absorption needs **X ∧ (X ∨ Y)** first. One commutativity step.',
-        'Distributing (B ∨ C) ∧ A: the law is stated for **A ∧ (B ∨ C)**. One commutativity step.',
-        'Simplifying ⊥ ∨ F or ⊤ ∧ F to F: the rules are **F ∨ ⊥** and **F ∧ ⊤**. One commutativity step.',
-        'From ¬(¬A ∨ B) to A ∧ ¬B: that is de Morgan **and then** double negation. Two steps.',
-        'From ¬¬A ∨ ¬¬B to A ∨ B: double negation **twice**. Two steps.',
-        'Always check your result on two assignments afterwards — one where you expect 0, one where you expect 1.',
-      ],
-      note:
-        'Ask the room for each line before revealing the bold part. These are exactly the "missing step" deductions of the grading scheme.',
+        'Timing for 90 min: 5 intro · 8 recap · 12 consequence · 10 satisfiability · 12 knights · 5 quantifier recap · 20 quantifiers · 7 short questions · 10 Kahoot. If short on time, the short questions become homework.',
     },
 
     // -- recap -------------------------------------------------------------------
 
     {
       kind: 'points',
-      title: 'Four definitions, in the script’s words',
-      lead: 'Lecture notes, §2.3.3–2.3.6',
+      title: 'Definitions (script §2.3.4 and §2.3.6)',
       points: [
-        '**Def. 2.6.** F and G are **equivalent**, F ≡ G, if the truth values are equal for all truth assignments to the propositional symbols appearing in F or G.',
-        '**Def. 2.7.** G is a **logical consequence** of F, F ⊨ G, if for all truth assignments to the symbols in F or G, the truth value of G is 1 if the truth value of F is 1.',
-        '**Def. 2.8.** F is a **tautology** (valid), ⊨ F, if it is true for all truth assignments.',
-        '**Def. 2.9.** F is **satisfiable** if it is true for at least one truth assignment, and **unsatisfiable** otherwise.',
+        'Def. 2.7: F ⊨ G if for all truth assignments to the symbols in F or G, the truth value of G is 1 if the truth value of F is 1.',
+        'Def. 2.8: F is a tautology, written ⊨ F, if F is true for all truth assignments.',
+        'Def. 2.9: F is satisfiable if F is true for at least one truth assignment, and unsatisfiable otherwise.',
       ],
       note:
-        'Point out that every definition quantifies over ALL truth assignments except satisfiability, which needs ONE. That asymmetry decides how you prove or disprove each of them.',
+        'Point out: consequence and tautology quantify over all assignments, satisfiable needs only one. That tells you how to prove or disprove each of them.',
     },
 
     {
-      kind: 'callout',
-      title: '⊨ is a statement about formulas, not a connective',
-      tone: 'warn',
-      body: [
-        'F → G is a **formula**: it has a truth value under each assignment. F ⊨ G is a **statement** about F and G: it is true or false, full stop.',
-        '**Lemma 2.3.** F → G is a tautology **if and only if** F ⊨ G.',
-        '**Lemma 2.2.** F is a tautology **if and only if** ¬F is unsatisfiable.',
-        'F ≡ G holds exactly when F ⊨ G and G ⊨ F. Write that out in words; do **not** write "F ⊨ G ∧ G ⊨ F" — ∧ only joins formulas.',
+      kind: 'points',
+      title: 'Consequence and implication',
+      points: [
+        'Lemma 2.3: F → G is a tautology if and only if F ⊨ G.',
+        'F → G is a formula, it has a truth value for each assignment. F ⊨ G is a statement about two formulas, it is simply true or false.',
+        'So ⊨ cannot be used inside a formula. If you need both F ⊨ G and G ⊨ F, write "and" in words, not ∧.',
       ],
-      note:
-        'The last bullet is footnote 16 of the script. It is exactly the kind of notation slip an examiner notices.',
     },
 
-    // -- logical consequence ------------------------------------------------------
+    // -- logical consequence -------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Warm-up A',
+      ref: 'Exercise 1',
       title: 'Logical consequence',
       prompt: ['Prove or disprove the following statements about formulas.'],
       parts: [
@@ -185,13 +109,12 @@ export const week02: Deck = {
         '(A → B) ∧ (A → C) ⊨ A → (B ∧ C)',
       ],
       note:
-        '5 minutes, in pairs. Tell them to use a function table for one of them and an argument for another, so they see both proof styles.',
+        '5 minutes in pairs. Suggest a function table for one part and an argument for another, so both proof styles come up.',
     },
 
     {
       kind: 'table',
-      title: 'Warm-up A.1 · By function table',
-      lead: 'The left-hand side is 1 on exactly one row. Check ¬A on that row.',
+      title: 'Exercise 1.1 with a function table',
       headers: ['A', 'B', '¬B', 'A → B', '¬B ∧ (A → B)', '¬A'],
       rows: [
         ['0', '0', '1', '1', '1', '1'],
@@ -205,301 +128,188 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up A',
-      title: 'Parts 1 and 4 hold',
+      ref: 'Exercise 1',
+      title: 'Parts 1 and 4',
       steps: [
-        '**1. True.** By the table, ¬B ∧ (A → B) is true only for the truth assignment A = 0, B = 0. For this assignment ¬A is also true. Hence ¬B ∧ (A → B) ⊨ ¬A.',
-        '**4. True.** Consider any truth assignment to A, B, C for which (A → B) ∧ (A → C) is true. We show that A → (B ∧ C) is true.',
-        'Case A = 0: then A → (B ∧ C) is true.',
-        'Case A = 1: since A → B is true and A is true, B is true; in the same way C is true. So B ∧ C is true, and hence A → (B ∧ C) is true. ∎',
+        '1. True. By the table, ¬B ∧ (A → B) is true only for the truth assignment A = 0, B = 0. For this assignment ¬A is also true. Hence ¬B ∧ (A → B) ⊨ ¬A.',
+        '4. True. Consider any truth assignment to A, B, C for which (A → B) ∧ (A → C) is true. We show that A → (B ∧ C) is true.',
+        'If A = 0, then A → (B ∧ C) is true.',
+        'If A = 1, then B is true since A → B is true, and C is true since A → C is true. So B ∧ C is true, and hence A → (B ∧ C) is true.',
       ],
-      note:
-        'Part 1 is modus tollens. Part 4 needs no table at all: the case distinction on A covers all 8 assignments.',
+      note: 'Part 4 needs no 8-row table: the case distinction on A already covers every assignment.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up A',
-      title: 'Part 2 fails, part 3 is a tautology',
+      ref: 'Exercise 1',
+      title: 'Parts 2 and 3',
       steps: [
-        '**2. False.** For the truth assignment A = 0, B = 1, the formula A → B is true, but B → A is false. So B → A is not a logical consequence of A → B.',
-        'B → A is the **converse**. The contrapositive ¬B → ¬A *is* a logical consequence — it swaps **and** negates.',
-        '**3. True.** Suppose, for contradiction, that some truth assignment makes (A → B) ∨ (A → ¬B) false. Then both disjuncts are false.',
-        'A → B false requires A = 1 and B = 0. A → ¬B false requires A = 1 and ¬B = 0, i.e. B = 1.',
-        'B cannot be both 0 and 1 — a contradiction. So the formula is true for all truth assignments. ∎',
+        '2. False. For the truth assignment A = 0, B = 1, the formula A → B is true, but B → A is false. So B → A is not a logical consequence of A → B.',
+        'B → A is the converse of A → B. The contrapositive ¬B → ¬A would be a logical consequence.',
+        '3. True. Suppose some truth assignment makes (A → B) ∨ (A → ¬B) false. Then both disjuncts are false.',
+        'A → B is false only if A = 1 and B = 0. A → ¬B is false only if A = 1 and B = 1.',
+        'B cannot be 0 and 1 at the same time, a contradiction. So the formula is true for all truth assignments.',
       ],
-      note:
-        'To disprove ⊨ you need one assignment. To prove it you need an argument about every assignment — the contradiction argument is exactly that.',
+      note: 'To disprove: one assignment is enough. To prove: the argument has to cover every assignment.',
     },
 
-    // -- satisfiability -----------------------------------------------------------
+    // -- satisfiability ------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Warm-up B',
-      title: 'Satisfiable? Tautology?',
+      ref: 'Exercise 2',
+      title: 'Satisfiable or tautology?',
       prompt: [
         'For each formula, decide whether it is satisfiable or unsatisfiable, and whether it is a tautology. Prove your answers.',
       ],
       parts: ['(A ∨ ¬B) ∧ B', '(¬B ∧ (A → B)) ∧ A', 'A → (B → A)'],
-      hint: ['You already proved something in Warm-up A that settles part 2 in two lines.'],
-      note: '4 minutes. Part 2 is the one to discuss: reusing a result is a proof technique, not a shortcut.',
+      hint: ['For part 2, look at what you proved in Exercise 1.'],
+      note: '4 minutes. Part 2 is the one to discuss: reusing a result you proved is a valid proof.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up B',
-      title: 'Answers and proofs',
+      ref: 'Exercise 2',
+      title: 'Solutions',
       steps: [
-        '**1.** Satisfiable: A = 1, B = 1 gives (1 ∨ 0) ∧ 1 = 1. Not a tautology: B = 0 makes the conjunction 0.',
-        '**2.** Let F = (¬B ∧ (A → B)) ∧ A. Then ¬F ≡ ¬(¬B ∧ (A → B)) ∨ ¬A (de Morgan) ≡ (¬B ∧ (A → B)) → ¬A (F → G ≡ ¬F ∨ G).',
-        'By Warm-up A.1 and Lemma 2.3, ¬F is a tautology. By Lemma 2.2 applied to ¬F, ¬¬F is unsatisfiable, and ¬¬F ≡ F. So F is **unsatisfiable**, hence not a tautology.',
-        '**3.** Tautology (and so satisfiable). Suppose some assignment makes A → (B → A) false. Then A = 1 and B → A = 0; but B → A = 0 requires A = 0. Contradiction. ∎',
+        '1. Satisfiable, since A = 1, B = 1 makes it true. Not a tautology, since B = 0 makes it false.',
+        '2. Unsatisfiable. Suppose some truth assignment makes (¬B ∧ (A → B)) ∧ A true. Then ¬B ∧ (A → B) is true and A is true.',
+        'By Exercise 1.1, ¬B ∧ (A → B) ⊨ ¬A, so ¬A is also true under this assignment. But A is true, a contradiction. Since the formula is never true, it is not a tautology either.',
+        '3. Tautology, and therefore satisfiable. Suppose some assignment makes A → (B → A) false. Then A = 1 and B → A is false, which needs A = 0. Contradiction.',
       ],
       note:
-        'In part 2, Lemma 2.2 is stated for "F tautology ⇔ ¬F unsatisfiable". Applying it to ¬F and then removing the double negation is the formally correct route — say so.',
+        'In part 2, the point is that a proved consequence can be used directly. Nobody needs the 4-row table again.',
     },
 
-    // -- equivalence proof ----------------------------------------------------------
+    // -- knights and knaves --------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Warm-up C',
-      title: 'An equivalence proof, step by step',
+      ref: 'Exercise 3',
+      title: 'Knights and knaves',
       prompt: [
-        'F = ¬(A → B) ∨ B',
-        'Find a formula G ≡ F in which A and B each appear at most once, and prove F ≡ G using **at most 7** steps under the rules of the game.',
-      ],
-      hint: [
-        'Guess G from a function table first. Then plan the route before writing a single step.',
-      ],
-      note:
-        '6 minutes, individually. Walk around and count their steps out loud — most first attempts silently merge de Morgan with double negation.',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Warm-up C',
-      title: 'Seven steps, each with one name',
-      steps: [
-        'F ≡ ¬(¬A ∨ B) ∨ B    (F → G ≡ ¬F ∨ G)',
-        '≡ (¬¬A ∧ ¬B) ∨ B    (de Morgan’s rule)',
-        '≡ (A ∧ ¬B) ∨ B    (double negation)',
-        '≡ B ∨ (A ∧ ¬B)    (commutativity of ∨)',
-        '≡ (B ∨ A) ∧ (B ∨ ¬B)    (second distributive law)',
-        '≡ (B ∨ A) ∧ ⊤    (F ∨ ¬F ≡ ⊤)',
-        '≡ B ∨ A    (F ∧ ⊤ ≡ F)',
-        'G = B ∨ A. Rewriting it as A ∨ B would cost an **eighth** step — and nothing asks for that order.',
-      ],
-      note:
-        'Step 4 exists only because the second distributive law has the lone factor on the left. Ask them why before revealing it.',
-    },
-
-    {
-      kind: 'callout',
-      title: 'Sanity check: two rows, one minute',
-      tone: 'good',
-      body: [
-        'G = B ∨ A is 0 only for A = 0, B = 0.',
-        'A = 0, B = 0: A → B = 1, so F = ¬1 ∨ 0 = 0 = G ✓',
-        'A = 1, B = 0: A → B = 0, so F = ¬0 ∨ 0 = 1 = G ✓',
-        'A check like this does not prove the equivalence, but it catches almost every slip before an examiner does.',
-      ],
-    },
-
-    // -- knights and knaves -------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: 'Warm-up D',
-      title: 'Knights and knaves: what does an answer tell you?',
-      prompt: [
-        'Knights always tell the truth, knaves always lie. B = "the islander is a knight", A = "the left road leads to the village". You ask about the truth value of a formula F, and the answer is "True" or "False".',
+        'Knights always tell the truth, knaves always lie. Let B = "the islander is a knight" and A = "the left road leads to the village". We ask the islander about the truth value of a formula F, and the answer is "True" or "False".',
       ],
       parts: [
-        'Express the answer the islander gives as a formula in B and F.',
-        'Find F such that **every** islander answers "True".',
-        'Find F such that the answer tells you whether the islander is a knight.',
-        'You ask F = ¬B ∧ A. What can you conclude from each possible answer?',
+        'Give the function table of the answer, depending on B and F.',
+        'Find F such that every islander answers "True".',
+        'We ask F = ¬B ∧ A. What can we conclude from each possible answer?',
       ],
       note:
-        '8 minutes including discussion. These are the building blocks for the sheet’s knights-and-knaves exercise, without solving it. Do not solve the sheet’s version on the board.',
+        '8 minutes with discussion. These are the steps needed for the sheet exercise, without solving it. Do not solve the sheet version on the board.',
     },
 
     {
       kind: 'table',
-      title: 'Warm-up D.1 · The answer is  B ↔ F',
-      lead: 'A knight answers the truth value of F; a knave answers the truth value of ¬F.',
-      headers: ['B', 'F', 'islander', 'answer'],
+      title: 'Exercise 3.1',
+      lead: 'A knight answers with the truth value of F, a knave with the truth value of ¬F.',
+      headers: ['B', 'F', 'answer'],
       rows: [
-        ['0', '0', 'knave, lies', '1'],
-        ['0', '1', 'knave, lies', '0'],
-        ['1', '0', 'knight', '0'],
-        ['1', '1', 'knight', '1'],
+        ['0', '0', '1'],
+        ['0', '1', '0'],
+        ['1', '0', '0'],
+        ['1', '1', '1'],
       ],
-      note:
-        'Answer ≡ (B ∧ F) ∨ (¬B ∧ ¬F), which by Example 2.8 of the script is B ↔ F. Once they have this column, every knights-and-knaves question is an exercise in function tables.',
+      note: 'The answer column is exactly B ↔ F. Let them notice it.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up D',
+      ref: 'Exercise 3',
       title: 'Parts 2 and 3',
       steps: [
-        '**2.** We need B ↔ F to be 1 on every row. Reading off the table: F must equal B. So ask F = B: "Are you a knight?"',
-        'A knight truthfully says "True"; a knave, for whom the true answer is "False", lies and also says "True".',
-        '**3.** We need B ↔ F ≡ B, i.e. F must be 1 on every row: F ≡ ⊤. Ask e.g. F = A ∨ ¬A.',
-        'Then the answer is B ↔ ⊤, which has the truth value of B: "True" means knight, "False" means knave.',
+        'From the table, the answer has the truth value of B ↔ F.',
+        '2. We need B ↔ F to be true on every row, so F must have the same truth value as B. Take F = B, i.e. "Are you a knight?". A knight says "True", and a knave lies and also says "True".',
+        '3. For F = ¬B ∧ A the answer is B ↔ (¬B ∧ A). It is "True" only for A = 0, B = 0: the islander is a knave and the left road leads to the jungle.',
+        'The answer "False" fits A = 1 as well as A = 0, so in that case we learn nothing about the roads.',
+        'For the sheet: for each of the four combinations of A and B, write down the answer you want. The table from part 1 then tells you which value F must have.',
       ],
-    },
-
-    {
-      kind: 'table',
-      title: 'Warm-up D.4 · F = ¬B ∧ A',
-      lead: 'Answer ≡ B ↔ F. Only one row answers "True".',
-      headers: ['A', 'B', 'F = ¬B ∧ A', 'answer ≡ B ↔ F'],
-      rows: [
-        ['0', '0', '0', '1'],
-        ['0', '1', '0', '0'],
-        ['1', '0', '1', '0'],
-        ['1', '1', '0', '0'],
-      ],
-      markRows: [0],
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Warm-up D',
-      title: 'Part 4, and the idea for the sheet',
-      steps: [
-        '"True" happens only for A = 0, B = 0: the islander is a knave and the left road leads to the jungle. Take the **right** road.',
-        '"False" is consistent with three rows, two with A = 1 and one with A = 0: we learn **nothing** about A.',
-        'So a question can be well-formed and still useless. What we want is a question whose answer has the truth value of A on **every** row.',
-        'For the sheet: write down the answer you want on each of the four rows, then use answer ≡ B ↔ F to fill in the function table of F.',
-      ],
-      note:
-        'Stop here. The last bullet is the method, not the answer — they can finish the sheet exercise in five minutes at home.',
+      note: 'Stop here. They can finish the sheet exercise at home from the last line.',
     },
 
     // -- predicate logic -----------------------------------------------------------
 
     {
       kind: 'points',
-      title: 'Predicate logic in the script’s words',
-      lead: 'Lecture notes, §2.4.1–2.4.4',
+      title: 'Quantifiers (script §2.4)',
       points: [
-        '**Def. 2.10.** A k-ary **predicate** P on a universe U is a function $U^k \\to \\{0,1\\}$.',
-        '**Def. 2.11.** ∀x P(x): P(x) is true for all x in U.  ∃x P(x): P(x) is true for some x in U.',
-        'A condition on x goes **inside**: "for all x ≥ 5, …" is ∀x ((x ≥ 5) → …); "some x ≥ 5 with …" is ∃x ((x ≥ 5) ∧ …).',
-        'Universe ℤ, with only < available: "n is a natural number" becomes −1 < n.',
-        'The name of a bound variable is irrelevant: ∃x (x + 5 = 3) ≡ ∃y (y + 5 = 3).',
-        'Write every quantifier out: ∃x ∃y ∃z, never ∃xyz.',
+        'Def. 2.10: a k-ary predicate on a universe U is a function $U^k \\to \\{0,1\\}$.',
+        'Def. 2.11: ∀x P(x) means P(x) is true for all x in U. ∃x P(x) means P(x) is true for some x in U.',
+        '"For all x ≥ 5, …" is written ∀x ((x ≥ 5) → …). "Some x ≥ 5 with …" is written ∃x ((x ≥ 5) ∧ …).',
+        'With universe ℤ and only < available, "n is a natural number" becomes −1 < n.',
+        '¬∀x P(x) ≡ ∃x ¬P(x) and ¬∃x P(x) ≡ ∀x ¬P(x).',
+        'The order of different quantifiers matters: ∃y ∀x P(x, y) ⊨ ∀x ∃y P(x, y), but not the other way round.',
       ],
       note:
-        'The → under ∀ versus ∧ under ∃ is the single most common formalisation error. Ask what ∀x ((x ≥ 5) ∧ …) would say instead.',
-    },
-
-    {
-      kind: 'callout',
-      title: 'Useful rules (§2.4.8)',
-      tone: 'good',
-      body: [
-        '¬∀x P(x) ≡ ∃x ¬P(x)   and   ¬∃x P(x) ≡ ∀x ¬P(x)',
-        '∀x P(x) ∧ ∀x Q(x) ≡ ∀x (P(x) ∧ Q(x))',
-        '∃x (P(x) ∧ Q(x)) ⊨ ∃x P(x) ∧ ∃x Q(x)  — but **not** the other way round.',
-        '∃y ∀x P(x, y) ⊨ ∀x ∃y P(x, y)  — but **not** the other way round. Quantifier order matters.',
-      ],
-      note:
-        'For the two "not the other way round": ask for a counterexample. ∃x even(x) ∧ ∃x odd(x) is true in ℕ, ∃x (even(x) ∧ odd(x)) is not.',
+        '→ under ∀ and ∧ under ∃ is the most common formalisation mistake. Ask what ∀x ((x ≥ 5) ∧ …) would mean.',
     },
 
     {
       kind: 'exercise',
-      ref: 'Warm-up E',
-      title: 'Quantifiers and predicates — formalise',
+      ref: 'Exercise 4',
+      title: 'Formalising statements',
       prompt: [
-        'Universe ℤ. The only predicates are <, = and prime; you may also use + and ·. Write each statement as a formula. Which are true?',
+        'The universe is ℤ. Write each statement as a formula, using only the predicates <, = and prime, and the symbols + and ·. Which statements are true?',
       ],
       parts: [
         'If the sum of two integers is positive, then at least one of them is positive.',
         'For every natural number there is a strictly greater natural number that is a perfect square.',
         'There are infinitely many primes p such that p + 2 is also prime.',
       ],
-      note: '5 minutes. For (c), the question "how do you say infinitely many?" is the whole exercise.',
+      note: '5 minutes. For part 3, "how do you say infinitely many?" is the whole question.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up E',
-      title: 'The formulas',
+      ref: 'Exercise 4',
+      title: 'Solutions',
       steps: [
-        '(a) ∀m ∀n (0 < m + n → (0 < m ∨ 0 < n)) — **true**: if m ≤ 0 and n ≤ 0, then m + n ≤ 0.',
-        '(b) ∀m (−1 < m → ∃n (m < n ∧ ∃k (n = k · k))) — **true**: n = (m + 1) · (m + 1) > m.',
-        'In (b), −1 < n need not be written: it follows from −1 < m and m < n. Writing it is not wrong.',
-        '(c) ∀m ∃p (m < p ∧ prime(p) ∧ prime(p + 2)) — "above every bound there is such a p" is how you say infinitely many.',
-        '(c) is the **twin prime conjecture**: nobody knows whether it is true. It is still a statement — it has a truth value.',
+        '1. ∀m ∀n (0 < m + n → (0 < m ∨ 0 < n)). True, by contraposition: if m ≤ 0 and n ≤ 0, then m + n ≤ 0.',
+        '2. ∀m (−1 < m → ∃n (m < n ∧ ∃k (n = k · k))). True: take n = (m + 1) · (m + 1).',
+        'In 2, the condition −1 < n on n can be left out, since it follows from −1 < m and m < n.',
+        '3. ∀m ∃p (m < p ∧ prime(p) ∧ prime(p + 2)). "Above every m there is such a p" says there are infinitely many.',
+        'Statement 3 is the twin prime conjecture. Nobody knows whether it is true, but it is still a statement.',
       ],
-      note:
-        'Contrast (a) with the product version on the sheet: sum and product behave differently with negative numbers. Do not say which way the sheet’s version goes.',
+      note: 'Do not say whether the product version on the sheet is true.',
     },
 
     {
       kind: 'exercise',
-      ref: 'Warm-up E',
-      title: 'Quantifiers and predicates — read and decide',
+      ref: 'Exercise 4',
+      title: 'Reading formulas',
       prompt: [
-        'Universe ℤ.  P(x) = 1 iff x > 0.   Q(x, y) = 1 iff x + y = 0.',
+        'The universe is ℤ. Let P(x) = 1 iff x > 0, and Q(x, y) = 1 iff x + y = 0.',
         'Describe each statement in words and decide whether it is true.',
       ],
-      parts: [
-        '∀x ∃y Q(x, y)',
-        '∃y ∀x Q(x, y)',
-        'Negate the formula in part 2 and push ¬ all the way inward, one rule per step.',
-        '∃x ( ∀y ¬Q(x, y) ∨ ∀y P(y) )',
-      ],
-      note: '5 minutes. Part 4 is the scope trap; leave most of the discussion time for it.',
+      parts: ['∀x ∃y Q(x, y)', '∃y ∀x Q(x, y)', '∃x ( ∀y ¬Q(x, y) ∨ ∀y P(y) )'],
+      note: '5 minutes. Part 3 is about scope, leave time for it.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up E',
-      title: 'Order of quantifiers',
+      ref: 'Exercise 4',
+      title: 'Solutions',
       steps: [
-        '**1.** "For every integer x there is an integer y with x + y = 0." **True**: take y = −x.',
-        '**2.** "There is an integer y such that x + y = 0 for every integer x." **False**: x = 0 would force y = 0, and x = 1 would force y = −1.',
-        '**3.** ¬∃y ∀x Q(x, y) ≡ ∀y ¬∀x Q(x, y) ≡ ∀y ∃x ¬Q(x, y): "for every y there is an x with x + y ≠ 0". True, as it must be.',
-        'Parts 1 and 2 differ only in the order of the quantifiers, and they have different truth values.',
+        '1. "For every integer x there is an integer y with x + y = 0." True, take y = −x.',
+        '2. "There is an integer y with x + y = 0 for every integer x." False: x = 0 forces y = 0, and x = 1 forces y = −1.',
+        '3. Each ∀y only covers its own disjunct: "There is an integer x such that no integer y satisfies x + y = 0, or every integer is positive."',
+        'For every x, the first disjunct is false, since y = −x gives x + y = 0. The second disjunct is false, since 0 is not positive. So statement 3 is false.',
+        'Careful: ∃x ∀y (¬Q(x, y) ∨ P(y)) would be true, with x = −1. The only y with −1 + y = 0 is y = 1, which is positive.',
       ],
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Warm-up E',
-      title: 'Part 4 — a scope trap',
-      steps: [
-        'Each ∀y binds only its own disjunct. The formula says: "there is an integer x such that no integer y satisfies x + y = 0, **or** every integer is positive."',
-        'For every x, y = −x gives x + y = 0, so ∀y ¬Q(x, y) is false. And ∀y P(y) is false (take y = 0). So the statement is **false**.',
-        'The tempting misreading ∃x ∀y (¬Q(x, y) ∨ P(y)) — "every y with x + y = 0 is positive" — is **true**: take x = −1, whose only partner y = 1 is positive.',
-        'Same symbols, different scope, different truth value. When in doubt, pull the independent part out: ( ∃x ∀y ¬Q(x, y) ) ∨ ∀y P(y) means the same here.',
-      ],
-      note:
-        'The last bullet is an informal remark about this formula, since the second disjunct does not mention x. Do not present it as a general rule yet — that is Chapter 6.',
+      note: 'Parts 1 and 2 only differ in the order of the quantifiers.',
     },
 
     // -- short questions -----------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Warm-up F',
-      title: 'Short questions, exam style',
+      ref: 'Exercise 5',
+      title: 'Short questions',
       prompt: ['F and G are formulas of propositional logic.'],
       parts: [
         'Find F and G such that F ∧ G is unsatisfiable, but F ∨ G is a tautology.',
@@ -507,45 +317,29 @@ export const week02: Deck = {
         'True or false: F ∨ G is a tautology if and only if F is a tautology or G is a tautology.',
         'True or false: (A ∨ B) → (A ∧ B) is satisfiable, but not a tautology.',
       ],
-      note: '3 minutes, then quick-fire. Ask for a show of hands on each true/false before revealing.',
+      note: '3 minutes, then a show of hands on each true/false.',
     },
 
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Warm-up F',
-      title: 'Answers',
+      ref: 'Exercise 5',
+      title: 'Solutions',
       steps: [
-        '**1.** F = A, G = ¬A: A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',
-        '**2. True.** (⇒) An assignment making F ∨ G true makes F true or G true. (⇐) If F is satisfiable, take an assignment making F true, extended arbitrarily to the symbols of G; it makes F ∨ G true. Likewise for G.',
-        '**3. False.** F = A, G = ¬A: F ∨ G is a tautology, but neither F nor G is. (Only the direction ⇐ holds.)',
-        '**4. True.** A = B = 0 makes it true (0 → 0); A = 1, B = 0 makes it false (1 → 0).',
-        'Satisfiability behaves well with ∨; being a tautology does not. What happens with ∧ is on your sheet.',
+        '1. F = A and G = ¬A. Then A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',
+        '2. True. If an assignment makes F ∨ G true, it makes F or G true. Conversely, if an assignment makes F true, extend it arbitrarily to the symbols of G; then F ∨ G is true. The same for G.',
+        '3. False. For F = A and G = ¬A, F ∨ G is a tautology, but neither F nor G is.',
+        '4. True. A = B = 0 makes it true, and A = 1, B = 0 makes it false.',
       ],
-      note:
-        'Do not answer the ∧ version here — it is the sheet’s own short question. Parts 2 and 3 give them everything they need for it.',
+      note: 'Do not answer the ∧ version from the sheet here.',
     },
 
     // -- wrap --------------------------------------------------------------------
 
     {
-      kind: 'points',
-      title: 'What to take away',
-      points: [
-        'In an equivalence proof, **every** rule application is a step — commutativity included — and it is named.',
-        'F → G is a formula; F ⊨ G is a statement. Lemma 2.3 connects them.',
-        'To disprove ⊨ or a tautology: one assignment. To prove one: an argument that covers every assignment.',
-        'Reuse what you proved: Lemma 2.2 and 2.3 turn a consequence into an unsatisfiability proof.',
-        'A knight or knave answers B ↔ F. Design questions with a function table.',
-        'Quantifier order and scope change the meaning. Read each quantifier’s scope before you read the words.',
-      ],
-    },
-
-    {
       kind: 'title',
       title: 'Kahoot',
       subtitle: 'Join at kahoot.it',
-      footnote: 'Everything on it came up in the last hour.',
       note: 'Have the game PIN up before you switch windows.',
     },
 
@@ -553,9 +347,9 @@ export const week02: Deck = {
       kind: 'end',
       title: 'See you next week',
       points: [
-        'Interview this week? Good luck — bring your Legi.',
-        'Do the rest of sheet 2 and compare with the official solution on Moodle.',
-        'hserobyan@ethz.ch — genuinely, just email me.',
+        'Good luck to everyone with an interview this week.',
+        'Do the rest of sheet 2 and compare with the official solution.',
+        'hserobyan@ethz.ch',
         'https://h-717.github.io/DM_HS26/',
       ],
     },
