@@ -40,7 +40,7 @@ export const week02: Deck = {
       kind: 'points',
       title: 'This week',
       points: [
-        'The oral interviews start this week. If yours is this week, prepare the graded exercise on sheet 2.',
+        'The oral interviews start this week.',
         'We will not look at that exercise today, it has to be your own work.',
         'Bring your Legi. Handwritten notes are allowed.',
       ],
@@ -70,12 +70,11 @@ export const week02: Deck = {
         'Knights and knaves',
         'Recap: quantifiers',
         'Formalising statements with quantifiers',
-        'Proof patterns: direct, indirect, modus ponens',
         'Short questions',
         'Kahoot',
       ],
       note:
-        'Timing for 90 min: 5 intro · 6 recap · 10 consequence · 8 satisfiability · 10 knights · 4 quantifier recap · 16 quantifiers · 4 proof pattern recap · 12 proof patterns · 5 short questions · 10 Kahoot. If short on time, the short questions become homework.',
+        'Timing for 90 min: 5 intro · 6 recap · 11 consequence · 8 satisfiability · 12 knights (break here, about 42 min) · 5 quantifier recap · 19 quantifiers · 6 short questions · 13 Kahoot. If short on time, the short questions become homework.',
     },
 
     // -- recap -------------------------------------------------------------------
@@ -85,7 +84,7 @@ export const week02: Deck = {
       title: 'Definitions (script §2.3.4 and §2.3.6)',
       points: [
         'Def. 2.7: F ⊨ G if for all truth assignments to the symbols in F or G, the truth value of G is 1 if the truth value of F is 1.',
-        'Def. 2.8: F is a tautology, written ⊨ F, if F is true for all truth assignments.',
+        // 'Def. 2.8: F is a tautology, written ⊨ F, if F is true for all truth assignments.',
         'Def. 2.9: F is satisfiable if F is true for at least one truth assignment, and unsatisfiable otherwise.',
       ],
       note:
@@ -314,54 +313,54 @@ export const week02: Deck = {
 
     // -- proof patterns ------------------------------------------------------------
 
-    {
-      kind: 'points',
-      title: 'Proof patterns (script §2.6.1–2.6.4)',
-      points: [
-        'Def. 2.12: if S ⟹ T and T ⟹ U are both true, then S ⟹ U is true. Sound by Lemma 2.5.',
-        'Def. 2.13: a direct proof of S ⟹ T assumes S and then proves T under this assumption.',
-        'Def. 2.14: an indirect proof of S ⟹ T assumes that T is false and proves that S is false. Sound by Lemma 2.6.',
-        'Def. 2.15: modus ponens proves S in three steps: find a suitable statement R, prove R, prove R ⟹ S. Sound by Lemma 2.7.',
-        'Proving T ⟹ S does not prove S ⟹ T. Exercise 1.2 shows why.',
-      ],
-      note:
-        'Say at the start of each proof which pattern you use. Do not write out Lemmas 2.5 and 2.7 here, they are exercises on the sheet. 4 minutes.',
-    },
+    // {
+    //   kind: 'points',
+    //   title: 'Proof patterns (script §2.6.1–2.6.4)',
+    //   points: [
+    //     'Def. 2.12: if S ⟹ T and T ⟹ U are both true, then S ⟹ U is true.',
+    //     'Def. 2.13: a direct proof of S ⟹ T assumes S and then proves T under this assumption.',
+    //     'Def. 2.14: an indirect proof of S ⟹ T assumes that T is false and proves that S is false.',
+    //     'Def. 2.15: modus ponens proves S in three steps: find a suitable statement R, prove R, prove R ⟹ S.',
+    //     'Proving T ⟹ S does not prove S ⟹ T.',
+    //   ],
+    //   note:
+    //     'Say at the start of each proof which pattern you use. Do not write out Lemmas 2.5 and 2.7 here, they are exercises on the sheet. 4 minutes.',
+    // },
 
-    {
-      kind: 'exercise',
-      ref: 'Exercise 5',
-      title: 'Proof patterns',
-      prompt: ['Prove each statement with the pattern given.'],
-      parts: [
-        'Direct proof: if a and b are integers of the form 4k + 1 (k ∈ ℤ), then ab is also of this form.',
-        'Indirect proof: for every integer n, if 3n + 2 is even, then n is even.',
-        'Modus ponens: 2³² + 1 is not a prime. Use R = "641 divides 2³² + 1", and that 641 · 6 700 417 = 4 294 967 297.',
-      ],
-      note: '8 minutes. Part 3 is Euler’s counterexample to Fermat’s guess that all 2^(2^m) + 1 are prime.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exercise 5',
+    //   title: 'Proof patterns',
+    //   prompt: ['Prove each statement with the pattern given.'],
+    //   parts: [
+    //     'Direct proof: if a and b are integers of the form 4k + 1 (k ∈ ℤ), then ab is also of this form.',
+    //     'Indirect proof: for every integer n, if 3n + 2 is even, then n is even.',
+    //     'Modus ponens: 2³² + 1 is not a prime. Use R = "641 divides 2³² + 1", and that 641 · 6 700 417 = 4 294 967 297.',
+    //   ],
+    //   note: '8 minutes. Part 3 is Euler’s counterexample to Fermat’s guess that all 2^(2^m) + 1 are prime.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions',
-      steps: [
-        '1. Assume a = 4k + 1 and b = 4l + 1 for integers k, l. Then ab = 16kl + 4k + 4l + 1 = 4(4kl + k + l) + 1, and 4kl + k + l is an integer.',
-        '2. Assume n is not even, so n = 2k + 1 for an integer k. Then 3n + 2 = 6k + 5 = 2(3k + 2) + 1, which is odd, so 3n + 2 is not even.',
-        '3. R is true, since 2³² + 1 = 4 294 967 297 = 641 · 6 700 417.',
-        'R ⟹ S: if 641 divides 2³² + 1, then 2³² + 1 has a divisor d with 1 < d < 2³² + 1, so it is not prime.',
-        'By modus ponens, 2³² + 1 is not prime.',
-      ],
-      note:
-        'In 2, the assumption is "T is false" and the goal is "S is false". Check that nobody assumed n even instead.',
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exercise 5',
+    //   title: 'Solutions',
+    //   steps: [
+    //     '1. Assume a = 4k + 1 and b = 4l + 1 for integers k, l. Then ab = 16kl + 4k + 4l + 1 = 4(4kl + k + l) + 1, and 4kl + k + l is an integer.',
+    //     '2. Assume n is not even, so n = 2k + 1 for an integer k. Then 3n + 2 = 6k + 5 = 2(3k + 2) + 1, which is odd, so 3n + 2 is not even.',
+    //     '3. R is true, since 2³² + 1 = 4 294 967 297 = 641 · 6 700 417.',
+    //     'R ⟹ S: if 641 divides 2³² + 1, then 2³² + 1 has a divisor d with 1 < d < 2³² + 1, so it is not prime.',
+    //     'By modus ponens, 2³² + 1 is not prime.',
+    //   ],
+    //   note:
+    //     'In 2, the assumption is "T is false" and the goal is "S is false". Check that nobody assumed n even instead.',
+    // },
 
     // -- short questions -----------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Short questions',
       prompt: ['F and G are formulas of propositional logic.'],
       parts: [
@@ -376,7 +375,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Solutions',
       steps: [
         '1. F = A and G = ¬A. Then A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',

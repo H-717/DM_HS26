@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, MouseEvent, TouchEvent } from 'react';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import 'katex/dist/katex.min.css';
 import '../styles/slides.css';
@@ -127,6 +127,41 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [next, prev, deck.slides.length, onExit, admin]);
 
+  // Phones have no arrow keys: swipe left/right, or tap the left third to go
+  // back. Mouse clicks keep the old behaviour (anywhere = next).
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const lastPointer = useRef('mouse');
+  const swiped = useRef(false);
+
+  const onTouchStart = (e: TouchEvent) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+    swiped.current = false;
+  };
+
+  const onTouchEnd = (e: TouchEvent) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    swiped.current = true;
+    if (dx < 0) next();
+    else prev();
+  };
+
+  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (swiped.current) {
+      swiped.current = false;
+      return;
+    }
+    const width = e.currentTarget.clientWidth;
+    if (lastPointer.current === 'touch' && e.clientX < width / 3) prev();
+    else next();
+  };
+
   const progress = useMemo(
     () => ((i + 1) / deck.slides.length) * 100,
     [i, deck.slides.length],
@@ -160,7 +195,10 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
   return (
     <div
       className="deck"
-      onClick={next}
+      onClick={onClick}
+      onPointerDown={(e) => (lastPointer.current = e.pointerType)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       ref={rootRef}
       style={{ '--fit': fit } as CSSProperties}
     >
