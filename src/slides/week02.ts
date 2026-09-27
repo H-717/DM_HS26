@@ -224,7 +224,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 3',
+      ref: 'Exercise 4',
       title: 'Solutions',
       steps: [
         '1. ∀m ∀n (0 < m + n → (0 < m ∨ 0 < n)). True, by contraposition: if m ≤ 0 and n ≤ 0, then m + n ≤ 0.',
@@ -238,7 +238,7 @@ export const week02: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 3',
+      ref: 'Exercise 4',
       title: 'Reading formulas',
       prompt: [
         'The universe is ℤ. Let P(x) = 1 iff x > 0, and Q(x, y) = 1 iff x + y = 0.',
@@ -312,7 +312,7 @@ export const week02: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 4',
+      ref: 'Exercise 5',
       title: 'Short questions',
       prompt: ['F and G are formulas of propositional logic.'],
       parts: [
@@ -327,7 +327,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 5',
       title: 'Solutions',
       steps: [
         '1. F = A and G = ¬A. Then A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',
