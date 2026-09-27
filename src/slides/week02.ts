@@ -8,8 +8,8 @@
 // §2.6.4; case distinction, contradiction and everything after are not seen.
 //
 // Each exercise is a twin of one on the sheet — same shape, other formulas:
-//   Exercise 1 ↔ 2.1   Exercise 2 ↔ 2.2   Exercise 3 ↔ 2.4
-//   Exercise 4 ↔ 2.5   Exercise 6 ↔ 2.6
+//   Exercise 1 ↔ 2.1   Exercise 2 ↔ 2.2   Exercise 3 ↔ 2.5
+//   Exercise 4 ↔ 2.6   (no knights and knaves twin for 2.4)
 // Exercise 5 practises §2.6.1–2.6.4, which the sheet does not cover yet. Its
 // examples avoid last year's sheet 3 (parity of n², a^(2k) − 1, soundness of
 // proof patterns as a consequence), which will likely come back next week.
@@ -67,14 +67,13 @@ export const week02: Deck = {
         'Recap: consequence, tautology, satisfiability',
         'Logical consequence',
         'Satisfiable or tautology?',
-        'Knights and knaves',
         'Recap: quantifiers',
         'Formalising statements with quantifiers',
         'Short questions',
         'Kahoot',
       ],
       note:
-        'Timing for 90 min: 5 intro · 6 recap · 11 consequence · 8 satisfiability · 12 knights (break here, about 42 min) · 5 quantifier recap · 19 quantifiers · 6 short questions · 13 Kahoot. If short on time, the short questions become homework.',
+        'Timing: 5 intro · 6 recap · 11 consequence · 8 satisfiability (break here, about 30 min) · 5 quantifier recap · 19 quantifiers · 6 short questions · 13 Kahoot. That is about 73 min, so there is room to take the exercises slowly.',
     },
 
     // -- recap -------------------------------------------------------------------
@@ -190,53 +189,6 @@ export const week02: Deck = {
         'In part 2, the point is that a proved consequence can be used directly. Nobody needs the 4-row table again.',
     },
 
-    // -- knights and knaves --------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: 'Exercise 3',
-      title: 'Knights and knaves',
-      prompt: [
-        'On an island, knights always tell the truth and knaves always lie. You meet two islanders, Ana and Ben. Let A = "Ana is a knight" and B = "Ben is a knight".',
-      ],
-      parts: [
-        'An islander of type K (K = 1 for a knight) makes a statement S. Explain why the formula K ↔ S is then true.',
-        'Ana says: "Ben is a knave." Ben says: "Ana and I are of the same type." Write one formula in A and B for each statement, and determine who is a knight and who is a knave.',
-        'Can any islander say "I am a knave"?',
-      ],
-      note:
-        '8 minutes with discussion. Part 1 is the rule the sheet exercise also needs. Do not go further than that towards the sheet.',
-    },
-
-    {
-      kind: 'table',
-      title: 'Exercise 3.2',
-      lead: 'Ana’s statement gives A ↔ ¬B, Ben’s gives B ↔ (A ↔ B). Both have to be true.',
-      headers: ['A', 'B', 'A ↔ ¬B', 'A ↔ B', 'B ↔ (A ↔ B)'],
-      rows: [
-        ['0', '0', '0', '1', '0'],
-        ['0', '1', '1', '0', '0'],
-        ['1', '0', '1', '0', '1'],
-        ['1', '1', '0', '1', '1'],
-      ],
-      markRows: [2],
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 3',
-      title: 'Solutions',
-      steps: [
-        '1. If K = 1, the islander is a knight, so S is true. If K = 0, the islander is a knave, so S is false. In both cases K and S have the same truth value, so K ↔ S is true.',
-        '2. By part 1, A ↔ ¬B and B ↔ (A ↔ B) are both true. By the table, the only truth assignment satisfying both is A = 1, B = 0.',
-        'So Ana is a knight and Ben is a knave. Check: Ana says truthfully that Ben is a knave, and Ben lies when he says they are of the same type.',
-        '3. No. By part 1, such an islander would make K ↔ ¬K true, but K ↔ ¬K is unsatisfiable: it is false for K = 0 and for K = 1.',
-      ],
-      note:
-        'Part 3 ties back to satisfiability. If someone notices that the last column of the table is just A, let them explain why.',
-    },
-
     // -- predicate logic -----------------------------------------------------------
 
     {
@@ -256,7 +208,7 @@ export const week02: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 4',
+      ref: 'Exercise 3',
       title: 'Formalising statements',
       prompt: [
         'The universe is ℤ. Write each statement as a formula, using only the predicates <, = and prime, and the symbols + and ·. Which statements are true?',
@@ -272,7 +224,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 3',
       title: 'Solutions',
       steps: [
         '1. ∀m ∀n (0 < m + n → (0 < m ∨ 0 < n)). True, by contraposition: if m ≤ 0 and n ≤ 0, then m + n ≤ 0.',
@@ -286,7 +238,7 @@ export const week02: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 4',
+      ref: 'Exercise 3',
       title: 'Reading formulas',
       prompt: [
         'The universe is ℤ. Let P(x) = 1 iff x > 0, and Q(x, y) = 1 iff x + y = 0.',
@@ -299,7 +251,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 3',
       title: 'Solutions',
       steps: [
         '1. "For every integer x there is an integer y with x + y = 0." True, take y = −x.',
@@ -360,7 +312,7 @@ export const week02: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 5',
+      ref: 'Exercise 4',
       title: 'Short questions',
       prompt: ['F and G are formulas of propositional logic.'],
       parts: [
@@ -375,7 +327,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 5',
+      ref: 'Exercise 4',
       title: 'Solutions',
       steps: [
         '1. F = A and G = ¬A. Then A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',
