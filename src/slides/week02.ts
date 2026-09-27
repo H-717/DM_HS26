@@ -3,12 +3,18 @@
 // See ./types.ts for the list of slide kinds and the text markup.
 //
 // Checked against: Exercise_02.pdf, Solution_02_with_grading_scheme.pdf and
-// the lecture notes (Def. 2.7–2.11, Lemma 2.3, §2.4.1–2.4.8). By the
-// session (Mon 28 Sep, 16:15) the lecture has covered §2.1–2.5.
+// the lecture notes (Def. 2.7–2.15, Lemma 2.3, §2.3.5, §2.4.1–2.4.8 and
+// §2.6.1–2.6.4). By the session the lecture has reached modus ponens in
+// §2.6.4; case distinction, contradiction and everything after are not seen.
 //
 // Each exercise is a twin of one on the sheet — same shape, other formulas:
 //   Exercise 1 ↔ 2.1   Exercise 2 ↔ 2.2   Exercise 3 ↔ 2.4
-//   Exercise 4 ↔ 2.5   Exercise 5 ↔ 2.6
+//   Exercise 4 ↔ 2.5   Exercise 6 ↔ 2.6
+// Exercise 5 practises §2.6.1–2.6.4, which the sheet does not cover yet. Its
+// examples avoid last year's sheet 3 (parity of n², a^(2k) − 1, soundness of
+// proof patterns as a consequence), which will likely come back next week.
+// Lemmas 2.5 and 2.7 are only cited by number: their formulas are 2.1.4 and
+// 2.1.1 on the sheet.
 // 2.3 is the graded interview exercise and is not touched anywhere. Its
 // part 1 asks for the definition of ≡ and for Lemma 2.2, so neither is
 // recapped on screen. Nothing on screen names a sheet exercise.
@@ -18,7 +24,7 @@ import type { Deck } from './types';
 
 export const week02: Deck = {
   week: 2,
-  topic: 'Logical Consequence, Satisfiability & Quantifiers',
+  topic: 'Logical Consequence, Quantifiers & Proof Patterns',
   date: 'Mon 28 Sep 2026',
   sheet: 'Exercise sheet 2',
 
@@ -26,7 +32,7 @@ export const week02: Deck = {
     {
       kind: 'title',
       title: 'Exercise Session 2',
-      subtitle: 'Logical consequence, satisfiability, quantifiers',
+      subtitle: 'Logical consequence, quantifiers, first proof patterns',
       footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
@@ -64,11 +70,12 @@ export const week02: Deck = {
         'Knights and knaves',
         'Recap: quantifiers',
         'Formalising statements with quantifiers',
+        'Proof patterns: direct, indirect, modus ponens',
         'Short questions',
         'Kahoot',
       ],
       note:
-        'Timing for 90 min: 5 intro · 8 recap · 12 consequence · 10 satisfiability · 12 knights · 5 quantifier recap · 20 quantifiers · 7 short questions · 10 Kahoot. If short on time, the short questions become homework.',
+        'Timing for 90 min: 5 intro · 6 recap · 10 consequence · 8 satisfiability · 10 knights · 4 quantifier recap · 16 quantifiers · 4 proof pattern recap · 12 proof patterns · 5 short questions · 10 Kahoot. If short on time, the short questions become homework.',
     },
 
     // -- recap -------------------------------------------------------------------
@@ -92,6 +99,7 @@ export const week02: Deck = {
         'Lemma 2.3: F → G is a tautology if and only if F ⊨ G.',
         'F → G is a formula, it has a truth value for each assignment. F ⊨ G is a statement about two formulas, it is simply true or false.',
         'So ⊨ cannot be used inside a formula. If you need both F ⊨ G and G ⊨ F, write "and" in words, not ∧.',
+        '§2.3.5: a consequence stays true if the symbols A, B, C, … are replaced by formulas F, G, H, …, so one proof covers many formulas.',
       ],
     },
 
@@ -304,11 +312,56 @@ export const week02: Deck = {
       note: 'Parts 1 and 2 only differ in the order of the quantifiers.',
     },
 
-    // -- short questions -----------------------------------------------------------
+    // -- proof patterns ------------------------------------------------------------
+
+    {
+      kind: 'points',
+      title: 'Proof patterns (script §2.6.1–2.6.4)',
+      points: [
+        'Def. 2.12: if S ⟹ T and T ⟹ U are both true, then S ⟹ U is true. Sound by Lemma 2.5.',
+        'Def. 2.13: a direct proof of S ⟹ T assumes S and then proves T under this assumption.',
+        'Def. 2.14: an indirect proof of S ⟹ T assumes that T is false and proves that S is false. Sound by Lemma 2.6.',
+        'Def. 2.15: modus ponens proves S in three steps: find a suitable statement R, prove R, prove R ⟹ S. Sound by Lemma 2.7.',
+        'Proving T ⟹ S does not prove S ⟹ T. Exercise 1.2 shows why.',
+      ],
+      note:
+        'Say at the start of each proof which pattern you use. Do not write out Lemmas 2.5 and 2.7 here, they are exercises on the sheet. 4 minutes.',
+    },
 
     {
       kind: 'exercise',
       ref: 'Exercise 5',
+      title: 'Proof patterns',
+      prompt: ['Prove each statement with the pattern given.'],
+      parts: [
+        'Direct proof: if a and b are integers of the form 4k + 1 (k ∈ ℤ), then ab is also of this form.',
+        'Indirect proof: for every integer n, if 3n + 2 is even, then n is even.',
+        'Modus ponens: 2³² + 1 is not a prime. Use R = "641 divides 2³² + 1", and that 641 · 6 700 417 = 4 294 967 297.',
+      ],
+      note: '8 minutes. Part 3 is Euler’s counterexample to Fermat’s guess that all 2^(2^m) + 1 are prime.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 5',
+      title: 'Solutions',
+      steps: [
+        '1. Assume a = 4k + 1 and b = 4l + 1 for integers k, l. Then ab = 16kl + 4k + 4l + 1 = 4(4kl + k + l) + 1, and 4kl + k + l is an integer.',
+        '2. Assume n is not even, so n = 2k + 1 for an integer k. Then 3n + 2 = 6k + 5 = 2(3k + 2) + 1, which is odd, so 3n + 2 is not even.',
+        '3. R is true, since 2³² + 1 = 4 294 967 297 = 641 · 6 700 417.',
+        'R ⟹ S: if 641 divides 2³² + 1, then 2³² + 1 has a divisor d with 1 < d < 2³² + 1, so it is not prime.',
+        'By modus ponens, 2³² + 1 is not prime.',
+      ],
+      note:
+        'In 2, the assumption is "T is false" and the goal is "S is false". Check that nobody assumed n even instead.',
+    },
+
+    // -- short questions -----------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 6',
       title: 'Short questions',
       prompt: ['F and G are formulas of propositional logic.'],
       parts: [
@@ -323,7 +376,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 5',
+      ref: 'Exercise 6',
       title: 'Solutions',
       steps: [
         '1. F = A and G = ¬A. Then A ∧ ¬A ≡ ⊥ and A ∨ ¬A ≡ ⊤.',
