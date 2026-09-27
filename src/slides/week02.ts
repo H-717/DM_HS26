@@ -224,7 +224,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 3',
       title: 'Solutions',
       steps: [
         '1. ∀m ∀n (0 < m + n → (0 < m ∨ 0 < n)). True, by contraposition: if m ≤ 0 and n ≤ 0, then m + n ≤ 0.',
@@ -251,7 +251,7 @@ export const week02: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 3',
+      ref: 'Exercise 4',
       title: 'Solutions',
       steps: [
         '1. "For every integer x there is an integer y with x + y = 0." True, take y = −x.',
