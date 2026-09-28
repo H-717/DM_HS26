@@ -27,6 +27,7 @@ export const week02: Deck = {
   topic: 'Logical Consequence, Quantifiers & Proof Patterns',
   date: 'Mon 28 Sep 2026',
   sheet: 'Exercise sheet 2',
+  solutionsReleased: true,
 
   slides: [
     {
