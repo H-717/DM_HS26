@@ -89,12 +89,14 @@ no boot screen, no windows.
 Layout, colours and typography live in `src/styles/slides.css` and are
 shared by every deck — weekly files never touch styling.
 
-**Speaker notes are locked to your own devices**
+**Speaker notes and solutions are locked to your own devices**
 
 The notes are written for whoever is running the session — timings, what to
-say out loud, which part to cut when the clock beats you. `n` does nothing
-until a device has been unlocked once, so a student at the lectern keyboard
-cannot put them on the projector.
+say out loud, which part to cut when the clock beats you. The `solution`
+slides are for after the session. On a device that has not been unlocked,
+`n` does nothing and every run of solution slides shows as a single
+*"Solution — Exercise N · shared here after the session"* placeholder. On
+your unlocked devices the whole deck is there, in order.
 
 To unlock a device, open the site once with the phrase attached:
 
@@ -102,12 +104,38 @@ To unlock a device, open the site once with the phrase attached:
 https://<your-site>/?admin=<phrase>#/slides/1
 ```
 
-The phrase is checked, then wiped from the address bar, and the unlock is
-written to `localStorage`. That binds it to **that browser profile on that
-machine**: it survives reloads, new wifi, and being offline, and it does not
-travel to a phone, a lecture-hall PC, or a colleague's laptop. Repeat the URL
-once per device you actually present from. To undo it, open
-`?admin=lock` on that device.
+The phrase is checked, then wiped from the address bar, and the unlock (plus
+the key that decrypts the decks) is written to `localStorage`. That binds it
+to **that browser profile on that machine**: it survives reloads, new wifi,
+and being offline, and it does not travel to a phone, a lecture-hall PC, or
+a colleague's laptop. Repeat the URL once per device you actually present
+from. To undo it, open `?admin=lock` on that device.
+
+**Releasing a week's solutions**
+
+After the session, set the flag in that week's deck and push:
+
+```diff
+   sheet: 'Exercise sheet 2',
++  solutionsReleased: true,
+```
+
+Once the deploy finishes (about a minute), everyone sees the solutions.
+
+**This is encryption, not just hiding.** `npm run build` encrypts every
+speaker note and every unreleased solution with a key derived from the
+phrase (`vite.config.ts`, `src/slides/seal.ts`), so the public JS bundle
+contains no plaintext to find with DevTools. The build therefore needs the
+phrase:
+
+- **CI:** it lives in the repository secret `SECRET_DM`
+  (*Settings → Secrets and variables → Actions*), which the deploy
+  workflow hands to the build as `ADMIN_PHRASE`.
+- **Locally:** `ADMIN_PHRASE='<phrase>' npm run build`. `npm run dev` does
+  not encrypt anything, but hides the same slides from locked browsers.
+
+The build stops if the phrase is missing or does not match `PHRASE_HASH`.
+It will not ship plaintext, and it will not ship a deck you can't unlock.
 
 Rotate the phrase whenever you like — only its SHA-256 lives in the repo:
 
@@ -115,11 +143,9 @@ Rotate the phrase whenever you like — only its SHA-256 lives in the repo:
 node scripts/admin-hash.mjs 'my new phrase'   # paste into PHRASE_HASH
 ```
 
-> This is a lock on the `n` key, not encryption. The decks compile into the
-> public JS bundle, notes and all, so someone who opens DevTools and digs
-> can still read them. It stops accidents and curiosity, not a determined
-> reader. If you ever need the stronger version, the notes have to be either
-> encrypted at build time or stripped from the deployed bundle entirely.
+Then update the `SECRET_DM` secret and re-open the unlock link on each
+device. The SHA-256 is public in the bundle, so pick a phrase nobody could
+guess. Other people's devices have a stand-in to show, but nothing to decrypt.
 
 ## Kahoot
 

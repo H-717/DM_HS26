@@ -33,7 +33,10 @@ jobs:
       # runner never uses. `npm install` still honours the lock for every
       # package that is in it, and resolves this one branch itself.
       - run: npm install --no-audit --no-fund
+      # Seals speaker notes and unreleased solutions — see vite.config.ts.
       - run: npm run build
+        env:
+          ADMIN_PHRASE: ${{ secrets.SECRET_DM }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

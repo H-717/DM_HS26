@@ -30,7 +30,10 @@ export type Slide =
   /** Multiple choice; the answer stays hidden until you advance. */
   | { kind: 'quiz'; question: string; options: string[]; answer: number; explain?: string; note?: string }
   /** Closing slide. */
-  | { kind: 'end'; title: string; points: string[]; note?: string };
+  | { kind: 'end'; title: string; points: string[]; note?: string }
+  /** Stand-in for solutions the room may not see yet. Never written by hand:
+   *  the build and seal.ts put it where the `solution` slides were. */
+  | { kind: 'sealed'; refs: string[]; note?: string };
 
 export interface Deck {
   week: number;
@@ -40,5 +43,10 @@ export interface Deck {
   date?: string;
   /** Which exercise sheet this session covers. */
   sheet?: string;
+  /** Until this is true, `solution` slides only show on unlocked devices —
+   *  students get a placeholder. Flip it and push once the session is over. */
+  solutionsReleased?: boolean;
   slides: Slide[];
+  /** Build output only: the encrypted notes and hidden solutions (seal.ts). */
+  sealed?: string;
 }

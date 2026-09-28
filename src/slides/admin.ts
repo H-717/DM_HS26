@@ -1,20 +1,22 @@
 // ---------------------------------------------------------------------------
-// Speaker notes are for whoever is running the session, not for the room.
-// Pressing `n` in a deck only reveals them on a device that has been unlocked
-// once with the phrase below.
+// Speaker notes and unreleased solutions are for whoever is running the
+// session, not for the room. They only show on a device that has been
+// unlocked once with the phrase below.
 //
-// Be clear about what this is: a deterrent, not a secret. The decks — notes
-// included — are compiled into the public JS bundle, so anyone willing to open
-// DevTools can still read them. What the lock buys is that a student at the
-// lectern keyboard, or anyone who opens a deck link, cannot surface the notes
-// by accident or by curiosity.
+// In the deployed site they are encrypted (see ./seal.ts), so the public
+// bundle holds no plaintext to find with DevTools. The unlock stores the
+// decryption key next to the flag. Devices unlocked before sealing existed
+// have the flag but no key: open the unlock link on them once more.
 //
 // The unlock lives in localStorage, which is bound to one browser profile on
 // one machine and has nothing to do with the network: it survives wifi
 // changes, works offline, and does not follow you to another device.
 // ---------------------------------------------------------------------------
 
+import { deriveKey, exportKey, importKey, type DeckKey } from './seal';
+
 const STORE_KEY = 'webta.admin';
+const KEY_STORE_KEY = 'webta.key';
 const PARAM = 'admin';
 
 /** Fires after an unlock/lock so an open deck can react without a reload. */
@@ -22,6 +24,7 @@ export const ADMIN_EVENT = 'webta:admin';
 
 // SHA-256 of the unlock phrase — the phrase itself is deliberately not in the
 // repo. Rotate it with:  node scripts/admin-hash.mjs '<new phrase>'
+// and set the same phrase as the ADMIN_PHRASE secret the build seals with.
 const PHRASE_HASH =
   'ee0f1e5c07159f671cb13352ec180b6dde300ef9a3757f88ff9957309b4e0c60';
 
@@ -31,6 +34,16 @@ export function isAdmin(): boolean {
     return localStorage.getItem(STORE_KEY) === PHRASE_HASH;
   } catch {
     return false;
+  }
+}
+
+/** The key for sealed decks, or null on a locked or pre-sealing device. */
+export async function adminKey(): Promise<DeckKey | null> {
+  try {
+    const raw = localStorage.getItem(KEY_STORE_KEY);
+    return raw && isAdmin() ? await importKey(raw) : null;
+  } catch {
+    return null;
   }
 }
 
@@ -87,8 +100,10 @@ export async function consumeAdminParam(): Promise<void> {
   try {
     if (param.value === 'lock' || param.value === '') {
       localStorage.removeItem(STORE_KEY);
+      localStorage.removeItem(KEY_STORE_KEY);
     } else if ((await sha256(param.value)) === PHRASE_HASH) {
       localStorage.setItem(STORE_KEY, PHRASE_HASH);
+      localStorage.setItem(KEY_STORE_KEY, await exportKey(await deriveKey(param.value)));
     }
     // A wrong phrase is silently ignored — no "try again" to poke at.
   } catch {

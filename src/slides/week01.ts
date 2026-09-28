@@ -14,6 +14,7 @@ export const week01: Deck = {
   topic: 'Statements, Proofs & Propositional Logic',
   date: 'Mon 21 Sep 2026',
   sheet: 'Exercise sheet 1',
+  solutionsReleased: true,
 
   slides: [
     {

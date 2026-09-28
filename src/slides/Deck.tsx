@@ -4,7 +4,8 @@ import 'katex/dist/katex.min.css';
 import '../styles/slides.css';
 import { content } from '../content';
 import { Rich } from './Rich';
-import { ADMIN_EVENT, isAdmin } from './admin';
+import { ADMIN_EVENT, adminKey, isAdmin } from './admin';
+import { studentView, unsealDeck } from './seal';
 import type { Deck, Slide } from './types';
 
 // How many extra "clicks" a slide needs before moving on — progressive reveal.
@@ -15,15 +16,51 @@ function stepsOf(slide: Slide): number {
   return 0;
 }
 
-export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
+export function DeckView({ deck: source, onExit }: { deck: Deck; onExit: () => void }) {
   const [i, setI] = useState(0);
   const [step, setStep] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
-  // Only this device may reveal the notes — see src/slides/admin.ts.
+  // Only this device may reveal notes and unreleased solutions — see
+  // src/slides/admin.ts and src/slides/seal.ts.
   const [admin, setAdmin] = useState(isAdmin);
   const [printing, setPrinting] = useState(false);
 
-  const slide = deck.slides[i];
+  // What this viewer gets to see. Students start and stay on studentView;
+  // an unlocked device swaps in the full deck once it is decrypted.
+  const [deck, setDeck] = useState(() =>
+    admin && !source.sealed ? source : studentView(source),
+  );
+  const [unsealed, setUnsealed] = useState(!source.sealed);
+
+  useEffect(() => {
+    let live = true;
+    if (!admin) {
+      setDeck(studentView(source));
+      return;
+    }
+    adminKey()
+      .then((key) => (key ? unsealDeck(source, key) : source))
+      .catch(() => source)
+      .then((d) => {
+        if (!live) return;
+        setDeck(d);
+        setUnsealed(!d.sealed);
+      });
+    return () => {
+      live = false;
+    };
+  }, [admin, source]);
+
+  // Unlocking or locking mid-deck changes the slide count.
+  const last = deck.slides.length - 1;
+  useEffect(() => {
+    if (i > last) {
+      setI(last);
+      setStep(0);
+    }
+  }, [i, last]);
+
+  const slide = deck.slides[Math.min(i, last)];
   const maxStep = stepsOf(slide);
 
   // Shrink the type scale until the current slide fits the stage. Runs before
@@ -205,7 +242,7 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
       <div className="deck-progress" style={{ width: progress + '%' }} />
 
       <div className="deck-stage" ref={stageRef}>
-        <SlideBody slide={slide} step={step} />
+        <SlideBody slide={slide} step={step} locked={admin && !unsealed} />
       </div>
 
       <footer className="deck-foot">
@@ -237,7 +274,7 @@ export function DeckView({ deck, onExit }: { deck: Deck; onExit: () => void }) {
   );
 }
 
-function SlideBody({ slide, step }: { slide: Slide; step: number }) {
+function SlideBody({ slide, step, locked }: { slide: Slide; step: number; locked?: boolean }) {
   switch (slide.kind) {
     case 'title':
       return (
@@ -453,6 +490,18 @@ function SlideBody({ slide, step }: { slide: Slide; step: number }) {
               <Rich text={slide.explain} />
             </p>
           ) : null}
+        </section>
+      );
+
+    case 'sealed':
+      return (
+        <section className="s-title">
+          <h1>{slide.refs.length ? 'Solution — ' + slide.refs.join(', ') : 'Solution'}</h1>
+          <p className="s-sub">
+            {locked
+              ? 'This device has no key for it yet — open the ?admin= link here once more.'
+              : 'Shared here after the session. Try it yourself first!'}
+          </p>
         </section>
       );
 
