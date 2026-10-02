@@ -4,7 +4,8 @@
 //
 // Two things are private:
 //   - speaker notes, always;
-//   - `solution` slides, until the deck sets `solutionsReleased: true`.
+//   - `solution` slides, and tables marked `solution`, until the deck sets
+//     `solutionsReleased: true`.
 //
 // The production build (vite.config.ts) replaces both with one AES-GCM blob
 // per deck, keyed from the admin phrase, so the deployed JS holds no
@@ -65,17 +66,25 @@ export function importKey(raw: string): Promise<DeckKey> {
   return crypto.subtle.importKey('raw', fromBase64(raw), 'AES-GCM', false, ['decrypt']);
 }
 
+/** The exercise a slide gives the answer to: solution slides and tables marked `solution`. */
+function solutionRef(slide: Slide): string | null {
+  if (slide.kind === 'solution') return slide.ref;
+  if (slide.kind === 'table' && slide.solution) return slide.solution;
+  return null;
+}
+
 function isHidden(deck: Deck, slide: Slide): boolean {
-  return slide.kind === 'sealed' || (slide.kind === 'solution' && !deck.solutionsReleased);
+  return slide.kind === 'sealed' || (solutionRef(slide) !== null && !deck.solutionsReleased);
 }
 
 /** Build step: moves notes and unreleased solutions into `deck.sealed`. */
 export async function sealDeck(deck: Deck, key: DeckKey): Promise<Deck> {
   const secrets: Secrets = {};
   const slides = deck.slides.map((s, k): Slide => {
-    if (s.kind === 'solution' && !deck.solutionsReleased) {
+    const ref = solutionRef(s);
+    if (ref !== null && !deck.solutionsReleased) {
       secrets[k] = { slide: s };
-      return { kind: 'sealed', refs: [s.ref] };
+      return { kind: 'sealed', refs: [ref] };
     }
     if (s.note) {
       secrets[k] = { note: s.note };
@@ -120,7 +129,8 @@ export function studentView(deck: Deck): Deck {
       slides.push({ ...s, note: undefined });
       continue;
     }
-    const refs = s.kind === 'solution' ? [s.ref] : s.kind === 'sealed' ? s.refs : [];
+    const ref = solutionRef(s);
+    const refs = ref !== null ? [ref] : s.kind === 'sealed' ? s.refs : [];
     const last = slides[slides.length - 1];
     if (last?.kind === 'sealed') {
       for (const r of refs) if (!last.refs.includes(r)) last.refs.push(r);

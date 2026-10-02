@@ -98,6 +98,13 @@ slides are for after the session. On a device that has not been unlocked,
 *"Solution — Exercise N · shared here after the session"* placeholder. On
 your unlocked devices the whole deck is there, in order.
 
+A `table` slide that gives an answer away (a function table that settles an
+exercise, say) is hidden the same way once you name its exercise:
+
+```ts
+{ kind: 'table', solution: 'Exercise 6', title: '…', headers: […], rows: […] }
+```
+
 To unlock a device, open the site once with the phrase attached:
 
 ```

@@ -18,8 +18,10 @@ export type Slide =
   | { kind: 'points'; title: string; lead?: string; points: string[]; reveal?: boolean; note?: string }
   /** A boxed definition / warning / takeaway. */
   | { kind: 'callout'; title: string; body: string[]; tone?: 'info' | 'warn' | 'good'; note?: string }
-  /** Truth tables and any other tabular data. */
-  | { kind: 'table'; title: string; lead?: string; headers: string[]; rows: string[][]; markRows?: number[]; note?: string }
+  /** Truth tables and any other tabular data. Set `solution` to the exercise
+   *  ref (e.g. 'Exercise 6') when the table gives that exercise's answer away:
+   *  it is then hidden with the solution slides until the week is released. */
+  | { kind: 'table'; title: string; lead?: string; headers: string[]; rows: string[][]; markRows?: number[]; solution?: string; note?: string }
   /** A square grid of single characters — chessboards, tilings, Hasse sketches.
    *  Same letter = same piece, '.' = hole, ' ' = empty. */
   | { kind: 'grid'; title: string; lead?: string; cells: string[]; legend?: string; note?: string }
