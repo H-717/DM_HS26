@@ -329,30 +329,30 @@ export const week03: Deck = {
 
     // -- short questions -----------------------------------------------------------
 
-    {
-      kind: 'exercise',
-      ref: 'Exercise 7',
-      title: 'Short questions',
-      prompt: ['Two questions in the style of the exam.'],
-      parts: [
-        'Find a satisfiable formula F with unary predicates P and Q, without equality, such that every interpretation that makes F true has a universe with at least 3 elements.',
-        'Find a formula F with a binary predicate symbol P such that F is true for U = ℚ and P = <, but false for U = ℤ and P = <.',
-      ],
-      note: '5 minutes. An informal justification is enough here.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exercise 7',
+    //   title: 'Short questions',
+    //   prompt: ['Two questions in the style of the exam.'],
+    //   parts: [
+    //     'Find a satisfiable formula F with unary predicates P and Q, without equality, such that every interpretation that makes F true has a universe with at least 3 elements.',
+    //     'Find a formula F with a binary predicate symbol P such that F is true for U = ℚ and P = <, but false for U = ℤ and P = <.',
+    //   ],
+    //   note: '5 minutes. An informal justification is enough here.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 7',
-      title: 'Solutions',
-      steps: [
-        '1. F = ∃x ∃y ∃z (P(x) ∧ Q(x) ∧ P(y) ∧ ¬Q(y) ∧ ¬P(z)).',
-        'x and y differ on Q, and z differs from both on P, so x, y, z are three different elements. F is satisfiable: U = {1, 2, 3}, P true for 1 and 2, Q true for 1.',
-        '2. F = ∀x ∀y (P(x, y) → ∃z (P(x, z) ∧ P(z, y))): between any two numbers there is a third.',
-        'For ℚ, take z = (x + y) / 2. For ℤ, x = 0 and y = 1 have no integer between them.',
-      ],
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exercise 7',
+    //   title: 'Solutions',
+    //   steps: [
+    //     '1. F = ∃x ∃y ∃z (P(x) ∧ Q(x) ∧ P(y) ∧ ¬Q(y) ∧ ¬P(z)).',
+    //     'x and y differ on Q, and z differs from both on P, so x, y, z are three different elements. F is satisfiable: U = {1, 2, 3}, P true for 1 and 2, Q true for 1.',
+    //     '2. F = ∀x ∀y (P(x, y) → ∃z (P(x, z) ∧ P(z, y))): between any two numbers there is a third.',
+    //     'For ℚ, take z = (x + y) / 2. For ℤ, x = 0 and y = 1 have no integer between them.',
+    //   ],
+    // },
 
     // -- today's lecture -----------------------------------------------------------
 
