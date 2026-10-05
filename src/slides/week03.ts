@@ -280,7 +280,7 @@ export const week03: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Is this proof pattern sound?',
       prompt: [
         'Write each pattern as a statement about logical consequence, then prove or disprove that statement.',
@@ -296,7 +296,7 @@ export const week03: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Solutions',
       steps: [
         '1. With A for S, B for T₁ and C for T₂, the pattern is (¬A → (B ∧ C)) ∧ (B → ¬C) ⊨ A.',
