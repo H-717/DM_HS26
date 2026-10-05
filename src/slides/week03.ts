@@ -246,35 +246,35 @@ export const week03: Deck = {
         'Cases 1 and 2 never satisfy the hypothesis. An implication with a false hypothesis is true, and that counts as proving the case.',
     },
 
-    {
-      kind: 'exercise',
-      ref: 'Exercise 5',
-      title: 'Proof by contradiction',
-      prompt: ['Prove by contradiction:'],
-      parts: [
-        'The product of a rational number r ≠ 0 and an irrational number x is irrational.',
-        'log₂ 3 is irrational.',
-      ],
-      hint: [
-        'For 1: the quotient of two rational numbers, the second one not 0, is rational.',
-        'For 2: no number is both even and odd.',
-      ],
-      note: '7 minutes. Ask each pair to write down S and T explicitly before the proof.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exercise 5',
+    //   title: 'Proof by contradiction',
+    //   prompt: ['Prove by contradiction:'],
+    //   parts: [
+    //     'The product of a rational number r ≠ 0 and an irrational number x is irrational.',
+    //     'log₂ 3 is irrational.',
+    //   ],
+    //   hint: [
+    //     'For 1: the quotient of two rational numbers, the second one not 0, is rational.',
+    //     'For 2: no number is both even and odd.',
+    //   ],
+    //   note: '7 minutes. Ask each pair to write down S and T explicitly before the proof.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions',
-      steps: [
-        '1. S: r · x is irrational. T: x is rational. T is false by assumption.',
-        'Assume S is false, so s = r · x is rational. Since r ≠ 0, x = s / r is a quotient of two rational numbers, so x is rational by the hint. T is true, a contradiction.',
-        '2. S: log₂ 3 is irrational. T: there are positive integers p, q with $2^p = 3^q$. T is false, since $2^p$ is even and $3^q$ is odd.',
-        'Assume S is false, so log₂ 3 = p / q for integers p, q with q > 0. Since 3 > 1, log₂ 3 > 0, so p > 0. Then $2^{p/q} = 3$, so $2^p = 3^q$, and T is true.',
-      ],
-      note: 'In 2, check that nobody forgot p > 0: for p = 0 we get 2⁰ = 1, which is odd.',
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exercise 5',
+    //   title: 'Solutions',
+    //   steps: [
+    //     '1. S: r · x is irrational. T: x is rational. T is false by assumption.',
+    //     'Assume S is false, so s = r · x is rational. Since r ≠ 0, x = s / r is a quotient of two rational numbers, so x is rational by the hint. T is true, a contradiction.',
+    //     '2. S: log₂ 3 is irrational. T: there are positive integers p, q with $2^p = 3^q$. T is false, since $2^p$ is even and $3^q$ is odd.',
+    //     'Assume S is false, so log₂ 3 = p / q for integers p, q with q > 0. Since 3 > 1, log₂ 3 > 0, so p > 0. Then $2^{p/q} = 3$, so $2^p = 3^q$, and T is true.',
+    //   ],
+    //   note: 'In 2, check that nobody forgot p > 0: for p = 0 we get 2⁰ = 1, which is odd.',
+    // },
 
     // -- soundness of proof patterns -----------------------------------------------
 
