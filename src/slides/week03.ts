@@ -48,17 +48,17 @@ export const week03: Deck = {
       note: '1 minute. Questions on the graded exercise: after the interview.',
     },
 
-    {
-      kind: 'points',
-      title: 'Where we are',
-      points: [
-        'Last week’s sheet: logical consequence and quantifiers (§2.3–2.4).',
-        'Wednesday’s lecture: the proof patterns of §2.6. Today we practise three of them: indirect proof, case distinction and proof by contradiction.',
-        'Also in §2.6: existence proofs (Def. 2.18), the pigeonhole principle (Theorem 2.10), proofs by counterexample (Def. 2.19) and induction (Theorem 2.11). They come back on later sheets.',
-        'Today’s lecture started with sets (§3.1–3.2). At the end we look at how they use what we practise today.',
-      ],
-      note: '2 minutes. Ask who has already seen the pigeonhole principle or induction in school.',
-    },
+    // {
+    //   kind: 'points',
+    //   title: 'Where we are',
+    //   points: [
+    //     'Last week’s sheet: logical consequence and quantifiers (§2.3–2.4).',
+    //     'Wednesday’s lecture: the proof patterns of §2.6. Today we practise three of them: indirect proof, case distinction and proof by contradiction.',
+    //     'Also in §2.6: existence proofs (Def. 2.18), the pigeonhole principle (Theorem 2.10), proofs by counterexample (Def. 2.19) and induction (Theorem 2.11). They come back on later sheets.',
+    //     'Today’s lecture started with sets (§3.1–3.2). At the end we look at how they use what we practise today.',
+    //   ],
+    //   note: '2 minutes. Ask who has already seen the pigeonhole principle or induction in school.',
+    // },
 
     {
       kind: 'agenda',
@@ -130,11 +130,11 @@ export const week03: Deck = {
       kind: 'solution',
       reveal: true,
       ref: 'Exercise 2',
-      title: 'Parts 1 and 3',
+      title: 'Parts 1',
       steps: [
         '1. Alice cannot react to Bob’s numbers: ∃a₁ ∃a₂ ∀b₁ ∀b₂ (a₁ + (a₂ − b₁) · b₂ = 0).',
         'False. For any a₁, a₂, Bob can take b₁ = a₂ − 1 and b₂ = 1 − a₁. Then a₁ + (a₂ − b₁) · b₂ = a₁ + 1 · (1 − a₁) = 1 ≠ 0.',
-        '3. Bob now knows a₁ and a₂ before he chooses, but that is no change: Alice still cannot react. The formula is the same as in part 1, so it is false.',
+        // '3. Bob now knows a₁ and a₂ before he chooses, but that is no change: Alice still cannot react. The formula is the same as in part 1, so it is false.',
       ],
     },
 
