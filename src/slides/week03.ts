@@ -28,6 +28,7 @@ export const week03: Deck = {
   topic: 'Predicate Logic & Proof Patterns',
   date: 'Mon 5 Oct 2026',
   sheet: 'Exercise sheet 3',
+  solutionsReleased: true,
 
   slides: [
     {
@@ -310,8 +311,8 @@ export const week03: Deck = {
 
     {
       kind: 'table',
-      solution: 'Exercise 6',
-      title: 'Exercise 6.1 with a function table',
+      solution: 'Exercise 5',
+      title: 'Exercise 5.1 with a function table',
       headers: ['A', 'B', 'C', '¬A → (B ∧ C)', 'B → ¬C', 'both'],
       rows: [
         ['0', '0', '0', '0', '1', '0'],
