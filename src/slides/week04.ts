@@ -10,8 +10,8 @@
 //
 // Each exercise is a twin of one on the sheet — same shape, other content:
 //   Exercise 1 ↔ 4.2   Exercise 2 ↔ 4.4   Exercise 3 ↔ 4.3
-//   Exercise 4 ↔ 4.6   Exercise 5 ↔ 4.1   Exercise 6 ↔ 4.8–4.9
-//   (no twin of 4.7, kept out to keep the session light)
+//   Exercise 4 ↔ 4.1   Exercise 5 ↔ 4.8–4.9
+//   (no twin of 4.6 or 4.7, kept out to keep the session light)
 // 4.5 (symmetric difference) is the graded exercise and is not touched
 // anywhere: no ∆, no set identity proved by an element chain with Lemma 2.1,
 // no cancellation law. Nothing on screen names a sheet exercise.
@@ -52,12 +52,11 @@ export const week04: Deck = {
         'Element or subset?',
         'Listing sets',
         'Finding sets',
-        'Power sets',
         'Pigeonhole principle',
         'Short questions',
       ],
       note:
-        'Timing: 3 intro · 7 recap · 8 element or subset · 8 listing · 8 finding sets (break here, about 35 min) · 15 power sets · 8 pigeonhole · 8 short questions. That is about 65 min.',
+        'Timing: 3 intro · 7 recap · 8 element or subset · 8 listing · 8 finding sets (break here, about 35 min) · 8 pigeonhole · 8 short questions. That is about 50 min.',
     },
 
     // -- recap ---------------------------------------------------------------------
@@ -193,49 +192,6 @@ export const week04: Deck = {
       note: 'The set in part 2 is the set 3 from §3.2.7, the construction of the natural numbers.',
     },
 
-    // -- power sets ---------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: 'Exercise 4',
-      title: 'Power sets',
-      prompt: ['Prove or disprove, for all sets A and B:'],
-      parts: [
-        'P(A) ∪ P(B) ⊆ P(A ∪ B)',
-        'P(A \\ B) = P(A) \\ P(B)',
-        'A ∩ B = ∅ ⟺ P(A) ∩ P(B) = {∅}',
-      ],
-      note: '8 minutes. For part 2, ask: which set is in every power set?',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 4',
-      title: 'Parts 1 and 2',
-      steps: [
-        '1. True. Let C ∈ P(A) ∪ P(B). By Def. 3.4 and Def. 3.7, C ⊆ A or C ⊆ B.',
-        'A ⊆ A ∪ B and B ⊆ A ∪ B by Def. 3.4. So in both cases C ⊆ A ∪ B by Lemma 3.3, that is, C ∈ P(A ∪ B).',
-        '2. False. ∅ ∈ P(A \\ B) by Lemma 3.6. But also ∅ ∈ P(B), so ∅ ∉ P(A) \\ P(B).',
-        'Concrete counterexample: A = B = ∅. Then P(A \\ B) = {∅}, but P(A) \\ P(B) = ∅.',
-      ],
-      note: 'Part 2 fails for every A and B, not just for one example.',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 4',
-      title: 'Part 3',
-      steps: [
-        '3. True. We prove both directions.',
-        '(⟹) Assume A ∩ B = ∅. By Lemma 3.6, ∅ ⊆ A and ∅ ⊆ B, so ∅ ∈ P(A) ∩ P(B).',
-        'Let C ∈ P(A) ∩ P(B), so C ⊆ A and C ⊆ B. Every element of C is then in A ∩ B = ∅, so C has no elements and C = ∅ by Lemma 3.5. Hence P(A) ∩ P(B) = {∅}.',
-        '(⟸) Indirect proof. Assume A ∩ B ≠ ∅ and take x ∈ A ∩ B. Then {x} ⊆ A and {x} ⊆ B, so {x} ∈ P(A) ∩ P(B).',
-        'Since {x} ≠ ∅, we get P(A) ∩ P(B) ≠ {∅}.',
-      ],
-    },
-
     // -- pigeonhole --------------------------------------------------------------
 
     {
@@ -250,7 +206,7 @@ export const week04: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 5',
+      ref: 'Exercise 4',
       title: 'Pigeonhole principle',
       prompt: ['Let n ≥ 1.'],
       parts: [
@@ -264,7 +220,7 @@ export const week04: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 5',
+      ref: 'Exercise 4',
       title: 'Solutions',
       steps: [
         '1. Partition {1, 2, …, 2n} into the n sets {1, 2}, {3, 4}, …, {2n − 1, 2n}.',
@@ -278,7 +234,7 @@ export const week04: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Short questions',
       prompt: ['In the style of the exam. No justification needed.'],
       parts: [
@@ -294,7 +250,7 @@ export const week04: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Solutions',
       steps: [
         '1. 2. The elements are (∅, ∅) and ({∅}, ∅).',
