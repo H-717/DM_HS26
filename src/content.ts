@@ -87,7 +87,7 @@ export const content = {
     { week: 1, topic: 'Statements, Proofs & Propositional Logic', slidesUrl: '#/slides/1' },
     { week: 2, topic: 'Logical Consequence, Quantifiers & Proof Patterns', slidesUrl: '#/slides/2' },
     { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3' },
-    // { week: 4, topic: 'Sets, Power Sets & the Pigeonhole Principle', slidesUrl: '#/slides/4' },
+    { week: 4, topic: 'Sets', slidesUrl: '#/slides/4' },
     // { week: 5, topic: 'Relations & Equivalence Classes', slidesUrl: '#/slides/5' },
     // { week: 6, topic: 'Orders, Functions & Countability', slidesUrl: '#/slides/6' },
     // { week: 7, topic: 'Number Theory: gcd, Congruences & Modular Arithmetic', slidesUrl: '#/slides/7' },
