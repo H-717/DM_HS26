@@ -55,10 +55,9 @@ export const week04: Deck = {
         'Power sets',
         'Pigeonhole principle',
         'Short questions',
-        'Kahoot',
       ],
       note:
-        'Timing: 3 intro · 7 recap · 8 element or subset · 8 listing · 8 finding sets (break here, about 35 min) · 15 power sets · 8 pigeonhole · 8 short questions · 12 Kahoot. That is about 77 min.',
+        'Timing: 3 intro · 7 recap · 8 element or subset · 8 listing · 8 finding sets (break here, about 35 min) · 15 power sets · 8 pigeonhole · 8 short questions. That is about 65 min.',
     },
 
     // -- recap ---------------------------------------------------------------------
@@ -150,14 +149,14 @@ export const week04: Deck = {
       solution: 'Exercise 2',
       title: 'Exercise 2: solutions',
       lead: 'A = {1, {1}} has 2 elements, and B = {{1, {1}}, 1, {{1}}} has 3.',
-      headers: ['', 'set', 'elements', 'cardinality'],
+      headers: ['', 'set', 'written out', 'cardinality'],
       rows: [
-        ['1', 'A ∪ B', '1, {1}, {1, {1}}, {{1}}', '4'],
-        ['2', 'A ∩ B', '1', '1'],
-        ['3', 'B \\ A', '{1, {1}}, {{1}}', '2'],
-        ['4', '{∅} × {1, 2}', '(∅, 1), (∅, 2)', '2'],
-        ['5', 'P(A)', '∅, {1}, {{1}}, {1, {1}}', '4'],
-        ['6', 'P(∅)', '∅', '1'],
+        ['1', 'A ∪ B', '{1, {1}, {1, {1}}, {{1}}}', '4'],
+        ['2', 'A ∩ B', '{1}', '1'],
+        ['3', 'B \\ A', '{{1, {1}}, {{1}}}', '2'],
+        ['4', '{∅} × {1, 2}', '{(∅, 1), (∅, 2)}', '2'],
+        ['5', 'P(A)', '{∅, {1}, {{1}}, {1, {1}}}', '4'],
+        ['6', 'P(∅)', '{∅}', '1'],
       ],
       note:
         'Row 2: {1} ∈ A, but {1} ∉ B. B contains {{1}}, which is a different set. Row 6: P(∅) = {∅} is not empty.',
@@ -186,6 +185,7 @@ export const week04: Deck = {
       steps: [
         '1. A = {1, {1}} and x = {1}. Then x ∈ A, and x ⊆ A since 1 ∈ A.',
         '2. A = {∅, {∅}, {∅, {∅}}}. Its elements are ∅, {∅} and {∅, {∅}}, and each of them is a subset of A, so each is in P(A).',
+        'P(A) = {∅, {∅}, {{∅}}, {{∅, {∅}}}, {∅, {∅}}, {∅, {∅, {∅}}}, {{∅}, {∅, {∅}}}, A}.',
         '3. A ⊆ P(A) ⟺ ∀x (x ∈ A → x ∈ P(A))   (Def. 3.3)',
         '⟺ ∀x (x ∈ A → x ⊆ A)   (Def. 3.7)',
         'The last line says that every element of A is a subset of A.',
@@ -306,13 +306,6 @@ export const week04: Deck = {
     },
 
     // -- wrap --------------------------------------------------------------------
-
-    {
-      kind: 'title',
-      title: 'Kahoot',
-      subtitle: 'Join at kahoot.it',
-      note: 'Have the game PIN up before you switch windows.',
-    },
 
     {
       kind: 'end',
