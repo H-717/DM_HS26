@@ -1,289 +1,349 @@
 // ---------------------------------------------------------------------------
 // Week 5 — everything you say on screen lives in this file. Edit freely.
 // See ./types.ts for the list of slide kinds and the text markup.
+//
+// The HS2026 sheet 5 was not on Moodle when this was written, so the deck is
+// built on the HS2025 sheet 5 and its graded solution, which should be almost
+// the same. Check the mapping once the new sheet is out.
+// Lecture: §3.3 (Oct 12), §3.4 and the start of §3.5 (Oct 14). Only Def. 3.23
+// to 3.25 are used from §3.5.
+//
+// Each exercise is a twin of one on the sheet — same shape, other content:
+//   Exercise 1 ↔ 5.1   Exercise 2 ↔ 5.2   Exercise 3 ↔ 5.3
+//   Exercise 4 ↔ 5.5   Exercise 5 ↔ 5.6   Exercise 6: short questions
+// 5.4 (properties of ρ ∘ ρ̂, σ ∘ π̂, intersection of equivalence relations) is
+// the graded exercise and is not touched anywhere: no inverse inside a
+// composition, no symmetry of a composition, no intersection of equivalence
+// relations (so Lemma 3.10 is not quoted either). Nothing on screen names a
+// sheet exercise.
+// All relation claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
 import type { Deck } from './types';
 
 export const week05: Deck = {
   week: 5,
-  topic: 'Relations & Equivalence Classes',
-  date: 'Week 5',
-  sheet: 'Exercise sheet 5 (HS 2025)',
+  topic: 'Relations',
+  date: 'Mon 19 Oct 2026',
+  sheet: 'Exercise sheet 5',
 
   slides: [
     {
       kind: 'title',
       title: 'Exercise Session 5',
-      subtitle: 'Composition, closures, and what an equivalence class really is',
-      footnote: 'Discrete Mathematics · HS 2026 · practising on sheet 5',
-    },
-
-    {
-      kind: 'agenda',
-      items: [
-        'Recap: the properties, and how to disprove one',
-        '5.1 Powers and the reflexive-transitive closure',
-        '5.2 Operations on relations',
-        '5.3 An equivalence relation on the punctured plane',
-        '5.5 Lifting an operation to equivalence classes',
-        '5.6 Antisymmetry under composition (exam)',
-        '5.4 — the presentation exercise',
-      ],
-    },
-
-    {
-      kind: 'callout',
-      title: 'Before anything: fix your composition convention',
-      tone: 'warn',
-      body: [
-        'Some texts read ρ ∘ σ as "σ first", others as "ρ first". They give **different relations**.',
-        'These slides use: **a (ρ ∘ σ) c  ⟺  ∃b ( a ρ b ∧ b σ c )** — left one first.',
-        'Check which one your lecture used and stay with it. State it at the top of your solution and no grader can argue.',
-      ],
-      note: 'Genuinely worth 60 seconds. Half the "wrong" answers on this sheet last year were convention mismatches.',
+      subtitle: 'Relations, equivalence relations, and partial orders',
+      footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
     {
       kind: 'points',
-      title: 'The properties, and how you disprove each',
-      reveal: true,
+      title: 'This week',
       points: [
-        '**Reflexive**: ∀a, (a,a) ∈ ρ. Disprove with **one** a.',
-        '**Symmetric**: (a,b) ∈ ρ ⇒ (b,a) ∈ ρ. Disprove with **one pair**.',
-        '**Antisymmetric**: (a,b), (b,a) ∈ ρ ⇒ a = b. Disprove with one pair a ≠ b going both ways.',
-        '**Transitive**: (a,b), (b,c) ∈ ρ ⇒ (a,c) ∈ ρ. Disprove with **one triple**.',
-        'Antisymmetric is not "not symmetric". A relation can be both (e.g. equality) or neither.',
+        'As every week, we do not look at the graded exercise today.',
+        'Composition is read left to right in the script: first ρ, then σ.',
       ],
+      note: '1 minute.',
     },
 
-    // -- 5.1 -----------------------------------------------------------------
+    {
+      kind: 'agenda',
+      title: 'Today',
+      items: [
+        'Recap: relations',
+        'Powers and transitive closure',
+        'Properties of relations',
+        'Recap: equivalence relations',
+        'An equivalence relation in the plane',
+        'Operations on equivalence classes',
+        'Prove or disprove',
+        'Partial orders and short questions',
+      ],
+      note:
+        'Timing: 3 intro · 6 recap · 8 closure · 10 properties · 4 recap (break here, about 35 min) · 7 plane · 10 classes · 6 prove or disprove · 8 short questions. That is about 60 min.',
+    },
+
+    // -- recap: relations ----------------------------------------------------------
+
+    {
+      kind: 'points',
+      title: 'Relations (script §3.3.1–3.3.5)',
+      points: [
+        'Def. 3.9: a relation ρ from A to B is a subset of A × B. We write a ρ b for (a, b) ∈ ρ.',
+        'Def. 3.11: the inverse is ρ̂ = {(b, a) | (a, b) ∈ ρ}. In the matrix: transpose. In the graph: flip every edge.',
+        'Def. 3.12: ρ ∘ σ = {(a, c) | ∃b ((a, b) ∈ ρ ∧ (b, c) ∈ σ)}. First a step in ρ, then a step in σ.',
+        'ρⁿ is ρ composed with itself n times. In the graph: a ρⁿ b iff there is a walk of length n from a to b.',
+        'Def. 3.18: the transitive closure is ρ* = ⋃ ρⁿ over n ∈ ℕ \\ {0}. So walks of length at least 1.',
+      ],
+      note: '3 minutes. Draw a small graph and compose it with itself on the board.',
+    },
+
+    {
+      kind: 'points',
+      title: 'Properties (script §3.3.6)',
+      points: [
+        'Def. 3.13: reflexive if a ρ a for all a ∈ A.',
+        'Def. 3.15: symmetric if a ρ b ⟺ b ρ a for all a, b ∈ A.',
+        'Def. 3.16: antisymmetric if a ρ b ∧ b ρ a ⟹ a = b for all a, b ∈ A.',
+        'Def. 3.17: transitive if a ρ b ∧ b ρ c ⟹ a ρ c for all a, b, c ∈ A. Lemma 3.9: this holds iff ρ² ⊆ ρ.',
+        'To show a property fails, one counterexample is enough: one a, one pair, or one triple.',
+        'Antisymmetric is not the negation of symmetric. The identity relation is both.',
+      ],
+      note: '3 minutes.',
+    },
+
+    // -- powers and closure -------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '5.1',
-      title: 'Computing Representations  (⋆)',
-      prompt: [
-        'ρ = {(1,4), (2,1), (2,3), (4,2)} on {1,2,3,4}.',
-        'Give ρ³ as a set, and ρ* as a matrix.',
-      ],
-      hint: ['Draw the digraph first: 1→4, 2→1, 2→3, 4→2. Then ρ³ is "walks of length 3".'],
+      ref: 'Exercise 1',
+      title: 'Powers and transitive closure',
+      prompt: ['Let ρ = {(1, 2), (2, 3), (3, 1), (4, 3)} on {1, 2, 3, 4}.'],
+      parts: ['Give ρ² and ρ³ as sets.', 'Give ρ* as a matrix.'],
+      hint: ['Draw the graph first.'],
+      note: '4 minutes.',
     },
 
     {
       kind: 'solution',
-      ref: '5.1',
-      title: 'ρ³ — walk three edges',
       reveal: true,
+      ref: 'Exercise 1',
+      title: 'Solutions',
       steps: [
-        'ρ² = {(1,2), (2,4), (4,1), (4,3)}. (From 1: 1→4→2. From 2: 2→1→4. From 4: 4→2→1 and 4→2→3. Node 3 is a dead end.)',
-        'ρ³: 1→4→2→1 and 1→4→2→3; 2→1→4→2; 4→2→1→4.',
-        '**ρ³ = {(1,1), (1,3), (2,2), (4,4)}**',
-        'Node 3 never appears on the left: it has no outgoing edge, so no walk starts there.',
+        'The graph: 1 → 2 → 3 → 1 is a cycle, and 4 → 3.',
+        '1. ρ² = {(1, 3), (2, 1), (3, 2), (4, 1)}, the walks of length 2: 1→2→3, 2→3→1, 3→1→2, 4→3→1.',
+        'ρ³ = ρ² ∘ ρ = {(1, 1), (2, 2), (3, 3), (4, 2)}.',
+        '2. Each of 1, 2, 3 reaches 1, 2, 3. Vertex 4 reaches 3, 1, 2. No edge goes into 4.',
       ],
     },
 
     {
       kind: 'table',
-      title: '5.1 · ρ* as a matrix',
-      lead: 'ρ* = reachability in zero or more steps. Rows = from, columns = to.',
+      solution: 'Exercise 1',
+      title: 'Exercise 1: ρ* as a matrix',
+      lead: 'Rows: from. Columns: to.',
       headers: ['', '1', '2', '3', '4'],
       rows: [
-        ['1', '1', '1', '1', '1'],
-        ['2', '1', '1', '1', '1'],
-        ['3', '0', '0', '1', '0'],
-        ['4', '1', '1', '1', '1'],
+        ['1', '1', '1', '1', '0'],
+        ['2', '1', '1', '1', '0'],
+        ['3', '1', '1', '1', '0'],
+        ['4', '1', '1', '1', '0'],
       ],
-      markRows: [2],
+      markRows: [3],
       note:
-        '1, 2 and 4 sit on a cycle (1→4→2→1), so each reaches everything. From 3 you can only stay at 3 — the zero-step case is why the diagonal entry is still 1.',
+        'The entry (4, 4) is 0: there is no walk of length at least 1 from 4 back to 4, and Def. 3.18 starts at n = 1.',
     },
 
-    // -- 5.2 -----------------------------------------------------------------
+    // -- properties --------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '5.2',
-      title: 'Operations on Relations  (⋆⋆)',
+      ref: 'Exercise 2',
+      title: 'Properties of relations',
       prompt: [
-        'On ℕ \\ {0}, with the relations <, | and ≡₂. For each, decide reflexive / symmetric / transitive, with justification.',
+        'On ℕ \\ {0}, decide for each relation whether it is reflexive, symmetric or transitive. Justify.',
       ],
-      parts: ['< ∘ |', '| ∪ ≡₂', '| ∪ |⁻¹'],
+      parts: ['| ∘ >', '≤ ∪ ≡₃', '< ∪ >'],
+      hint: ['For part 1, write out what a (| ∘ >) c means with Def. 3.12.'],
+      note: '6 minutes.',
     },
 
     {
-      kind: 'solution',
-      ref: '5.2',
-      title: '1 · < ∘ | collapses to <',
-      reveal: true,
-      steps: [
-        'a (< ∘ |) c means: ∃b with a < b and b | c.',
-        'If a < c, take b = c: then a < c and c | c ✓. So every pair with a < c is in the relation.',
-        'If c ≤ a: every divisor b of c satisfies b ≤ c ≤ a, so no b with a < b divides c. Nothing else is in the relation.',
-        'Hence **< ∘ | = <**: not reflexive, not symmetric, transitive.',
-        'Nice check: the *other* composition convention gives the same answer here. Rare, and worth noticing.',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '5.2',
-      title: '2 and 3 · unions',
-      reveal: true,
-      steps: [
-        '**| ∪ ≡₂** — reflexive ✓ (a | a).',
-        'Not symmetric: (1,2) is in it since 1 | 2; but 2 ∤ 1 and 2 ≢₂ 1, so (2,1) is not.',
-        'Not transitive: (3,1) is in it (3 ≡₂ 1), (1,2) is in it (1 | 2), but (3,2) is in neither part.',
-        '**| ∪ |⁻¹** — reflexive ✓, and symmetric ✓ by construction: a union of a relation with its inverse always is.',
-        'Not transitive: (2,6) via 2|6, and (6,3) via 3|6, but 2 ∤ 3 and 3 ∤ 2.',
-        'Pattern worth keeping: unions preserve reflexivity and symmetry, and destroy transitivity.',
-      ],
-    },
-
-    // -- 5.3 -----------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '5.3',
-      title: 'An Equivalence Relation  (⋆⋆)',
-      prompt: [
-        'On ℝ² \\ {(0,0)}:  (x₁,y₁) ∼ (x₂,y₂)  ⟺  ∃λ > 0 with (x₁,y₁) = (λx₂, λy₂).',
-      ],
-      parts: ['Prove ∼ is an equivalence relation.', 'Describe the classes [(x,y)] geometrically.'],
-    },
-
-    {
-      kind: 'solution',
-      ref: '5.3',
-      title: 'Each axiom is one choice of λ',
-      reveal: true,
-      steps: [
-        '**Reflexive**: take λ = 1. ✓',
-        '**Symmetric**: if (x₁,y₁) = λ(x₂,y₂) with λ > 0, then (x₂,y₂) = (1/λ)(x₁,y₁), and 1/λ > 0. ✓',
-        '**Transitive**: λ then μ gives λμ, and λμ > 0. ✓',
-        'Everything hinges on {λ > 0} containing 1 and being closed under inverses and products — it is a group.',
-        '**Classes**: [(x,y)] = { λ(x,y) : λ > 0 } — the **open ray** from the origin through (x,y), origin excluded.',
-        'Why λ > 0 and not λ ≠ 0 matters: with λ ≠ 0 the class would be the whole line, and (x,y) ∼ (−x,−y). Direction would be lost.',
-      ],
-      note:
-        'Draw two opposite rays on the board. The set of classes here is exactly the circle of directions — a first glimpse of quotients as new objects.',
-    },
-
-    // -- 5.5 -----------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '5.5',
-      title: 'Lifting an Operation to Classes  (⋆⋆)',
-      prompt: [
-        'A = ℤ × (ℤ\\{0}), with (a,b) ∼ (c,d) ⟺ ad = bc. Then ℚ = A/∼.',
-      ],
-      parts: [
-        'Define sum : A² → A, the addition of fractional representations.',
-        'Say formally what it means for f : B² → B to be θ-consistent.',
-        'Prove sum is ∼-consistent.',
-      ],
-      note: 'This exercise is why ℚ is allowed to exist. Say that out loud — it changes how they read it.',
-    },
-
-    {
-      kind: 'solution',
-      ref: '5.5',
-      title: 'The definition, and what has to be checked',
-      reveal: true,
-      steps: [
-        '**1.** sum((a,b), (c,d)) = **(ad + bc, bd)**. Note bd ≠ 0, so the result is in A. ✓',
-        '**2.** f is θ-consistent iff for all b₁, b₁′, b₂, b₂′ ∈ B:',
-        '( b₁ θ b₁′ ∧ b₂ θ b₂′ ) ⟹ f(b₁, b₂) θ f(b₁′, b₂′).',
-        'In words: replacing inputs by equivalent inputs gives an equivalent output — so the operation descends to classes.',
-        'Without this, "[x] + [y] := [x + y]" would depend on which representatives you happened to pick, and would not be a function at all.',
+      kind: 'table',
+      solution: 'Exercise 2',
+      title: 'Exercise 2: overview',
+      headers: ['', 'relation', 'reflexive', 'symmetric', 'transitive'],
+      rows: [
+        ['1', '| ∘ >', '✓', '✓', '✓'],
+        ['2', '≤ ∪ ≡₃', '✓', '✗', '✗'],
+        ['3', '< ∪ >', '✗', '✓', '✗'],
       ],
     },
 
     {
       kind: 'solution',
-      ref: '5.5',
-      title: '3 · The computation',
       reveal: true,
+      ref: 'Exercise 2',
+      title: 'Solutions',
       steps: [
-        'Assume (a,b) ∼ (a′,b′), i.e. **ab′ = a′b**, and (c,d) ∼ (c′,d′), i.e. **cd′ = c′d**.',
-        'Goal: (ad + bc, bd) ∼ (a′d′ + b′c′, b′d′), i.e. (ad + bc)·b′d′ = (a′d′ + b′c′)·bd.',
-        'Left side = ad b′d′ + bc b′d′ = (ab′)(dd′) + (cd′)(bb′).',
-        'Right side = a′d′bd + b′c′bd = (a′b)(dd′) + (c′d)(bb′).',
-        'Substitute ab′ = a′b and cd′ = c′d — the two sides are literally the same expression. ∎',
-        'The whole proof is grouping the factors so the two hypotheses appear. That regrouping *is* the exercise.',
+        '1. a (| ∘ >) c ⟺ ∃x (a | x ∧ x > c). For any a, c take x = a(c + 1). Then a | x and x ≥ c + 1 > c.',
+        'So | ∘ > is the complete relation (ℕ \\ {0}) × (ℕ \\ {0}), and that has all three properties.',
+        '2. Reflexive, since a ≤ a. Not symmetric: 1 ≤ 2, but 2 ≰ 1 and 2 ≢₃ 1.',
+        'Not transitive: 4 ≡₃ 1 and 1 ≤ 2, but 4 ≰ 2 and 4 ≢₃ 2.',
+        '3. a (< ∪ >) b ⟺ a ≠ b. Not reflexive, since 1 ≠ 1 is false. Symmetric, since a ≠ b ⟺ b ≠ a.',
+        'Not transitive: 1 ≠ 2 and 2 ≠ 1, but 1 ≠ 1 is false.',
       ],
     },
 
-    // -- 5.6 -----------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '5.6',
-      title: 'Antisymmetry (exam 2021)  (⋆)',
-      prompt: ['ρ and σ antisymmetric on a non-empty A. Is ρ ∘ σ antisymmetric?'],
-    },
-
-    {
-      kind: 'solution',
-      ref: '5.6',
-      title: 'No — and the counterexample is small',
-      reveal: true,
-      steps: [
-        'Take A = {1,2,3}, ρ = {(1,3), (2,3)}, σ = {(3,2), (3,1)}.',
-        'Both are antisymmetric: neither contains a pair together with its reverse.',
-        'ρ ∘ σ contains (1,3)+(3,2) ⇒ **(1,2)**, and (2,3)+(3,1) ⇒ **(2,1)**.',
-        'So both (1,2) and (2,1) are in ρ ∘ σ with 1 ≠ 2 — not antisymmetric. ∎',
-        'How to find it: work backwards. Write down what you want in the composition, then choose the middle element that produces it.',
-      ],
-      note:
-        'Teach the backwards search explicitly. Students hunt randomly for counterexamples; this exercise shows how to construct one.',
-    },
-
-    // -- presentation --------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '5.4',
-      title: 'Properties of Relations — for presentation',
-      prompt: [
-        '1. ρ ∘ ρ⁻¹ is symmetric.   2. σ symmetric, π antisymmetric ⇒ σ ∘ π⁻¹ symmetric.   3. The intersection of two equivalence relations is an equivalence relation.',
-        '**We are not solving this today.**',
-      ],
-      hint: [
-        'For 1: write out what (a,c) ∈ ρ ∘ ρ⁻¹ means, then read the same condition backwards. Also remember (ρ ∘ σ)⁻¹ = σ⁻¹ ∘ ρ⁻¹.',
-        'For 2: one of the three is false. Try tiny sets — two or three elements is enough.',
-        'For 3: check the three axioms one at a time. Each is two lines. Then ask yourself whether the *union* would also work.',
-        'State your composition convention in the first line of your write-up.',
-      ],
-    },
+    // -- recap: equivalence relations ---------------------------------------------
 
     {
       kind: 'points',
-      title: 'What to take away',
+      title: 'Equivalence relations (script §3.4)',
       points: [
-        'Relations are sets of pairs. When stuck, draw the digraph.',
-        'ρⁿ = walks of length n; ρ* = reachability, including zero steps.',
-        'To disprove a property you need exactly one witness. Find it, do not argue.',
-        'Unions keep reflexivity and symmetry, and break transitivity.',
-        'An operation on classes is only well defined once you have checked consistency.',
+        'Def. 3.19: an equivalence relation is reflexive, symmetric and transitive.',
+        'Def. 3.20: the equivalence class of a is [a]θ = {b ∈ A | b θ a}.',
+        'Def. 3.22: the quotient set is A/θ = {[a]θ | a ∈ A}.',
+        'Theorem 3.11: A/θ is a partition of A (Def. 3.21). The classes are disjoint and cover A.',
+        '§3.4.3: ℚ is defined as (ℤ × (ℤ \\ {0}))/∼ with (a, b) ∼ (c, d) ⟺ ad = bc.',
+      ],
+      note:
+        '4 minutes. Board example: the partition {{1, 2}, {3}, {4, 5}} of {1, …, 5} gives an equivalence relation with 4 + 1 + 4 = 9 pairs.',
+    },
+
+    // -- plane -------------------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 3',
+      title: 'An equivalence relation in the plane',
+      prompt: ['On ℝ², define (x₁, y₁) ∼ (x₂, y₂) ⟺ x₁² + y₁² = x₂² + y₂².'],
+      parts: ['Prove that ∼ is an equivalence relation.', 'Describe the equivalence classes [(x, y)] geometrically.'],
+      note: '5 minutes. Compare with Example 3.33 in the script.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 3',
+      title: 'Solutions',
+      steps: [
+        'Reflexive: x² + y² = x² + y², so (x, y) ∼ (x, y).',
+        'Symmetric: if x₁² + y₁² = x₂² + y₂², then x₂² + y₂² = x₁² + y₁², so (x₂, y₂) ∼ (x₁, y₁).',
+        'Transitive: if x₁² + y₁² = x₂² + y₂² and x₂² + y₂² = x₃² + y₃², then x₁² + y₁² = x₃² + y₃², so (x₁, y₁) ∼ (x₃, y₃).',
+        'All three come from the same properties of = on ℝ.',
+        '2. [(x, y)] is the circle around the origin with radius √(x² + y²). The class of (0, 0) is {(0, 0)}.',
+      ],
+    },
+
+    // -- operations on classes ----------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 4',
+      title: 'Operations on equivalence classes',
+      prompt: [
+        'Let A = ℤ × (ℤ \\ {0}) with (a, b) ∼ (c, d) ⟺ ad = bc, as in §3.4.3.',
+        'For an equivalence relation θ on B, a function f : B² → B is θ-consistent if for all b₁, b₂, b₁′, b₂′ ∈ B: (b₁ θ b₁′ ∧ b₂ θ b₂′) ⟹ f(b₁, b₂) θ f(b₁′, b₂′).',
+      ],
+      parts: [
+        'Define the product of two fractions as a function mul : A² → A.',
+        'Prove that mul is ∼-consistent.',
+        'Show that g((a, b), (c, d)) = (a + c, b + d) is not ∼-consistent.',
+      ],
+      note: '6 minutes. Consistency is what makes [x] · [y] := [mul(x, y)] well defined on ℚ.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 4',
+      title: 'Solutions: parts 1 and 2',
+      steps: [
+        '1. mul((a, b), (c, d)) = (ac, bd). Since b ≠ 0 and d ≠ 0, bd ≠ 0, so the result lies in A.',
+        '2. Let (a, b), (a′, b′), (c, d), (c′, d′) ∈ A.',
+        '(a, b) ∼ (a′, b′) ∧ (c, d) ∼ (c′, d′) ⟺ ab′ = ba′ ∧ cd′ = dc′   (def. ∼)',
+        '⟹ ab′ · cd′ = ba′ · dc′   (multiply the two equations)',
+        '⟺ ac · b′d′ = bd · a′c′   (commutativity and associativity of ·)',
+        '⟺ (ac, bd) ∼ (a′c′, b′d′)   (def. ∼)',
+        '⟺ mul((a, b), (c, d)) ∼ mul((a′, b′), (c′, d′))   (def. mul)',
       ],
     },
 
     {
-      kind: 'title',
-      title: 'Kahoot',
-      subtitle: 'Join at kahoot.it',
-      footnote: 'Questions in kahoot/week05.csv',
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 4',
+      title: 'Solutions: part 3',
+      steps: [
+        'One counterexample is enough. Take (1, 2) ∼ (2, 4), since 1 · 4 = 2 · 2, and (1, 1) ∼ (1, 1).',
+        'g((1, 2), (1, 1)) = (2, 3) and g((2, 4), (1, 1)) = (3, 5).',
+        '(2, 3) ≁ (3, 5), since 2 · 5 = 10 ≠ 9 = 3 · 3.',
+        'So the result depends on which fraction we pick for 1/2, and g does not give an operation on ℚ.',
+      ],
     },
+
+    // -- prove or disprove --------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 5',
+      title: 'Prove or disprove',
+      prompt: ['Let ρ and σ be relations on a non-empty set A.'],
+      parts: [
+        'If ρ and σ are reflexive, then ρ ∘ σ is reflexive.',
+        'If ρ and σ are transitive, then ρ ∘ σ is transitive.',
+      ],
+      hint: ['Try small examples first. If one fails, you have a counterexample.'],
+      note: '4 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 5',
+      title: 'Solutions',
+      steps: [
+        '1. True. Let a ∈ A. Then a ρ a and a σ a (reflexivity of ρ and σ).',
+        'So ∃b (a ρ b ∧ b σ a) with b = a, which is a (ρ ∘ σ) a by Def. 3.12.',
+        '2. False. Let A = {1, 2, 3, 4, 5}, ρ = {(1, 2), (3, 4)} and σ = {(2, 3), (4, 5)}.',
+        'ρ and σ are transitive: no two pairs fit together, so there is nothing to check.',
+        'ρ ∘ σ = {(1, 3), (3, 5)}. Here 1 (ρ ∘ σ) 3 and 3 (ρ ∘ σ) 5, but (1, 5) ∉ ρ ∘ σ.',
+      ],
+      note: 'How to find it: write down the two pairs you want in ρ ∘ σ, then choose the middle elements.',
+    },
+
+    // -- partial orders ------------------------------------------------------------
+
+    {
+      kind: 'points',
+      title: 'Partial orders (script §3.5.1)',
+      points: [
+        'Def. 3.23: a partial order is reflexive, antisymmetric and transitive. (A; ⪯) is then a poset.',
+        'Examples 3.35–3.37: ≤ on ℤ, | on ℕ \\ {0}, and ⊆ on P(A) are partial orders. < is not, since it is not reflexive.',
+        'Def. 3.24: a and b are comparable if a ⪯ b or b ⪯ a.',
+        'Def. 3.25: (A; ⪯) is totally ordered if any two elements are comparable.',
+      ],
+      note: '2 minutes.',
+    },
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 6',
+      title: 'Short questions',
+      prompt: ['In the style of the exam. No justification needed.'],
+      parts: [
+        'How many relations are there on a set with 2 elements?',
+        'True or false: the empty relation on {1} is symmetric and transitive.',
+        'True or false: a relation can be both symmetric and antisymmetric.',
+        'True or false: | is a partial order on ℤ.',
+        'True or false: ({1, 2, 3, 4, 6, 12}; |) is totally ordered.',
+      ],
+      note: '3 minutes, then a show of hands on each one.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 6',
+      title: 'Solutions',
+      steps: [
+        '1. 16. A relation is a subset of A × A, which has 4 elements, so there are 2⁴ of them.',
+        '2. True. There are no pairs, so both conditions hold. It is not reflexive, since (1, 1) ∉ ∅.',
+        '3. True. The identity relation id is both.',
+        '4. False. 1 | −1 and −1 | 1, but 1 ≠ −1, so | is not antisymmetric on ℤ.',
+        '5. False. 2 and 3 are incomparable: 2 ∤ 3 and 3 ∤ 2.',
+      ],
+    },
+
+    // -- wrap --------------------------------------------------------------------
 
     {
       kind: 'end',
       title: 'See you next week',
       points: [
-        'Next: partial orders, Hasse diagrams, functions and countability.',
-        'Your real sheet is on Moodle — bring it if it differs from mine.',
-        'hserobyan@student.ethz.ch',
+        'Do the rest of sheet 5 and compare with the official solution.',
+        'hserobyan@ethz.ch',
+        'https://h-717.github.io/DM_HS26/',
       ],
     },
   ],
