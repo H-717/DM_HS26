@@ -2,20 +2,18 @@
 // Week 5 — everything you say on screen lives in this file. Edit freely.
 // See ./types.ts for the list of slide kinds and the text markup.
 //
-// The HS2026 sheet 5 was not on Moodle when this was written, so the deck is
-// built on the HS2025 sheet 5 and its graded solution, which should be almost
-// the same. Check the mapping once the new sheet is out.
-// Lecture: §3.3 (Oct 12), §3.4 and the start of §3.5 (Oct 14). Only Def. 3.23
-// to 3.25 are used from §3.5.
+// Built on the HS2026 sheet 5 and its graded solution.
+// Lecture: §3.3 (Oct 12), §3.4 and the start of §3.5 (Oct 14).
 //
 // Each exercise is a twin of one on the sheet — same shape, other content:
 //   Exercise 1 ↔ 5.1   Exercise 2 ↔ 5.2   Exercise 3 ↔ 5.3
-//   Exercise 4 ↔ 5.5   Exercise 5 ↔ 5.6   Exercise 6: short questions
-// 5.4 (properties of ρ ∘ ρ̂, σ ∘ π̂, intersection of equivalence relations) is
-// the graded exercise and is not touched anywhere: no inverse inside a
-// composition, no symmetry of a composition, no intersection of equivalence
-// relations (so Lemma 3.10 is not quoted either). Nothing on screen names a
-// sheet exercise.
+//   Exercise 4 ↔ 5.5   Exercise 5 ↔ 5.6   Exercise 6 ↔ 5.7
+//   Exercise 7: short questions
+// 5.4 (definition of antisymmetry, ⊆ ∘ ≈ on a family of sets, whether that is
+// a partial order, antisymmetry of ρ² and of a ⊆-relation built from it) is
+// the graded exercise and is not touched anywhere: no antisymmetry, no
+// partial orders (so §3.5 is left out), no Lemma 3.9 (ρ² ⊆ ρ). Nothing on
+// screen names a sheet exercise.
 // All relation claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
@@ -31,7 +29,7 @@ export const week05: Deck = {
     {
       kind: 'title',
       title: 'Exercise Session 5',
-      subtitle: 'Relations, equivalence relations, and partial orders',
+      subtitle: 'Relations and equivalence relations',
       footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
@@ -52,14 +50,15 @@ export const week05: Deck = {
         'Recap: relations',
         'Powers and transitive closure',
         'Properties of relations',
+        'A false proof',
         'Recap: equivalence relations',
         'An equivalence relation in the plane',
         'Operations on equivalence classes',
         'Prove or disprove',
-        'Partial orders and short questions',
+        'Short questions',
       ],
       note:
-        'Timing: 3 intro · 6 recap · 8 closure · 10 properties · 4 recap (break here, about 35 min) · 7 plane · 10 classes · 6 prove or disprove · 8 short questions. That is about 60 min.',
+        'Timing: 3 intro · 6 recap · 8 closure · 10 properties · 7 false proof · 4 recap (break here, about 40 min) · 7 plane · 10 classes · 6 prove or disprove · 6 short questions. That is about 65 min.',
     },
 
     // -- recap: relations ----------------------------------------------------------
@@ -83,10 +82,8 @@ export const week05: Deck = {
       points: [
         'Def. 3.13: reflexive if a ρ a for all a ∈ A.',
         'Def. 3.15: symmetric if a ρ b ⟺ b ρ a for all a, b ∈ A.',
-        'Def. 3.16: antisymmetric if a ρ b ∧ b ρ a ⟹ a = b for all a, b ∈ A.',
-        'Def. 3.17: transitive if a ρ b ∧ b ρ c ⟹ a ρ c for all a, b, c ∈ A. Lemma 3.9: this holds iff ρ² ⊆ ρ.',
+        'Def. 3.17: transitive if a ρ b ∧ b ρ c ⟹ a ρ c for all a, b, c ∈ A.',
         'To show a property fails, one counterexample is enough: one a, one pair, or one triple.',
-        'Antisymmetric is not the negation of symmetric. The identity relation is both.',
       ],
       note: '3 minutes.',
     },
@@ -174,6 +171,34 @@ export const week05: Deck = {
       ],
     },
 
+    // -- false proof ---------------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 3',
+      title: 'A false proof',
+      prompt: [
+        'Claim: if ρ and σ are transitive relations on A, then ρ ∪ σ is transitive.',
+        'Proof: Let a (ρ ∪ σ) b and b (ρ ∪ σ) c. Then a ρ b or a σ b. If a ρ b, then also b ρ c, so a ρ c by the transitivity of ρ. If a σ b, then also b σ c, so a σ c by the transitivity of σ. In both cases a (ρ ∪ σ) c.',
+      ],
+      parts: ['Find the mistake in the proof.', 'Show that the claim is false.'],
+      note: '5 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 3',
+      title: 'Solutions',
+      steps: [
+        '1. From a ρ b and b (ρ ∪ σ) c we only get b ρ c or b σ c. The proof skips the mixed cases a ρ b ∧ b σ c and a σ b ∧ b ρ c.',
+        '2. Let A = {1, 2, 3}, ρ = {(1, 2)} and σ = {(2, 3)}.',
+        'ρ and σ are transitive: each has one pair, so there is nothing to check.',
+        'ρ ∪ σ = {(1, 2), (2, 3)}. Here 1 (ρ ∪ σ) 2 and 2 (ρ ∪ σ) 3, but (1, 3) ∉ ρ ∪ σ.',
+      ],
+      note: 'The counterexample sits exactly in the case the proof forgot.',
+    },
+
     // -- recap: equivalence relations ---------------------------------------------
 
     {
@@ -194,7 +219,7 @@ export const week05: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 3',
+      ref: 'Exercise 4',
       title: 'An equivalence relation in the plane',
       prompt: ['On ℝ², define (x₁, y₁) ∼ (x₂, y₂) ⟺ x₁² + y₁² = x₂² + y₂².'],
       parts: ['Prove that ∼ is an equivalence relation.', 'Describe the equivalence classes [(x, y)] geometrically.'],
@@ -204,7 +229,7 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 3',
+      ref: 'Exercise 4',
       title: 'Solutions',
       steps: [
         'Reflexive: x² + y² = x² + y², so (x, y) ∼ (x, y).',
@@ -219,7 +244,7 @@ export const week05: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 4',
+      ref: 'Exercise 5',
       title: 'Operations on equivalence classes',
       prompt: [
         'Let A = ℤ × (ℤ \\ {0}) with (a, b) ∼ (c, d) ⟺ ad = bc, as in §3.4.3.',
@@ -236,7 +261,7 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 5',
       title: 'Solutions: parts 1 and 2',
       steps: [
         '1. mul((a, b), (c, d)) = (ac, bd). Since b ≠ 0 and d ≠ 0, bd ≠ 0, so the result lies in A.',
@@ -252,7 +277,7 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 4',
+      ref: 'Exercise 5',
       title: 'Solutions: part 3',
       steps: [
         'One counterexample is enough. Take (1, 2) ∼ (2, 4), since 1 · 4 = 2 · 2, and (1, 1) ∼ (1, 1).',
@@ -266,11 +291,11 @@ export const week05: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 5',
+      ref: 'Exercise 6',
       title: 'Prove or disprove',
       prompt: ['Let ρ and σ be relations on a non-empty set A.'],
       parts: [
-        'If ρ and σ are reflexive, then ρ ∘ σ is reflexive.',
+        'If ρ and σ are symmetric, then ρ ∘ σ is symmetric.',
         'If ρ and σ are transitive, then ρ ∘ σ is transitive.',
       ],
       hint: ['Try small examples first. If one fails, you have a counterexample.'],
@@ -280,43 +305,31 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 5',
+      ref: 'Exercise 6',
       title: 'Solutions',
       steps: [
-        '1. True. Let a ∈ A. Then a ρ a and a σ a (reflexivity of ρ and σ).',
-        'So ∃b (a ρ b ∧ b σ a) with b = a, which is a (ρ ∘ σ) a by Def. 3.12.',
+        '1. False. Let A = {1, 2, 3}, ρ = {(1, 2), (2, 1)} and σ = {(2, 3), (3, 2)}. Both are symmetric.',
+        'ρ ∘ σ = {(1, 3)}, from 1 ρ 2 and 2 σ 3. But (3, 1) ∉ ρ ∘ σ, so ρ ∘ σ is not symmetric.',
         '2. False. Let A = {1, 2, 3, 4, 5}, ρ = {(1, 2), (3, 4)} and σ = {(2, 3), (4, 5)}.',
         'ρ and σ are transitive: no two pairs fit together, so there is nothing to check.',
         'ρ ∘ σ = {(1, 3), (3, 5)}. Here 1 (ρ ∘ σ) 3 and 3 (ρ ∘ σ) 5, but (1, 5) ∉ ρ ∘ σ.',
       ],
-      note: 'How to find it: write down the two pairs you want in ρ ∘ σ, then choose the middle elements.',
+      note:
+        'How to find them: write down the pairs you want in ρ ∘ σ, then choose the middle elements. In part 1, σ ∘ ρ = {(3, 1)}: the order of composition matters.',
     },
 
-    // -- partial orders ------------------------------------------------------------
-
-    {
-      kind: 'points',
-      title: 'Partial orders (script §3.5.1)',
-      points: [
-        'Def. 3.23: a partial order is reflexive, antisymmetric and transitive. (A; ⪯) is then a poset.',
-        'Examples 3.35–3.37: ≤ on ℤ, | on ℕ \\ {0}, and ⊆ on P(A) are partial orders. < is not, since it is not reflexive.',
-        'Def. 3.24: a and b are comparable if a ⪯ b or b ⪯ a.',
-        'Def. 3.25: (A; ⪯) is totally ordered if any two elements are comparable.',
-      ],
-      note: '2 minutes.',
-    },
+    // -- short questions -----------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Exercise 6',
+      ref: 'Exercise 7',
       title: 'Short questions',
       prompt: ['In the style of the exam. No justification needed.'],
       parts: [
         'How many relations are there on a set with 2 elements?',
-        'True or false: the empty relation on {1} is symmetric and transitive.',
-        'True or false: a relation can be both symmetric and antisymmetric.',
-        'True or false: | is a partial order on ℤ.',
-        'True or false: ({1, 2, 3, 4, 6, 12}; |) is totally ordered.',
+        'How many equivalence relations are there on {1, 2, 3}?',
+        'True or false: if ρ is symmetric, then ρ̂ = ρ.',
+        'True or false: ρ ∘ σ = σ ∘ ρ for all relations ρ, σ on A.',
       ],
       note: '3 minutes, then a show of hands on each one.',
     },
@@ -324,14 +337,13 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 6',
+      ref: 'Exercise 7',
       title: 'Solutions',
       steps: [
         '1. 16. A relation is a subset of A × A, which has 4 elements, so there are 2⁴ of them.',
-        '2. True. There are no pairs, so both conditions hold. It is not reflexive, since (1, 1) ∉ ∅.',
-        '3. True. The identity relation id is both.',
-        '4. False. 1 | −1 and −1 | 1, but 1 ≠ −1, so | is not antisymmetric on ℤ.',
-        '5. False. 2 and 3 are incomparable: 2 ∤ 3 and 3 ∤ 2.',
+        '2. 5. An equivalence relation is fixed by its classes (Theorem 3.11), and every partition gives one, so count the partitions of {1, 2, 3}:{{1, 2, 3}}, {{1, 2}, {3}}, {{1, 3}, {2}}, {{2, 3}, {1}} and {{1}, {2}, {3}}.',
+        '3. True. (a, b) ∈ ρ̂ ⟺ (b, a) ∈ ρ ⟺ (a, b) ∈ ρ, by Def. 3.11 and symmetry.',
+        '4. False. On {1, 2, 3} with ρ = {(1, 2)} and σ = {(2, 3)}: ρ ∘ σ = {(1, 3)}, but σ ∘ ρ = ∅.',
       ],
     },
 
