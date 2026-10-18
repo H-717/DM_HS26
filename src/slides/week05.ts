@@ -34,16 +34,6 @@ export const week05: Deck = {
     },
 
     {
-      kind: 'points',
-      title: 'This week',
-      points: [
-        'As every week, we do not look at the graded exercise today.',
-        'Composition is read left to right in the script: first ρ, then σ.',
-      ],
-      note: '1 minute.',
-    },
-
-    {
       kind: 'agenda',
       title: 'Today',
       items: [
@@ -95,21 +85,48 @@ export const week05: Deck = {
       ref: 'Exercise 1',
       title: 'Powers and transitive closure',
       prompt: ['Let ρ = {(1, 2), (2, 3), (3, 1), (4, 3)} on {1, 2, 3, 4}.'],
-      parts: ['Give ρ² and ρ³ as sets.', 'Give ρ* as a matrix.'],
-      hint: ['Draw the graph first.'],
+      parts: ['Give ρ² and ρ³ as matrices.', 'Give ρ* as a matrix.'],
       note: '4 minutes.',
     },
 
     {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 1',
-      title: 'Solutions',
-      steps: [
-        'The graph: 1 → 2 → 3 → 1 is a cycle, and 4 → 3.',
-        '1. ρ² = {(1, 3), (2, 1), (3, 2), (4, 1)}, the walks of length 2: 1→2→3, 2→3→1, 3→1→2, 4→3→1.',
-        'ρ³ = ρ² ∘ ρ = {(1, 1), (2, 2), (3, 3), (4, 2)}.',
-        '2. Each of 1, 2, 3 reaches 1, 2, 3. Vertex 4 reaches 3, 1, 2. No edge goes into 4.',
+      kind: 'table',
+      title: 'Exercise 1: ρ as a matrix',
+      lead: 'Rows: from. Columns: to.',
+      headers: ['', '1', '2', '3', '4'],
+      rows: [
+        ['1', '0', '1', '0', '0'],
+        ['2', '0', '0', '1', '0'],
+        ['3', '1', '0', '0', '0'],
+        ['4', '0', '0', '1', '0'],
+      ],
+    },
+
+    {
+      kind: 'table',
+      solution: 'Exercise 1',
+      title: 'Exercise 1: ρ² as a matrix',
+      lead: 'ρ² = ρ ∘ ρ: multiply the matrix of ρ with itself.',
+      headers: ['', '1', '2', '3', '4'],
+      rows: [
+        ['1', '0', '0', '1', '0'],
+        ['2', '1', '0', '0', '0'],
+        ['3', '0', '1', '0', '0'],
+        ['4', '1', '0', '0', '0'],
+      ],
+    },
+
+    {
+      kind: 'table',
+      solution: 'Exercise 1',
+      title: 'Exercise 1: ρ³ as a matrix',
+      lead: 'ρ³ = ρ² ∘ ρ: multiply once more.',
+      headers: ['', '1', '2', '3', '4'],
+      rows: [
+        ['1', '1', '0', '0', '0'],
+        ['2', '0', '1', '0', '0'],
+        ['3', '0', '0', '1', '0'],
+        ['4', '0', '1', '0', '0'],
       ],
     },
 
@@ -117,7 +134,7 @@ export const week05: Deck = {
       kind: 'table',
       solution: 'Exercise 1',
       title: 'Exercise 1: ρ* as a matrix',
-      lead: 'Rows: from. Columns: to.',
+      lead: 'One more step gives ρ⁴ = ρ, so nothing new comes. ρ* = ρ ∪ ρ² ∪ ρ³: a 1 wherever one of them has a 1.',
       headers: ['', '1', '2', '3', '4'],
       rows: [
         ['1', '1', '1', '1', '0'],
@@ -125,9 +142,7 @@ export const week05: Deck = {
         ['3', '1', '1', '1', '0'],
         ['4', '1', '1', '1', '0'],
       ],
-      markRows: [3],
-      note:
-        'The entry (4, 4) is 0: there is no walk of length at least 1 from 4 back to 4, and Def. 3.18 starts at n = 1.',
+      note: 'Row 4 ends in 0: nothing leads back into 4.',
     },
 
     // -- properties --------------------------------------------------------------
