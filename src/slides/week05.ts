@@ -7,8 +7,8 @@
 //
 // Each exercise is a twin of one on the sheet — same shape, other content:
 //   Exercise 1 ↔ 5.1   Exercise 2 ↔ 5.2   Exercise 3 ↔ 5.3
-//   Exercise 4 ↔ 5.5   Exercise 5 ↔ 5.6   Exercise 6 ↔ 5.7
-//   Exercise 7: short questions
+//   Exercise 4 ↔ 5.5   Exercise 5 ↔ 5.7   Exercise 6: short questions
+// 5.6 (lifting sum to ℚ) has no twin: too heavy to present.
 // 5.4 (definition of antisymmetry, ⊆ ∘ ≈ on a family of sets, whether that is
 // a partial order, antisymmetry of ρ² and of a ⊆-relation built from it) is
 // the graded exercise and is not touched anywhere: no antisymmetry, no
@@ -43,12 +43,11 @@ export const week05: Deck = {
         'A false proof',
         'Recap: equivalence relations',
         'An equivalence relation in the plane',
-        'Operations on equivalence classes',
         'Prove or disprove',
         'Short questions',
       ],
       note:
-        'Timing: 3 intro · 6 recap · 8 closure · 10 properties · 7 false proof · 4 recap (break here, about 40 min) · 7 plane · 10 classes · 6 prove or disprove · 6 short questions. That is about 65 min.',
+        'Timing: 3 intro · 6 recap · 8 closure · 10 properties · 7 false proof · 4 recap (break here, about 40 min) · 7 plane · 6 prove or disprove · 6 short questions. That is about 55 min.',
     },
 
     // -- recap: relations ----------------------------------------------------------
@@ -224,7 +223,6 @@ export const week05: Deck = {
         'Def. 3.20: the equivalence class of a is [a]θ = {b ∈ A | b θ a}.',
         'Def. 3.22: the quotient set is A/θ = {[a]θ | a ∈ A}.',
         'Theorem 3.11: A/θ is a partition of A (Def. 3.21). The classes are disjoint and cover A.',
-        '§3.4.3: ℚ is defined as (ℤ × (ℤ \\ {0}))/∼ with (a, b) ∼ (c, d) ⟺ ad = bc.',
       ],
       note:
         '4 minutes. Board example: the partition {{1, 2}, {3}, {4, 5}} of {1, …, 5} gives an equivalence relation with 4 + 1 + 4 = 9 pairs.',
@@ -255,58 +253,11 @@ export const week05: Deck = {
       ],
     },
 
-    // -- operations on classes ----------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: 'Exercise 5',
-      title: 'Operations on equivalence classes',
-      prompt: [
-        'Let A = ℤ × (ℤ \\ {0}) with (a, b) ∼ (c, d) ⟺ ad = bc, as in §3.4.3.',
-        'For an equivalence relation θ on B, a function f : B² → B is θ-consistent if for all b₁, b₂, b₁′, b₂′ ∈ B: (b₁ θ b₁′ ∧ b₂ θ b₂′) ⟹ f(b₁, b₂) θ f(b₁′, b₂′).',
-      ],
-      parts: [
-        'Define the product of two fractions as a function mul : A² → A.',
-        'Prove that mul is ∼-consistent.',
-        'Show that g((a, b), (c, d)) = (a + c, b + d) is not ∼-consistent.',
-      ],
-      note: '6 minutes. Consistency is what makes [x] · [y] := [mul(x, y)] well defined on ℚ.',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions: parts 1 and 2',
-      steps: [
-        '1. mul((a, b), (c, d)) = (ac, bd). Since b ≠ 0 and d ≠ 0, bd ≠ 0, so the result lies in A.',
-        '2. Let (a, b), (a′, b′), (c, d), (c′, d′) ∈ A.',
-        '(a, b) ∼ (a′, b′) ∧ (c, d) ∼ (c′, d′) ⟺ ab′ = ba′ ∧ cd′ = dc′   (def. ∼)',
-        '⟹ ab′ · cd′ = ba′ · dc′   (multiply the two equations)',
-        '⟺ ac · b′d′ = bd · a′c′   (commutativity and associativity of ·)',
-        '⟺ (ac, bd) ∼ (a′c′, b′d′)   (def. ∼)',
-        '⟺ mul((a, b), (c, d)) ∼ mul((a′, b′), (c′, d′))   (def. mul)',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions: part 3',
-      steps: [
-        'One counterexample is enough. Take (1, 2) ∼ (2, 4), since 1 · 4 = 2 · 2, and (1, 1) ∼ (1, 1).',
-        'g((1, 2), (1, 1)) = (2, 3) and g((2, 4), (1, 1)) = (3, 5).',
-        '(2, 3) ≁ (3, 5), since 2 · 5 = 10 ≠ 9 = 3 · 3.',
-        'So the result depends on which fraction we pick for 1/2, and g does not give an operation on ℚ.',
-      ],
-    },
-
     // -- prove or disprove --------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Prove or disprove',
       prompt: ['Let ρ and σ be relations on a non-empty set A.'],
       parts: [
@@ -320,7 +271,7 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 6',
+      ref: 'Exercise 5',
       title: 'Solutions',
       steps: [
         '1. False. Let A = {1, 2, 3}, ρ = {(1, 2), (2, 1)} and σ = {(2, 3), (3, 2)}. Both are symmetric.',
@@ -337,12 +288,12 @@ export const week05: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exercise 7',
+      ref: 'Exercise 6',
       title: 'Short questions',
       prompt: ['In the style of the exam. No justification needed.'],
       parts: [
-        'How many relations are there on a set with 2 elements?',
-        'How many equivalence relations are there on {1, 2, 3}?',
+        'True or false: < on ℤ is symmetric.',
+        'True or false: ≡₂ on ℤ has exactly two equivalence classes.',
         'True or false: if ρ is symmetric, then ρ̂ = ρ.',
         'True or false: ρ ∘ σ = σ ∘ ρ for all relations ρ, σ on A.',
       ],
@@ -352,11 +303,11 @@ export const week05: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exercise 7',
+      ref: 'Exercise 6',
       title: 'Solutions',
       steps: [
-        '1. 16. A relation is a subset of A × A, which has 4 elements, so there are 2⁴ of them.',
-        '2. 5. An equivalence relation is fixed by its classes (Theorem 3.11), and every partition gives one, so count the partitions of {1, 2, 3}:{{1, 2, 3}}, {{1, 2}, {3}}, {{1, 3}, {2}}, {{2, 3}, {1}} and {{1}, {2}, {3}}.',
+        '1. False. 1 < 2, but 2 ≮ 1.',
+        '2. True. The even numbers and the odd numbers.',
         '3. True. (a, b) ∈ ρ̂ ⟺ (b, a) ∈ ρ ⟺ (a, b) ∈ ρ, by Def. 3.11 and symmetry.',
         '4. False. On {1, 2, 3} with ρ = {(1, 2)} and σ = {(2, 3)}: ρ ∘ σ = {(1, 3)}, but σ ∘ ρ = ∅.',
       ],
