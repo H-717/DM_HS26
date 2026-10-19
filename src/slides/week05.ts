@@ -154,7 +154,7 @@ export const week05: Deck = {
         'On ℕ \\ {0}, decide for each relation whether it is reflexive, symmetric or transitive. Justify.',
       ],
       parts: ['| ∘ >', '≤ ∪ ≡₃', '< ∪ >'],
-      hint: ['For part 1, write out what a (| ∘ >) c means with Def. 3.12.'],
+      // hint: ['For part 1, write out what a (| ∘ >) c means with Def. 3.12.'],
       note: '6 minutes.',
     },
 
