@@ -25,6 +25,7 @@ export const week04: Deck = {
   topic: 'Sets',
   date: 'Mon 12 Oct 2026',
   sheet: 'Exercise sheet 4',
+  solutionsReleased: true,
 
   slides: [
     {
