@@ -89,7 +89,7 @@ export const content = {
     { week: 3, topic: 'Predicate Logic & Proof Patterns', slidesUrl: '#/slides/3' },
     { week: 4, topic: 'Sets', slidesUrl: '#/slides/4' },
     { week: 5, topic: 'Relations', slidesUrl: '#/slides/5' },
-    // { week: 6, topic: 'Orders, Functions & Countability', slidesUrl: '#/slides/6' },
+    { week: 6, topic: 'Partial Orders & Functions', slidesUrl: '#/slides/6' },
     // { week: 7, topic: 'Number Theory: gcd, Congruences & Modular Arithmetic', slidesUrl: '#/slides/7' },
     // { week: 8, topic: 'Monoids, Groups & Homomorphisms', slidesUrl: '#/slides/8' },
     // { week: 9, topic: 'Cyclic Groups, Diffie–Hellman, RSA & Rings', slidesUrl: '#/slides/9' },

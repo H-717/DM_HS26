@@ -1,262 +1,317 @@
 // ---------------------------------------------------------------------------
 // Week 6 — everything you say on screen lives in this file. Edit freely.
 // See ./types.ts for the list of slide kinds and the text markup.
+//
+// Built on the HS2026 sheet 6 and its graded solution.
+// Lecture: §3.5 and §3.6 (Oct 19), §3.7 (Oct 21).
+//
+// Each exercise is a twin of one on the sheet — same shape, other content:
+//   Exercise 1 ↔ 6.1   Exercise 2 ↔ 6.2   Exercise 3 ↔ 6.3
+//   Exercise 4 ↔ 6.4   Exercise 5 ↔ 6.7   Exercise 6: short questions
+// 6.5 (equinumerous sets, a countable union of countable sets, monotone
+// functions ℕ → ℕ) is the graded exercise and is not touched anywhere: no
+// countability, no equinumerosity, no injections from {0,1}^∞. That also
+// rules out 6.6, whose technique is exactly what 6.5.3 needs, so §3.7 is
+// left out. Nothing on screen names a sheet exercise.
+// All order and function claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
 import type { Deck } from './types';
 
 export const week06: Deck = {
   week: 6,
-  topic: 'Orders, Functions & Countability',
-  date: 'Week 6',
-  sheet: 'Exercise sheet 6 (HS 2025)',
+  topic: 'Partial Orders & Functions',
+  date: 'Mon 26 Oct 2026',
+  sheet: 'Exercise sheet 6',
 
   slides: [
     {
       kind: 'title',
       title: 'Exercise Session 6',
-      subtitle: 'Posets and Hasse diagrams, then the first uncountable sets',
-      footnote: 'Discrete Mathematics · HS 2026 · practising on sheet 6',
+      subtitle: 'Partial orders and functions',
+      footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
     {
       kind: 'agenda',
+      title: 'Today',
       items: [
-        '6.1 Partial orders and lexicographic order',
-        '6.2 Hasse diagrams: least, greatest, minimal, maximal',
-        '6.3 Proving ≤lex is a partial order',
-        '6.4 Left inverses and injectivity',
-        '6.6 Uncountability',
-        '6.7 f ∘ g ∘ f (exam)',
-        '6.5 — the presentation exercise',
+        'Recap: partial orders',
+        'Comparable elements and new orders',
+        'Recap: Hasse diagrams and special elements',
+        'Hasse diagrams',
+        'The direct product of posets',
+        'Recap: functions',
+        'Right inverses',
+        'Compositions',
+        'Short questions',
       ],
+      note:
+        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions. That is about 75 min.',
     },
+
+    // -- recap: partial orders -----------------------------------------------------
 
     {
-      kind: 'callout',
-      title: 'Four words that are not synonyms',
-      tone: 'warn',
-      body: [
-        '**Minimal**: nothing is strictly below it. There can be many.',
-        '**Least**: below *everything*. There is at most one, and it must be comparable to all.',
-        'Same for maximal / greatest, upwards.',
-        'A finite non-empty poset always has minimal elements. It need not have a least one.',
+      kind: 'points',
+      title: 'Partial orders (script §3.5.1)',
+      points: [
+        'Def. 3.16: ρ is antisymmetric if a ρ b ∧ b ρ a ⟹ a = b for all a, b ∈ A.',
+        'Def. 3.23: a partial order is reflexive, antisymmetric and transitive. (A; ⪯) is then called a poset.',
+        'a ≺ b means a ⪯ b ∧ a ≠ b.',
+        'Def. 3.24: a and b are comparable if a ⪯ b or b ⪯ a. Otherwise incomparable.',
+        'Def. 3.25: (A; ⪯) is totally ordered if any two elements are comparable.',
       ],
-      note: 'The divisibility example in 6.2 has one least element and three maximal ones. Perfect illustration — lead with it.',
+      note: '5 minutes. Examples from the script: ≤ on ℤ, | on ℕ \\ {0}, ⊆ on P(A). Only the first one is total.',
     },
 
-    // -- 6.1 -----------------------------------------------------------------
+    // -- orders ------------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '6.1',
-      title: 'Partial Order Relations  (⋆)',
-      prompt: [],
+      ref: 'Exercise 1',
+      title: 'Comparable elements and new orders',
+      prompt: [
+        'Part 2 uses the order on (ℕ \\ {0}) × (ℕ \\ {0}) given by (a, b) ≤q (c, d) ⟺ (a ≠ c ∧ a ≤ c) ∨ (a = c ∧ b | d).',
+      ],
       parts: [
-        'In (ℕ\\{0}; | ), which of (11,12), (4,6), (5,15), (42,42) are comparable?',
-        'On A = (ℕ\\{0})² with (a,b) ≤lex (c,d) ⟺ (a≠c ∧ a|c) ∨ (a=c ∧ b|d): find all a ∈ A with a ≤lex (2,5).',
-        'Prove or disprove: if (A; ⪯) is a poset, so is (A; ⪰).',
+        'In (P({1, 2, 3}); ⊆), which pairs are comparable? ({1}, {1, 2}), ({1, 2}, {2, 3}), (∅, {3}), ({1, 3}, {1, 3})',
+        'Find all elements x with x ≤q (3, 4).',
+        'Prove or disprove: if ⪯ and ⊑ are partial orders on A, then ⪯ ∩ ⊑ is a partial order on A.',
+        'Prove or disprove: if ⪯ and ⊑ are partial orders on A, then ⪯ ∪ ⊑ is a partial order on A.',
+      ],
+      note: '6 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 1',
+      title: 'Solutions',
+      steps: [
+        '1. ({1}, {1, 2}): comparable, {1} ⊆ {1, 2}. ({1, 2}, {2, 3}): incomparable, neither is a subset of the other.',
+        '(∅, {3}): comparable, ∅ ⊆ {3}. ({1, 3}, {1, 3}): comparable, since ⊆ is reflexive.',
+        '2. Case a ∈ {1, 2}: a ≠ 3 and a ≤ 3, so (a, b) ≤q (3, 4) for every b.',
+        'Case a = 3: we need b | 4, so b ∈ {1, 2, 4}. Case a > 3: a ≤ 3 is false, so nothing.',
+        'Answer: {(1, n), (2, n) | n ∈ ℕ \\ {0}} ∪ {(3, 1), (3, 2), (3, 4)}. An infinite set.',
       ],
     },
 
     {
       kind: 'solution',
-      ref: '6.1',
-      title: 'Answers',
       reveal: true,
+      ref: 'Exercise 1',
+      title: 'Solutions',
       steps: [
-        '**1.** Comparable means one divides the other. (11,12) no · (4,6) no · **(5,15) yes** (5 | 15) · **(42,42) yes** (42 | 42).',
-        '**2.** Two cases. If a ≠ 2 and a | 2 then a = 1, and the second coordinate is unconstrained: **(1, y) for every y**.',
-        'If a = 2 then we need b | 5, so b ∈ {1, 5}: **(2,1) and (2,5)**.',
-        'Answer: { (1,y) : y ∈ ℕ\\{0} } ∪ { (2,1), (2,5) } — an infinite set. Worth noticing.',
-        '**3. True.** Reflexivity is unchanged; antisymmetry is symmetric in the two directions; transitivity holds with the chain read backwards. Reversing a partial order always gives a partial order. ∎',
+        '3. True. Reflexive: a ⪯ a and a ⊑ a, so a (⪯ ∩ ⊑) a.',
+        'Antisymmetric: from a (⪯ ∩ ⊑) b and b (⪯ ∩ ⊑) a we get a ⪯ b and b ⪯ a, so a = b by the antisymmetry of ⪯.',
+        'Transitive: from a (⪯ ∩ ⊑) b and b (⪯ ∩ ⊑) c we get a ⪯ c and a ⊑ c by transitivity of both, so a (⪯ ∩ ⊑) c.',
+        '4. False. Take A = {1, 2} with ≤ and ≥. Both are partial orders.',
+        '≤ ∪ ≥ contains (1, 2) and (2, 1), but 1 ≠ 2. So it is not antisymmetric.',
       ],
+      note: 'For 3, antisymmetry only needs one of the two orders.',
+    },
+
+    // -- recap: Hasse diagrams -------------------------------------------------------
+
+    {
+      kind: 'points',
+      title: 'Hasse diagrams and special elements (script §3.5.2, §3.5.4)',
+      points: [
+        'Def. 3.26: b covers a if a ≺ b and there is no c with a ≺ c ≺ b.',
+        'Def. 3.27: the Hasse diagram has an edge from a to b iff b covers a. Draw b above a and leave out the arrows.',
+        'Def. 3.29: a is minimal (maximal) if there is no b with b ≺ a (b ≻ a).',
+        'Def. 3.29: a is the least (greatest) element if a ⪯ b (a ⪰ b) for all b ∈ A.',
+        'There is at most one least element, but there can be many minimal ones.',
+      ],
+      note:
+        '5 minutes. Board example: ({2, 3, 4, 5, 6, 7, 8, 9}; |) from Example 3.47. No least or greatest element, minimal 2, 3, 5, 7.',
+    },
+
+    // -- Hasse ----------------------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 2',
+      title: 'Hasse diagrams',
+      prompt: [
+        'For each poset, draw the Hasse diagram and give all least, greatest, minimal and maximal elements.',
+      ],
+      parts: ['(P({a, b}); ⊆)', '({2, 4, 5, 10, 12, 20}; |)'],
+      note: '6 minutes. Draw both diagrams on the board when going through it.',
     },
 
     {
-      kind: 'grid',
-      title: '6.2 · Hasse diagram of ({1,2,3,5,6,9}; | )',
-      lead: 'Read upward = divides. Edges only for covers — no 1→6 line, since 1|2|6.',
-      cells: [
-        '  N K   ',
-        '        ',
-        'B C  E  ',
-        '        ',
-        '   A    ',
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 2',
+      title: 'Solutions',
+      steps: [
+        '1. Bottom: ∅. Middle: {a} and {b}. Top: {a, b}.',
+        'Edges: ∅–{a}, ∅–{b}, {a}–{a, b}, {b}–{a, b}.',
+        '2. Bottom: 2 and 5. Middle: 4 and 10. Top: 12 and 20.',
+        'Edges: 2–4, 2–10, 5–10, 4–12, 4–20, 10–20.',
+        'No edge 2–12: 4 lies in between, since 2 | 4 and 4 | 12. Same for 2–20 and 5–20.',
       ],
-      legend:
-        'A = 1 · B = 2 · C = 3 · E = 5 · K = 6 · N = 9.  Edges: 1–2, 1–3, 1–5, 2–6, 3–6, 3–9.',
-      note:
-        'Draw this properly on the board; the grid here is just a reminder of the shape. Ask which element is least before revealing the next slide.',
     },
 
     {
       kind: 'table',
-      title: '6.2 · The four questions, both posets',
+      solution: 'Exercise 2',
+      title: 'Exercise 2: special elements',
       headers: ['poset', 'least', 'greatest', 'minimal', 'maximal'],
       rows: [
-        ['({1,2,3}; ≤)', '1', '3', '1', '3'],
-        ['({1,2,3,5,6,9}; | )', '1', 'none', '1', '5, 6, 9'],
+        ['(P({a, b}); ⊆)', '∅', '{a, b}', '∅', '{a, b}'],
+        ['({2, 4, 5, 10, 12, 20}; |)', 'none', 'none', '2, 5', '12, 20'],
       ],
-      markRows: [1],
-      note:
-        'Second row is the whole lesson: three maximal elements and no greatest one, because 5, 6, 9 are pairwise incomparable.',
+      note: 'In the second poset 2 and 5 are incomparable, so neither of them is least.',
     },
 
-    // -- 6.3 -----------------------------------------------------------------
+    // -- product ------------------------------------------------------------------
 
     {
       kind: 'exercise',
-      ref: '6.3',
-      title: 'The Lexicographic Order  (⋆⋆)',
+      ref: 'Exercise 3',
+      title: 'The direct product of posets',
       prompt: [
-        'For posets (A; ⪯) and (B; ⊑), prove that ≤lex on A × B is a partial order, where',
-        '(a₁,b₁) ≤lex (a₂,b₂) ⟺ a₁ ≺ a₂ ∨ (a₁ = a₂ ∧ b₁ ⊑ b₂),  and a ≺ a′ means a ⪯ a′ ∧ a ≠ a′.',
+        'Def. 3.28: for posets (A; ⪯) and (B; ⊑), define on A × B',
+        '(a₁, b₁) ≤ (a₂, b₂) ⟺ a₁ ⪯ a₂ ∧ b₁ ⊑ b₂.',
       ],
+      parts: [
+        'Prove that ≤ is a partial order on A × B (Theorem 3.12).',
+        'Replace ∧ by ∨. Show that the result is in general not a partial order.',
+      ],
+      note: '5 minutes.',
     },
 
     {
       kind: 'solution',
-      ref: '6.3',
-      title: 'Three axioms, one case distinction',
       reveal: true,
+      ref: 'Exercise 3',
+      title: 'Solutions',
       steps: [
-        '**Reflexive**: a = a and b ⊑ b, so the right disjunct holds. ✓',
-        '**Antisymmetric**: suppose both directions hold. If a₁ ≺ a₂ then we cannot also have a₂ ≺ a₁ (that would contradict antisymmetry of ⪯). So a₁ = a₂.',
-        'Then both directions reduce to b₁ ⊑ b₂ and b₂ ⊑ b₁, so b₁ = b₂ by antisymmetry of ⊑. Hence the pairs are equal. ✓',
-        '**Transitive**: given (a₁,b₁) ≤ (a₂,b₂) ≤ (a₃,b₃), split on whether the first coordinates move.',
-        'If a₁ ≺ a₂ or a₂ ≺ a₃, then a₁ ≺ a₃ and the first disjunct holds. Otherwise a₁ = a₂ = a₃ and b₁ ⊑ b₂ ⊑ b₃ gives b₁ ⊑ b₃. ✓ ∎',
-        'The only subtle point is that ≺ is transitive and irreflexive — check that separately if you have not.',
+        '1. Reflexive: a ⪯ a and b ⊑ b, so (a, b) ≤ (a, b).',
+        'Antisymmetric: from (a₁, b₁) ≤ (a₂, b₂) and (a₂, b₂) ≤ (a₁, b₁) we get a₁ ⪯ a₂, a₂ ⪯ a₁, b₁ ⊑ b₂ and b₂ ⊑ b₁.',
+        'By the antisymmetry of ⪯ and ⊑, a₁ = a₂ and b₁ = b₂. So (a₁, b₁) = (a₂, b₂).',
+        'Transitive: from (a₁, b₁) ≤ (a₂, b₂) ≤ (a₃, b₃) we get a₁ ⪯ a₂ ⪯ a₃ and b₁ ⊑ b₂ ⊑ b₃, so a₁ ⪯ a₃ and b₁ ⊑ b₃. Hence (a₁, b₁) ≤ (a₃, b₃).',
+        '2. Take (ℕ; ≤) twice. Then (1, 2) ≤ (2, 1) because 1 ≤ 2, and (2, 1) ≤ (1, 2) because 1 ≤ 2.',
+        'But (1, 2) ≠ (2, 1), so the ∨ version is not antisymmetric.',
       ],
+      note: 'Every property is checked coordinate by coordinate, no case distinction needed.',
     },
 
-    // -- 6.4 -----------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '6.4',
-      title: 'Inverses of Functions  (⋆⋆)',
-      prompt: [
-        'For f : A → A, prove that there exists g : A → A with g ∘ f = id_A **if and only if** f is injective.',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '6.4',
-      title: 'One direction is easy, the other builds g',
-      reveal: true,
-      steps: [
-        '**(⇒)** Suppose g ∘ f = id and f(x₁) = f(x₂). Apply g: x₁ = g(f(x₁)) = g(f(x₂)) = x₂. So f is injective. ✓',
-        '**(⇐)** Suppose f is injective. For y in the image of f there is **exactly one** x with f(x) = y — injectivity is what makes this a definition rather than a guess.',
-        'Fix any a₀ ∈ A and define g(y) = that unique x when y ∈ im(f), and g(y) = a₀ otherwise.',
-        'Then g(f(x)) = x for every x, so g ∘ f = id. ∎',
-        'Note where each hypothesis is used: injectivity makes g **well defined**; A ≠ ∅ gives you a₀ to fall back on.',
-        'The mirror statement: f has a *right* inverse iff f is surjective — and that one needs a choice for each y.',
-      ],
-    },
-
-    // -- 6.6 -----------------------------------------------------------------
-
-    {
-      kind: 'callout',
-      title: 'Two ways to prove uncountability',
-      tone: 'info',
-      body: [
-        '**Diagonalisation**: assume a list of all elements, construct one that differs from the n-th element in position n.',
-        '**Injection from a known uncountable set**: exhibit an injective map {0,1}^∞ → S, or ℝ → S. Usually much shorter.',
-        'Direction matters: to show S is uncountable, map **into** S from something uncountable.',
-      ],
-    },
-
-    {
-      kind: 'solution',
-      ref: '6.6',
-      title: 'The four sets',
-      reveal: true,
-      steps: [
-        '**1.** Sequences over {0,…,9}: diagonalise. Given a list a₁, a₂, …, define b(i) = (aᵢ(i) + 1) mod 10. Then b differs from every aᵢ at position i, so b is not in the list. ∎',
-        '**2.** The unit circle: t ↦ (cos t, sin t) is a bijection from [0, 2π) onto C, and [0, 2π) is uncountable. ∎',
-        '**3.** A_ℓ: the constraint says the partial sums grow no faster than about k/ℓ. Spread the bits out.',
-        'Given g ∈ {0,1}^∞ define f(i) = g(i/ℓ) when ℓ | i, and 0 otherwise. The number of ones up to k is at most ⌊k/ℓ⌋ + 1 ≤ k/ℓ + 1 ✓, and g ↦ f is injective. ∎',
-        '**4.** S = sequences whose support is closed under taking divisors. For a set T of primes, let f(m) = 1 exactly when every prime factor of m lies in T.',
-        'This f is in S, and f(p) = 1 ⟺ p ∈ T, so different T give different f. There are infinitely many primes, so we have injected the uncountable power set of the primes into S. ∎',
-      ],
-      note:
-        'Part 4 is the one to do at the board if time is short — it shows how to convert "infinitely many independent choices" into uncountability.',
-    },
-
-    // -- 6.7 -----------------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '6.7',
-      title: 'f ∘ g ∘ f (exam 2022)  (⋆⋆)',
-      prompt: [
-        'f : X → Y, g : Y → X, and f ∘ g ∘ f is injective **and** surjective. Prove that f and g are both injective and surjective.',
-      ],
-      hint: ['Each of the four is two lines. Do f first — the other two need it.'],
-    },
-
-    {
-      kind: 'solution',
-      ref: '6.7',
-      title: 'All four, in order',
-      reveal: true,
-      steps: [
-        '**f injective**: f(x₁) = f(x₂) ⇒ fgf(x₁) = fgf(x₂) ⇒ x₁ = x₂, since fgf is injective. ✓',
-        '**f surjective**: given y ∈ Y, surjectivity of fgf gives x with f(g(f(x))) = y, so y is a value of f. ✓',
-        '**g injective**: suppose g(y₁) = g(y₂). Write yᵢ = f(xᵢ) using surjectivity of f. Then fgf(x₁) = fgf(x₂), so x₁ = x₂ and hence y₁ = y₂. ✓',
-        '**g surjective**: given x ∈ X, pick x′ with fgf(x′) = f(x). Since f is injective, g(f(x′)) = x, so x is a value of g. ✓ ∎',
-        'The shape to remember: injectivity travels **backwards** along a composition to the first map, surjectivity **forwards** to the last.',
-      ],
-    },
-
-    // -- presentation --------------------------------------------------------
-
-    {
-      kind: 'exercise',
-      ref: '6.5',
-      title: 'Equinumerous Sets — for presentation',
-      prompt: [
-        '1. For every set A, A and P(A) are not equinumerous.',
-        '2. C = {x ∈ ℚ : 0 ≤ x ≤ 1} and D = {x ∈ ℚ : 0 ≤ x < 1} are equinumerous.',
-        '**We are not solving this today.**',
-      ],
-      hint: [
-        'Part 1 is Cantor. Take any f : A → P(A) and consider B = { x ∈ A : x ∉ f(x) }. Ask whether B is f(b) for some b.',
-        'Note what part 1 does **not** say — it is about *every* f, so the proof starts "let f be arbitrary".',
-        'Part 2: C and D differ by one point. Both are countably infinite; name the theorem from §3.7 that finishes it.',
-        'Alternatively build an explicit bijection by shifting an infinite sequence of points — "Hilbert’s hotel" on the rationals.',
-      ],
-    },
+    // -- recap: functions -----------------------------------------------------------
 
     {
       kind: 'points',
-      title: 'What to take away',
+      title: 'Functions (script §3.6)',
       points: [
-        'Minimal ≠ least. Count how many there can be.',
-        'Hasse diagrams draw covers only, never the derived edges.',
-        'Left inverse ⟺ injective; right inverse ⟺ surjective.',
-        'Uncountability: diagonalise, or inject a known uncountable set into it.',
-        'In a composition, injectivity pulls back to the first map, surjectivity pushes to the last.',
+        'Def. 3.33: a function f : A → B is a relation from A to B that is totally defined (every a has some b) and well-defined (at most one b).',
+        'Def. 3.39: f is injective if a ≠ a′ ⟹ f(a) ≠ f(a′). Equivalently f(a) = f(a′) ⟹ a = a′.',
+        'Def. 3.39: f is surjective if every b ∈ B is f(a) for some a ∈ A. Bijective means both.',
+        'Def. 3.41: (g ∘ f)(a) = g(f(a)). So g ∘ f means first f, then g.',
+        'Careful: for relations, ρ ∘ σ means first ρ, then σ (Def. 3.12). The script uses the other order for functions.',
       ],
+      note: '5 minutes. To prove injective, start with f(a) = f(a′). To prove surjective, start with an arbitrary b.',
+    },
+
+    // -- right inverses -----------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 4',
+      title: 'Right inverses',
+      prompt: [
+        'Let f : A → A. Prove that there is a function g : A → A with f ∘ g = id_A if and only if f is surjective.',
+        'Such a g is called a right inverse of f.',
+      ],
+      note: '6 minutes.',
     },
 
     {
-      kind: 'title',
-      title: 'Kahoot',
-      subtitle: 'Join at kahoot.it',
-      footnote: 'Questions in kahoot/week06.csv',
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 4',
+      title: 'Solutions',
+      steps: [
+        '(⟹) Let f ∘ g = id_A and let b ∈ A. Then b = id_A(b) = (f ∘ g)(b) = f(g(b)).',
+        'So b = f(a) for a = g(b). Hence f is surjective.',
+        '(⟸) Let f be surjective. For every b ∈ A there is some a ∈ A with f(a) = b. Choose one and call it g(b).',
+        'Then g : A → A is a function, and (f ∘ g)(b) = f(g(b)) = b for all b. So f ∘ g = id_A.',
+      ],
+      note: 'There can be several a with f(a) = b. Any choice works, so the right inverse is not unique in general.',
     },
+
+    // -- compositions ----------------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 5',
+      title: 'Compositions',
+      prompt: ['Let f : X → Y and g : Y → Z be functions.'],
+      parts: [
+        'If g ∘ f is injective, then f is injective.',
+        'If g ∘ f is surjective, then g is surjective.',
+        'True or false: if g ∘ f is injective, then g is injective.',
+      ],
+      hint: ['For 3, try very small sets X, Y and Z.'],
+      note: '7 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 5',
+      title: 'Solutions',
+      steps: [
+        '1. Let f(x₁) = f(x₂). Then g(f(x₁)) = g(f(x₂)), so (g ∘ f)(x₁) = (g ∘ f)(x₂). Since g ∘ f is injective, x₁ = x₂.',
+        '2. Let z ∈ Z. Since g ∘ f is surjective, there is x ∈ X with g(f(x)) = z. So z = g(y) for y = f(x) ∈ Y.',
+        '3. False. Let X = {1}, Y = {1, 2}, Z = {1}, f(1) = 1 and g(1) = g(2) = 1.',
+        'g ∘ f : {1} → {1} is injective, but g(1) = g(2). So g is not injective.',
+      ],
+      note: 'To remember it: injectivity of g ∘ f tells you about the first map f, surjectivity about the last map g.',
+    },
+
+    // -- short questions -----------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exercise 6',
+      title: 'Short questions',
+      prompt: ['In the style of the exam. No justification needed.'],
+      parts: [
+        'True or false: (ℤ; <) is a poset.',
+        'True or false: in a finite poset, every minimal element is a least element.',
+        'True or false: (P({a, b}); ⊆) is totally ordered.',
+        'True or false: if f : A → B and g : B → C are bijective, then g ∘ f is bijective.',
+        'True or false: a poset has at most one greatest element.',
+      ],
+      note: '3 minutes, then a show of hands on each one.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exercise 6',
+      title: 'Solutions',
+      steps: [
+        '1. False. < is not reflexive: 1 < 1 is false.',
+        '2. False. In ({2, 3}; |) both 2 and 3 are minimal, but 2 ∤ 3 and 3 ∤ 2. So there is no least element.',
+        '3. False. {a} and {b} are incomparable.',
+        '4. True. The inverse is f⁻¹ ∘ g⁻¹.',
+        '5. True. If a and a′ are both greatest, then a′ ⪯ a and a ⪯ a′, so a = a′ by antisymmetry.',
+      ],
+    },
+
+    // -- wrap --------------------------------------------------------------------
 
     {
       kind: 'end',
       title: 'See you next week',
       points: [
-        'Next: number theory — gcd, congruences, and modular arithmetic.',
-        'Your real sheet is on Moodle — bring it if it differs from mine.',
-        'hserobyan@student.ethz.ch',
+        'Do the rest of sheet 6 and compare with the official solution.',
+        'hserobyan@ethz.ch',
+        'https://h-717.github.io/DM_HS26/',
       ],
     },
   ],
