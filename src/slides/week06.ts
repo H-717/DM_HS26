@@ -13,6 +13,8 @@
 // countability, no equinumerosity, no injections from {0,1}^∞. That also
 // rules out 6.6, whose technique is exactly what 6.5.3 needs, so §3.7 is
 // left out. Nothing on screen names a sheet exercise.
+// The exam block is the exam 2021 question that HS2025 sheet 5 republished
+// (5.6). It is not on any HS2026 sheet so far.
 // All order and function claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
@@ -45,9 +47,10 @@ export const week06: Deck = {
         'Right inverses',
         'Compositions',
         'Short questions',
+        'An old exam question',
       ],
       note:
-        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions. That is about 75 min.',
+        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions · 8 exam. That is about 85 min.',
     },
 
     // -- recap: partial orders -----------------------------------------------------
@@ -300,6 +303,31 @@ export const week06: Deck = {
         '3. False. {a} and {b} are incomparable.',
         '4. True. The inverse is f⁻¹ ∘ g⁻¹.',
         '5. True. If a and a′ are both greatest, then a′ ⪯ a and a ⪯ a′, so a = a′ by antisymmetry.',
+      ],
+    },
+
+    // -- old exam --------------------------------------------------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Exam 2021',
+      title: 'From the exam 2021',
+      prompt: ['Let ρ and σ be relations on a non-empty set A. Prove or disprove:'],
+      parts: ['If ρ is antisymmetric and σ is antisymmetric, then ρ ∘ σ is antisymmetric.'],
+      hint: ['Try ρ and σ that you know well before you start a proof.'],
+      note: '8 minutes. Real exam question, republished by the course staff on an older exercise sheet.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exam 2021',
+      title: 'Solution',
+      steps: [
+        'False. Let A = ℕ, ρ = ≤ and σ = ≥. Both are antisymmetric.',
+        'For any a, b ∈ ℕ take k = max(a, b). Then a ≤ k and k ≥ b, so (a, b) ∈ ρ ∘ σ by Def. 3.12.',
+        'So ρ ∘ σ = ℕ × ℕ. It contains (1, 2) and (2, 1), but 1 ≠ 2. Not antisymmetric.',
+        'Exam tip: for prove or disprove, try a small example first. If it fails, you are done.',
       ],
     },
 
