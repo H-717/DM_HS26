@@ -25,3 +25,6 @@ dist-ssr
 
 # Kahoot spreadsheet template (yours, not committed)
 kahoot/template.xlsx
+
+# Old exams from VIS, local only
+Diskrete Mathematik *.pdf
