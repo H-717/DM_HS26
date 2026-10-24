@@ -14,7 +14,9 @@
 // rules out 6.6, whose technique is exactly what 6.5.3 needs, so §3.7 is
 // left out. Nothing on screen names a sheet exercise.
 // The exam block is the exam 2021 question that HS2025 sheet 5 republished
-// (5.6). It is not on any HS2026 sheet so far.
+// (5.6). It is not on any HS2026 sheet so far. Then the exam 2021 and 2022
+// short questions on sets, as revision: they were 4.9 and 4.8 on the HS2026
+// sheet 4, whose solutions are released. Answers from the official solution.
 // All order and function claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
@@ -47,10 +49,10 @@ export const week06: Deck = {
         'Right inverses',
         'Compositions',
         'Short questions',
-        'An old exam question',
+        'Old exam questions',
       ],
       note:
-        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions · 8 exam. That is about 85 min.',
+        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions · 19 old exams. That is about 95 min.',
     },
 
     // -- recap: partial orders -----------------------------------------------------
@@ -310,9 +312,9 @@ export const week06: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exam 2021',
-      title: 'From the exam 2021',
-      prompt: ['Let ρ and σ be relations on a non-empty set A. Prove or disprove:'],
+      ref: 'Exam 1',
+      title: 'End-of-semester exam 2021',
+      prompt: ['Source: as cited on the DM exercise sheet 5 of HS 2025.', 'Let ρ and σ be relations on a non-empty set A. Prove or disprove:'],
       parts: ['If ρ is antisymmetric and σ is antisymmetric, then ρ ∘ σ is antisymmetric.'],
       hint: ['Try ρ and σ that you know well before you start a proof.'],
       note: '8 minutes. Real exam question, republished by the course staff on an older exercise sheet.',
@@ -321,13 +323,70 @@ export const week06: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exam 2021',
+      ref: 'Exam 1',
       title: 'Solution',
       steps: [
         'False. Let A = ℕ, ρ = ≤ and σ = ≥. Both are antisymmetric.',
         'For any a, b ∈ ℕ take k = max(a, b). Then a ≤ k and k ≥ b, so (a, b) ∈ ρ ∘ σ by Def. 3.12.',
         'So ρ ∘ σ = ℕ × ℕ. It contains (1, 2) and (2, 1), but 1 ≠ 2. Not antisymmetric.',
         'Exam tip: for prove or disprove, try a small example first. If it fails, you are done.',
+      ],
+    },
+
+    {
+      kind: 'exercise',
+      ref: 'Exam 2',
+      title: 'End-of-semester exam 2021: short questions',
+      prompt: ['Source: as cited on our exercise sheet 4.', 'True or false? No justification needed. In the exam, a wrong answer cost the point again, an empty one gave 0.'],
+      parts: [
+        'The sets ∅ × ∅ and {∅} × {∅} are equal.',
+        'The set {∅, {∅}} is a subset of {∅}.',
+        'For any two finite sets A and B we have |A ∪ B| = |A| + |B|.',
+        'For any two sets A and B there is a set C with A = B ∩ C or B = A ∩ C.',
+        'For any set A we have A ∩ P(A) = ∅.',
+      ],
+      note: '6 minutes. Revision from week 4. Ask for a show of hands first, then reveal.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exam 2',
+      title: 'Solutions',
+      steps: [
+        '1. False. ∅ × ∅ = ∅, but {∅} × {∅} = {(∅, ∅)}.',
+        '2. False, because {∅} ∉ {∅}.',
+        '3. False. Take A = B = {1}. Any A, B with A ∩ B ≠ ∅ work.',
+        '4. False. Take A = {0} and B = {1}. For every C, 0 ∉ B ∩ C and 1 ∉ A ∩ C.',
+        '5. False. Take A = {∅}. Then P(A) = {∅, {∅}}, so A ∩ P(A) = {∅}.',
+      ],
+    },
+
+    {
+      kind: 'exercise',
+      ref: 'Exam 3',
+      title: 'End-of-semester exam 2022: short questions',
+      prompt: ['Source: as cited on our exercise sheet 4.', 'One point per correct answer. No justification needed.'],
+      parts: [
+        'How many elements does {{0, 1}, {0} × {1}} × {0} have?',
+        'List each element of {∅, (0, 1)} × {{0} ∪ {1}, {1, 0}} exactly once.',
+        'Find sets A, B and C such that A \\ B ⊊ A \\ C.',
+        'Find a set A such that A ∩ P(A) ≠ ∅.',
+      ],
+      note: '5 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exam 3',
+      title: 'Solutions',
+      steps: [
+        '1. 2: ({0, 1}, 0) and ((0, 1), 0).',
+        '2. (∅, {0, 1}) and ((0, 1), {0, 1}). Note {0} ∪ {1} = {1, 0}.',
+        '3. A = {1, 2, 3}, B = {0, 1, 2}, C = {0, 1}. Any C ⊊ B with an element of A in B \\ C works.',
+        '4. A = {1, {1}}, since {1} ∈ A and {1} ∈ P(A).',
+        'Exam tip: when no justification is needed, the simplest correct answer gets full points.',
       ],
     },
 
