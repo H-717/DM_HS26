@@ -352,7 +352,6 @@ export const week06: Deck = {
         '(HS 22) Find a surjective function f : ℕ → ℤ.',
         '(FS 22) Disprove: for any sets X, Y, Z and functions f : X → Y and g : Y → Z, if g ∘ f is bijective, then f or g is bijective.',
       ],
-      hint: ['For 3, reuse the small sets from Exercise 5.'],
       note: '5 minutes.',
     },
 
