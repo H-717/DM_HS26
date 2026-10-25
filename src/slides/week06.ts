@@ -13,8 +13,10 @@
 // countability, no equinumerosity, no injections from {0,1}^∞. That also
 // rules out 6.6, whose technique is exactly what 6.5.3 needs, so §3.7 is
 // left out. Nothing on screen names a sheet exercise.
-// The exam block is the exam 2021 question that HS2025 sheet 5 republished
-// (5.6). It is not on any HS2026 sheet so far.
+// The exam block is short questions on orders and functions from the local
+// official exams (file names = semester): FS22 1a.5, FS23 1a.3, FS22 1a.6,
+// HS21 1a.8, HS22 1a.7, FS23 1a.4, then HS20 1a.8, HS22 1a.8, FS22 1c.
+// HS23 and FS24 are skipped (latest). None of these were on a sheet.
 // All order and function claims were brute-forced with Python sets.
 // ---------------------------------------------------------------------------
 
@@ -47,10 +49,10 @@ export const week06: Deck = {
         'Right inverses',
         'Compositions',
         'Short questions',
-        'An old exam question',
+        'Old exam questions',
       ],
       note:
-        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions · 8 old exam. That is about 85 min.',
+        'Timing: 3 intro · 5 recap · 10 orders · 5 recap · 10 Hasse · 8 product (break here, about 40 min) · 5 recap · 10 right inverses · 10 compositions · 8 short questions · 13 old exams. That is about 90 min.',
     },
 
     // -- recap: partial orders -----------------------------------------------------
@@ -311,23 +313,59 @@ export const week06: Deck = {
     {
       kind: 'exercise',
       ref: 'Exam 1',
-      title: 'End-of-semester exam 2021',
-      prompt: ['Source: as cited on the DM exercise sheet 5 of HS 2025.', 'Let ρ and σ be relations on a non-empty set A. Prove or disprove:'],
-      parts: ['If ρ is antisymmetric and σ is antisymmetric, then ρ ∘ σ is antisymmetric.'],
-      hint: ['Try ρ and σ that you know well before you start a proof.'],
-      note: '8 minutes. Real exam question, republished by the course staff on an older exercise sheet.',
+      title: 'Old exams: partial orders',
+      prompt: ['Short questions from past end-of-semester exams. One point each, no justification needed.'],
+      parts: [
+        '(FS 22) List all maximal elements of the poset ({1, 2, 5, 7, 10, 30, 60}; |).',
+        '(FS 23) List all maximal elements of the poset ({1, 3, 4, 9, 11, 13, 26}; |).',
+        '(FS 22) List all upper bounds of the set {1, 2, 5} in the lattice ({1, 2, 5, 10, 15, 30, 60}; |).',
+        '(HS 21) True or false: 72 is the least upper bound of {4, 6, 9} in the poset ({4, 6, 9, 18, 24, 48, 54, 72, 288}; |).',
+        '(HS 22) On ℕ², let (a, b) ⪯ (c, d) ⟺ a ≤ c ∧ b ≤ d. What is the least upper bound of {(3, 8), (1, 4), (2, 9)}?',
+        '(FS 23) Let ρ = {(a, a), (a, c), (a, d), (b, b), (b, c), (c, c), (c, d), (d, d)} on {a, b, c, d}. Find (x, y) ∈ ρ such that ρ \\ {(x, y)} is a partial order.',
+      ],
+      hint: ['Def. 3.29: u is an upper bound of S if s ⪯ u for all s ∈ S. The least upper bound is the least element of the set of upper bounds.'],
+      note: '8 minutes. Real exam questions. Show of hands on each, then reveal.',
     },
 
     {
       kind: 'solution',
       reveal: true,
       ref: 'Exam 1',
-      title: 'Solution',
+      title: 'Solutions',
       steps: [
-        'False. Let A = ℕ, ρ = ≤ and σ = ≥. Both are antisymmetric.',
-        'For any a, b ∈ ℕ take k = max(a, b). Then a ≤ k and k ≥ b, so (a, b) ∈ ρ ∘ σ by Def. 3.12.',
-        'So ρ ∘ σ = ℕ × ℕ. It contains (1, 2) and (2, 1), but 1 ≠ 2. Not antisymmetric.',
-        'Exam tip: for prove or disprove, try a small example first. If it fails, you are done.',
+        '1. 7 and 60. Every other element divides 60.',
+        '2. 4, 9, 11 and 26. The others divide 9 or 26 (1 | 9, 3 | 9, 13 | 26).',
+        '3. 10, 30 and 60: the elements divisible by 1, 2 and 5.',
+        '4. True. The upper bounds are the multiples of 4, 6 and 9 in the set: 72 and 288. Since 72 | 288, 72 is the least.',
+        '5. (3, 9). An upper bound (c, d) needs c ≥ 3 and d ≥ 9.',
+        '6. (b, c) or (c, d). ρ is reflexive and antisymmetric, but b ρ c and c ρ d without b ρ d. Removing either pair makes it transitive.',
+      ],
+    },
+
+    {
+      kind: 'exercise',
+      ref: 'Exam 2',
+      title: 'Old exams: functions',
+      prompt: ['From past end-of-semester exams. No justification needed for 1 and 2.'],
+      parts: [
+        '(HS 20) Find a set A and a function f : A → A such that f is injective but not surjective.',
+        '(HS 22) Find a surjective function f : ℕ → ℤ.',
+        '(FS 22) Disprove: for any sets X, Y, Z and functions f : X → Y and g : Y → Z, if g ∘ f is bijective, then f or g is bijective.',
+      ],
+      hint: ['For 3, reuse the small sets from Exercise 5.'],
+      note: '5 minutes.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Exam 2',
+      title: 'Solutions',
+      steps: [
+        '1. A = ℕ and f(n) = n + 1. It is injective, but 0 is not hit.',
+        '2. f(n) = n/2 for even n and f(n) = −(n + 1)/2 for odd n. So 0, 1, 2, 3, 4, … ↦ 0, −1, 1, −2, 2, …',
+        '3. Let X = Z = {1}, Y = {1, 2}, f(1) = 1 and g(1) = g(2) = 1.',
+        'g ∘ f : {1} → {1} is bijective. But f is not surjective (2 is not hit) and g is not injective (g(1) = g(2)).',
       ],
     },
 
