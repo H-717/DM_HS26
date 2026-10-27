@@ -27,6 +27,8 @@ export const week06: Deck = {
   topic: 'Partial Orders & Functions',
   date: 'Mon 26 Oct 2026',
   sheet: 'Exercise sheet 6',
+  solutionsReleased: true,
+
 
   slides: [
     {
