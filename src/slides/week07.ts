@@ -7,7 +7,8 @@
 //
 // Each exercise is a twin of one on the sheet — same shape, other content:
 //   Exercise 1 ↔ 7.1   Exercise 2 ↔ 7.3.1–7.3.2   Exercise 3 ↔ 7.4
-//   Exercise 4 ↔ 7.5   Exercise 5 ↔ 7.6
+//   Exercise 4 ↔ 7.5
+// 7.6 (systems of congruences, CRT) is left out: no CRT anywhere on screen.
 // 7.2 (simplifying Rₙ with Cor. 4.17, R₁₃(15²⁰²⁶ · 52¹⁰¹³), primes p with
 // 2p⁴ + 3 prime) is the graded exercise and is not touched anywhere: no
 // "prime p, so p⁴ ≡ 1" arguments, no products that collapse to (−1)ᵏ.
@@ -17,7 +18,7 @@
 // Nothing on screen names a sheet exercise.
 // The exam block is from the local official exams (file names = semester):
 // FS22 2a.1, FS21 2a.1, HS22 2a.3, FS23 2a.2, HS20 2a.4, HS20 2a.5,
-// HS22 2a.4, HS21 2a.1–3, FS21 2b, FS23 2b, HS20 2d. HS23 and FS24 are
+// HS22 2a.4, HS21 2a.1–3, FS21 2b, FS23 2b. HS23 and FS24 are
 // skipped (latest). None of these are on the HS2026 sheet.
 // Every number and claim was brute-forced in Python.
 // ---------------------------------------------------------------------------
@@ -34,7 +35,7 @@ export const week07: Deck = {
     {
       kind: 'title',
       title: 'Exercise Session 7',
-      subtitle: 'gcd, congruences, inverses and the Chinese Remainder Theorem',
+      subtitle: 'gcd, congruences and inverses',
       footnote: 'Discrete Mathematics · HS 2026 · Group Q · CHN D 46',
     },
 
@@ -47,13 +48,12 @@ export const week07: Deck = {
         'Recap: congruences and modular arithmetic',
         'Congruences',
         'Powers modulo m',
-        'Recap: inverses and the CRT',
+        'Recap: inverses',
         'Congruence equations',
-        'Systems of congruences',
         'Old exam questions',
       ],
       note:
-        'Timing: 3 intro · 5 recap · 12 Bézout · 5 recap · 10 congruences · 10 powers (break here, about 45 min) · 5 recap · 6 congruence equations · 9 systems · 21 old exams. That is about 90 min.',
+        'Timing: 3 intro · 5 recap · 12 Bézout · 5 recap · 10 congruences · 10 powers (break here, about 45 min) · 5 recap · 6 congruence equations · 17 old exams. That is about 75 min.',
     },
 
     // -- recap: divisibility and gcd ------------------------------------------------
@@ -195,19 +195,19 @@ export const week07: Deck = {
       note: 'The exponent is reduced modulo 6, not modulo 7. Ask the room why.',
     },
 
-    // -- recap: inverses and CRT ----------------------------------------------------------
+    // -- recap: inverses -------------------------------------------------------------------
 
     {
       kind: 'points',
-      title: 'Inverses and the CRT (script §4.5.3, §4.5.4)',
+      title: 'Inverses',
       points: [
         'Lemma 4.18: ax ≡ₘ 1 has a solution x ∈ ℤₘ iff gcd(a, m) = 1. The solution is unique.',
         'Def. 4.9: this x is the multiplicative inverse of a modulo m.',
-        'Thm. 4.19 (CRT): if m₁, …, mᵣ are pairwise relatively prime and M = m₁ · … · mᵣ, then x ≡ₘ₁ a₁, …, x ≡ₘᵣ aᵣ has exactly one solution 0 ≤ x < M.',
-        'If the moduli are not relatively prime, there can be no solution or several.',
+        // 'Thm. 4.19 (CRT): if m₁, …, mᵣ are pairwise relatively prime and M = m₁ · … · mᵣ, then x ≡ₘ₁ a₁, …, x ≡ₘᵣ aᵣ has exactly one solution 0 ≤ x < M.',
+        // 'If the moduli are not relatively prime, there can be no solution or several.',
       ],
       note:
-        '5 minutes. Example 4.18 from the script: x ≡₃ 1, x ≡₄ 2, x ≡₅ 4 has the unique solution 34 in ℤ₆₀.',
+        '5 minutes. Board example: gcd(3, 7) = 1, and 3 · 5 = 15 = 2 · 7 + 1, so the inverse of 3 modulo 7 is 5.',
     },
 
     // -- congruence equations ----------------------------------------------------------------
@@ -220,7 +220,7 @@ export const week07: Deck = {
       parts: [
         'Find all x ∈ ℤ₁₀ with 6x ≡₁₀ 4.',
         'Find all x ∈ ℤ₁₀ with 6x ≡₁₀ 5.',
-        'Explain both answers with gcd(6, 10).',
+        // 'Explain both answers with gcd(6, 10).',
       ],
       note: '4 minutes. Trying all ten values is a valid method here.',
     },
@@ -241,42 +241,42 @@ export const week07: Deck = {
       steps: [
         '1. x = 4 and x = 9.',
         '2. No solution.',
-        '3. gcd(6, 10) = 2. If 6x ≡₁₀ b, then b = 6x − 10k for some k, which is even. 5 is odd.',
-        '4 is even, and Bézout gives 2 = 2 · 6 − 1 · 10. Times 2: 4 = 4 · 6 − 2 · 10, so x = 4 works.',
-        'So ax ≡ₘ b has a solution exactly when gcd(a, m) | b.',
+        // '3. gcd(6, 10) = 2. If 6x ≡₁₀ b, then b = 6x − 10k for some k, which is even. 5 is odd.',
+        // '4 is even, and Bézout gives 2 = 2 · 6 − 1 · 10. Times 2: 4 = 4 · 6 − 2 · 10, so x = 4 works.',
+        // 'So ax ≡ₘ b has a solution exactly when gcd(a, m) | b.',
       ],
     },
 
     // -- systems -------------------------------------------------------------------------------
 
-    {
-      kind: 'exercise',
-      ref: 'Exercise 5',
-      title: 'Systems of congruences',
-      prompt: [],
-      parts: [
-        'Find x ∈ ℤ₁₀₅ with x ≡₃ 2, x ≡₅ 3 and x ≡₇ 2.',
-        'Find all x ∈ ℤ₂₄ with x ≡₄ 1 and x ≡₆ 2.',
-        'Find all x ∈ ℤ₂₄ with x ≡₄ 1 and x ≡₆ 3.',
-      ],
-      hint: ['Start from the congruence with the largest modulus and list its solutions.'],
-      note: '5 minutes.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exercise 5',
+    //   title: 'Systems of congruences',
+    //   prompt: [],
+    //   parts: [
+    //     'Find x ∈ ℤ₁₀₅ with x ≡₃ 2, x ≡₅ 3 and x ≡₇ 2.',
+    //     'Find all x ∈ ℤ₂₄ with x ≡₄ 1 and x ≡₆ 2.',
+    //     'Find all x ∈ ℤ₂₄ with x ≡₄ 1 and x ≡₆ 3.',
+    //   ],
+    //   hint: ['Start from the congruence with the largest modulus and list its solutions.'],
+    //   note: '5 minutes.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions',
-      steps: [
-        '1. 3, 5 and 7 are pairwise relatively prime, so by Thm. 4.19 there is exactly one solution in ℤ₁₀₅.',
-        'x ≡₇ 2 gives 2, 9, 16, 23, … with remainders 2, 4, 1, 3 modulo 5. So x = 23, and R₃(23) = 2 also holds.',
-        '2. x ≡₄ 1 implies x ≡₂ 1, so x is odd. x ≡₆ 2 implies x ≡₂ 0, so x is even. No solution.',
-        '3. x ≡₄ 1 gives 1, 5, 9, 13, 17, 21 in ℤ₂₄. Modulo 6 these are 1, 5, 3, 1, 5, 3. So x = 9 and x = 21.',
-        '4 and 6 are not relatively prime, so Thm. 4.19 does not apply: we got no solution once and two solutions once.',
-      ],
-      note: 'In 3, the two solutions differ by lcm(4, 6) = 12.',
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exercise 5',
+    //   title: 'Solutions',
+    //   steps: [
+    //     '1. 3, 5 and 7 are pairwise relatively prime, so by Thm. 4.19 there is exactly one solution in ℤ₁₀₅.',
+    //     'x ≡₇ 2 gives 2, 9, 16, 23, … with remainders 2, 4, 1, 3 modulo 5. So x = 23, and R₃(23) = 2 also holds.',
+    //     '2. x ≡₄ 1 implies x ≡₂ 1, so x is odd. x ≡₆ 2 implies x ≡₂ 0, so x is even. No solution.',
+    //     '3. x ≡₄ 1 gives 1, 5, 9, 13, 17, 21 in ℤ₂₄. Modulo 6 these are 1, 5, 3, 1, 5, 3. So x = 9 and x = 21.',
+    //     '4 and 6 are not relatively prime, so Thm. 4.19 does not apply: we got no solution once and two solutions once.',
+    //   ],
+    //   note: 'In 3, the two solutions differ by lcm(4, 6) = 12.',
+    // },
 
     // -- old exam --------------------------------------------------------------------------------
 
@@ -335,7 +335,7 @@ export const week07: Deck = {
       title: 'Solutions',
       steps: [
         '1. False. n = 2, x = y = 1, z = 0: 1 + 1 ≡₂ 0, but 1 ≢₂ 0.',
-        '2. False. a = b = 2, x = 0, y = 2: 0 ≡₂ 2, but 0 ≢₄ 2. It is true when gcd(a, b) = 1.',
+        '2. False. a = b = 2, x = 0, y = 2: 0 ≡₂ 2, but 0 ≢₄ 2.',
         '3. False. a = b = u = v = 1 gives d = 2, but gcd(1, 1) = 1. It is true for d = 1.',
       ],
     },
@@ -366,30 +366,30 @@ export const week07: Deck = {
       ],
     },
 
-    {
-      kind: 'exercise',
-      ref: 'Exam 4',
-      title: 'Old exams: a short proof',
-      prompt: [
-        '(HS 20) Let m, n ∈ ℕ \\ {0, 1} and consider f : ℤₘₙ → ℤₘ × ℤₙ with f(x) = (Rₘ(x), Rₙ(x)).',
-        'Prove that if f is injective, then gcd(m, n) = 1.',
-      ],
-      hint: ['Prove the contrapositive. Which x ≠ 0 has f(x) = (0, 0)?'],
-      note: '4 minutes.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exam 4',
+    //   title: 'Old exams: a short proof',
+    //   prompt: [
+    //     '(HS 20) Let m, n ∈ ℕ \\ {0, 1} and consider f : ℤₘₙ → ℤₘ × ℤₙ with f(x) = (Rₘ(x), Rₙ(x)).',
+    //     'Prove that if f is injective, then gcd(m, n) = 1.',
+    //   ],
+    //   hint: ['Prove the contrapositive. Which x ≠ 0 has f(x) = (0, 0)?'],
+    //   note: '4 minutes.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exam 4',
-      title: 'Solution',
-      steps: [
-        'Contrapositive: assume d = gcd(m, n) > 1. Let x = mn / d.',
-        'x = m · (n / d) and x = n · (m / d), so m | x and n | x. Hence f(x) = (0, 0) = f(0).',
-        'Since d > 1, 0 < x < mn, so x ∈ ℤₘₙ and x ≠ 0. So f is not injective.',
-      ],
-      note: 'Together with the CRT this shows: f is a bijection iff gcd(m, n) = 1.',
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exam 4',
+    //   title: 'Solution',
+    //   steps: [
+    //     'Contrapositive: assume d = gcd(m, n) > 1. Let x = mn / d.',
+    //     'x = m · (n / d) and x = n · (m / d), so m | x and n | x. Hence f(x) = (0, 0) = f(0).',
+    //     'Since d > 1, 0 < x < mn, so x ∈ ℤₘₙ and x ≠ 0. So f is not injective.',
+    //   ],
+    //   note: 'Together with the CRT this shows: f is a bijection iff gcd(m, n) = 1.',
+    // },
 
     // -- wrap --------------------------------------------------------------------------------------
 
