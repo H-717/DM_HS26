@@ -30,6 +30,7 @@ export const week07: Deck = {
   topic: 'Number Theory',
   date: 'Mon 2 Nov 2026',
   sheet: 'Exercise sheet 7',
+  solutionsReleased: true,
 
   slides: [
     {
