@@ -241,7 +241,11 @@ export const week08: Deck = {
         'x · (y · z) = x ∗ ψ(y ∗ ψ(z)) = x ∗ (ψ(y) ∗ ψ(ψ(z))) by the definition of ·, twice, and Def. 5.10.',
         '⟸: if ψ(ψ(z)) = ψ(z), then x · (y · z) = x ∗ (ψ(y) ∗ ψ(z)) = (x ∗ ψ(y)) ∗ ψ(z) = (x · y) · z by G1.',
         '⟹: take x = y = e. By Lemma 5.5 (i), ψ(e) = e.',
-        '(e · e) · z = (e ∗ e) ∗ ψ(z) = ψ(z) and e · (e · z) = e ∗ (e ∗ ψ(ψ(z))) = ψ(ψ(z)), both by G2.',
+        '(e · e) · z = (e · e) ∗ ψ(z) = (e ∗ ψ(e)) ∗ ψ(z) by the definition of ·, twice.',
+        '(e ∗ ψ(e)) ∗ ψ(z) = (e ∗ e) ∗ ψ(z) = ψ(z) by ψ(e) = e and G2, twice.',
+        'e · (e · z) = e · (e ∗ ψ(z)) = e ∗ ψ(e ∗ ψ(z)) by the definition of ·, twice.',
+        'e ∗ ψ(e ∗ ψ(z)) = e ∗ (ψ(e) ∗ ψ(ψ(z))) = e ∗ (e ∗ ψ(ψ(z))) by Def. 5.10 and ψ(e) = e.',
+        'e ∗ (e ∗ ψ(ψ(z))) = ψ(ψ(z)) by G2, twice.',
         'Associativity says these are equal, so ψ(ψ(z)) = ψ(z) for all z.',
       ],
       note:
