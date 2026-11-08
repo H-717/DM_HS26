@@ -301,7 +301,12 @@ export const week08: Deck = {
         'Closed: for a, b ≠ 2, (2 − a)(2 − b) ≠ 0, so a ⋆ b ≠ 2.',
         'Associative: (a ⋆ b) ⋆ c = 2 − (2 − a)(2 − b)(2 − c) = a ⋆ (b ⋆ c).',
         'Neutral element 1: 1 ⋆ a = 2 − 1 · (2 − a) = a, and a ⋆ 1 = a the same way. So A is a monoid.',
-        'A is a group: the inverse of a is 2 − 1/(2 − a). It is ≠ 2, and a ⋆ (2 − 1/(2 − a)) = 2 − (2 − a) · 1/(2 − a) = 1. The formula is symmetric, so the other side too.',
+        'Inverse: a ⋆ a⁻¹ = 1 ⟺ 2a + 2a⁻¹ − 2 − aa⁻¹ = 1',
+        '⟺ 2a − 3 = −2a⁻¹ + aa⁻¹',
+        '⟺ 2a − 3 = (a − 2) · a⁻¹',
+        '⟺ a⁻¹ = (2a − 3)/(a − 2)',
+        'a⁻¹ ≠ 2, since (2a − 3)/(a − 2) = 2 would give −3 = −4. And ⋆ is commutative, so also a⁻¹ ⋆ a = 1.',
+        'The inverse exists iff a − 2 ≠ 0. Because A is only defined on ℚ \\ {2}, there exists an inverse for every element, so A is a group.',
       ],
       note:
         'Same idea as Exercise 4: f(x) = 2 − x is an isomorphism from ⟨ℚ \\ {0}; ·⟩ to A, since f(x) ⋆ f(y) = 2 − xy = f(xy). Example: the inverse of 3 is 3, since 3 ⋆ 3 = 2 · 5 − 9 = 1.',
