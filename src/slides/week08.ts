@@ -53,7 +53,7 @@ export const week08: Deck = {
         'Old exam questions',
       ],
       note:
-        'Timing: 3 intro · 5 recap · 8 group facts · 5 commutativity · 5 recap · 6 subgroups (break here, about 35 min) · 6 isomorphism · 7 new operation · 20 old exams. That is about 65 min.',
+        'Timing: 3 intro · 5 recap · 8 group facts · 5 commutativity · 5 recap · 6 subgroups (break here, about 35 min) · 6 isomorphism · 7 new operation · 15 old exams. That is about 60 min.',
     },
 
     // -- recap: monoids and groups -------------------------------------------------
@@ -284,37 +284,6 @@ export const week08: Deck = {
     {
       kind: 'exercise',
       ref: 'Exam 2',
-      title: 'Old exams: monoid or group',
-      prompt: ['(FS 22) Consider the algebra A = ⟨ℚ \\ {2}; ⋆⟩ with a ⋆ b = 2 · (a + b − 1) − ab.'],
-      parts: ['Prove that A is a monoid. (4 points)', 'Prove or disprove: A is a group. (2 points)'],
-      note:
-        '5 minutes. If the room is stuck, give the rewrite a ⋆ b = 2 − (2 − a)(2 − b). Do not put it on screen first.',
-    },
-
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exam 2',
-      title: 'Solution',
-      steps: [
-        'Rewrite: 2 − (2 − a)(2 − b) = 2 − 4 + 2a + 2b − ab = 2(a + b − 1) − ab. So a ⋆ b = 2 − (2 − a)(2 − b).',
-        'Closed: for a, b ≠ 2, (2 − a)(2 − b) ≠ 0, so a ⋆ b ≠ 2.',
-        'Associative: (a ⋆ b) ⋆ c = 2 − (2 − a)(2 − b)(2 − c) = a ⋆ (b ⋆ c).',
-        'Neutral element 1: 1 ⋆ a = 2 − 1 · (2 − a) = a, and a ⋆ 1 = a the same way. So A is a monoid.',
-        'Inverse: a ⋆ a⁻¹ = 1 ⟺ 2a + 2a⁻¹ − 2 − aa⁻¹ = 1',
-        '⟺ 2a − 3 = −2a⁻¹ + aa⁻¹',
-        '⟺ 2a − 3 = (a − 2) · a⁻¹',
-        '⟺ a⁻¹ = (2a − 3)/(a − 2)',
-        'a⁻¹ ≠ 2, since (2a − 3)/(a − 2) = 2 would give −3 = −4. And ⋆ is commutative, so also a⁻¹ ⋆ a = 1.',
-        'The inverse exists iff a − 2 ≠ 0. Because A is only defined on ℚ \\ {2}, there exists an inverse for every element, so A is a group.',
-      ],
-      note:
-        'Same idea as Exercise 4: f(x) = 2 − x is an isomorphism from ⟨ℚ \\ {0}; ·⟩ to A, since f(x) ⋆ f(y) = 2 − xy = f(xy). Example: the inverse of 3 is 3, since 3 ⋆ 3 = 2 · 5 − 9 = 1.',
-    },
-
-    {
-      kind: 'exercise',
-      ref: 'Exam 3',
       title: 'Old exams: short questions',
       prompt: [],
       parts: [
@@ -328,7 +297,7 @@ export const week08: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exam 3',
+      ref: 'Exam 2',
       title: 'Solutions',
       steps: [
         '1. False. 5 ⊕₁₂ 5 = 10 ∉ ℤ₆, so (1) of Def. 5.11 fails.',
@@ -341,7 +310,7 @@ export const week08: Deck = {
 
     {
       kind: 'exercise',
-      ref: 'Exam 4',
+      ref: 'Exam 3',
       title: 'Old exams: homomorphisms',
       prompt: [],
       parts: [
@@ -354,7 +323,7 @@ export const week08: Deck = {
     {
       kind: 'solution',
       reveal: true,
-      ref: 'Exam 4',
+      ref: 'Exam 3',
       title: 'Solutions',
       steps: [
         '1. We check the three conditions of Def. 5.11.',
@@ -376,6 +345,39 @@ export const week08: Deck = {
         'hserobyan@ethz.ch',
         'https://h-717.github.io/DM_HS26/',
       ],
+    },
+
+    // -- bonus easter egg: you found the slides after the end slide ----------------------------
+
+    {
+      kind: 'exercise',
+      ref: 'Bonus',
+      title: 'Old exams: monoid or group',
+      prompt: ['(FS 22) Consider the algebra A = ⟨ℚ \\ {2}; ⋆⟩ with a ⋆ b = 2 · (a + b − 1) − ab.'],
+      parts: ['Prove that A is a monoid. (4 points)', 'Prove or disprove: A is a group. (2 points)'],
+      note:
+        '5 minutes. If the room is stuck, give the rewrite a ⋆ b = 2 − (2 − a)(2 − b). Do not put it on screen first.',
+    },
+
+    {
+      kind: 'solution',
+      reveal: true,
+      ref: 'Bonus',
+      title: 'Solution',
+      steps: [
+        'Rewrite: 2 − (2 − a)(2 − b) = 2 − 4 + 2a + 2b − ab = 2(a + b − 1) − ab. So a ⋆ b = 2 − (2 − a)(2 − b).',
+        'Closed: for a, b ≠ 2, (2 − a)(2 − b) ≠ 0, so a ⋆ b ≠ 2.',
+        'Associative: (a ⋆ b) ⋆ c = 2 − (2 − a)(2 − b)(2 − c) = a ⋆ (b ⋆ c).',
+        'Neutral element 1: 1 ⋆ a = 2 − 1 · (2 − a) = a, and a ⋆ 1 = a the same way. So A is a monoid.',
+        'Inverse: a ⋆ a⁻¹ = 1 ⟺ 2a + 2a⁻¹ − 2 − aa⁻¹ = 1',
+        '⟺ 2a − 3 = −2a⁻¹ + aa⁻¹',
+        '⟺ 2a − 3 = (a − 2) · a⁻¹',
+        '⟺ a⁻¹ = (2a − 3)/(a − 2)',
+        'a⁻¹ ≠ 2, since (2a − 3)/(a − 2) = 2 would give −3 = −4. And ⋆ is commutative, so also a⁻¹ ⋆ a = 1.',
+        'The inverse exists iff a − 2 ≠ 0. Because A is only defined on ℚ \\ {2}, there exists an inverse for every element, so A is a group.',
+      ],
+      note:
+        'Same idea as Exercise 4: f(x) = 2 − x is an isomorphism from ⟨ℚ \\ {0}; ·⟩ to A, since f(x) ⋆ f(y) = 2 − xy = f(xy). Example: the inverse of 3 is 3, since 3 ⋆ 3 = 2 · 5 − 9 = 1.',
     },
   ],
 };
