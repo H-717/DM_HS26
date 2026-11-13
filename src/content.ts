@@ -92,7 +92,7 @@ export const content = {
     { week: 6, topic: 'Partial Orders & Functions', slidesUrl: '#/slides/6' },
     { week: 7, topic: 'Number Theory', slidesUrl: '#/slides/7' },
     { week: 8, topic: 'Groups', slidesUrl: '#/slides/8' },
-    // { week: 9, topic: 'Cyclic Groups, Diffie–Hellman, RSA & Rings', slidesUrl: '#/slides/9' },
+    { week: 9, topic: 'Cyclic Groups, RSA & Rings', slidesUrl: '#/slides/9' },
     // { week: 10, topic: 'Fields, Polynomials & Finite Fields', slidesUrl: '#/slides/10' },
     // { week: 11, topic: 'Error-Correcting Codes & Proof Systems', slidesUrl: '#/slides/11' },
     // { week: 12, topic: 'Normal Forms & the Semantics of Predicate Logic', slidesUrl: '#/slides/12' },
