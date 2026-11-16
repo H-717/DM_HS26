@@ -126,7 +126,7 @@ export const week09: Deck = {
         '3. Eve needs $x_A$, so she solves $7 \\cdot x_A \\equiv_{26} 10$. Since 7 · 15 = 105 = 4 · 26 + 1, the inverse of 7 modulo 26 is 15 (Lemma 4.18).',
         '$x_A = R_{26}(15 \\cdot 10) = R_{26}(150) = 20$. Check: R₂₆(7 · 20) = R₂₆(140) = 10.',
         '$k_{AB} = R_{26}(x_A \\cdot y_B) = R_{26}(20 \\cdot 11) = R_{26}(220) = 12$.',
-        'In ⟨ℤₙ; ⊕⟩ the discrete logarithm is a division modulo n: one run of the extended Euclidean algorithm.',
+        // 'In ⟨ℤₙ; ⊕⟩ the discrete logarithm is a division modulo n: one run of the extended Euclidean algorithm.',
       ],
       note:
         'Finding 15: 26 = 3 · 7 + 5, 7 = 5 + 2, 5 = 2 · 2 + 1, so 1 = 3 · 26 − 11 · 7 and 7⁻¹ = R₂₆(−11) = 15. Bob as a check: x_B = R₂₆(15 · 11) = 9 and R₂₆(9 · 10) = 12.',
@@ -279,37 +279,37 @@ export const week09: Deck = {
 
     // -- a relation on a group -------------------------------------------------------------
 
-    {
-      kind: 'exercise',
-      ref: 'Exercise 5',
-      title: 'A relation on a group',
-      prompt: ['Let ⟨G; ∗, ˆ, e⟩ be a group. Define the relation ρ on G by a ρ b ⟺ a ∗ b = b ∗ a.'],
-      parts: [
-        'Prove that ρ is reflexive and symmetric.',
-        'Prove: ρ is transitive if and only if G is commutative.',
-        'Give a, b, c in S₃ with a ρ b and b ρ c, but not a ρ c.',
-      ],
-      hint: ['For ⟹ in 2, choose b cleverly.'],
-      note: '6 minutes.',
-    },
+    // {
+    //   kind: 'exercise',
+    //   ref: 'Exercise 5',
+    //   title: 'A relation on a group',
+    //   prompt: ['Let ⟨G; ∗, ˆ, e⟩ be a group. Define the relation ρ on G by a ρ b ⟺ a ∗ b = b ∗ a.'],
+    //   parts: [
+    //     'Prove that ρ is reflexive and symmetric.',
+    //     'Prove: ρ is transitive if and only if G is commutative.',
+    //     'Give a, b, c in S₃ with a ρ b and b ρ c, but not a ρ c.',
+    //   ],
+    //   hint: ['For ⟹ in 2, choose b cleverly.'],
+    //   note: '6 minutes.',
+    // },
 
-    {
-      kind: 'solution',
-      reveal: true,
-      ref: 'Exercise 5',
-      title: 'Solutions',
-      steps: [
-        '1. Reflexive (Def. 3.13): a ∗ a = a ∗ a, so a ρ a.',
-        'Symmetric (Def. 3.15): a ρ b ⟺ a ∗ b = b ∗ a ⟺ b ∗ a = a ∗ b ⟺ b ρ a.',
-        '2. ⟸: if G is commutative, then a ρ b for all a, b. So ρ = G × G, which is transitive.',
-        '⟹: let a, c ∈ G. By G2, a ∗ e = a = e ∗ a, so a ρ e. In the same way e ρ c.',
-        'Transitivity (Def. 3.17) gives a ρ c, that is a ∗ c = c ∗ a. So G is commutative.',
-        '3. In S₃ (Example 5.12), take a: (1, 2, 3) → (2, 1, 3), b = id and c: (1, 2, 3) → (1, 3, 2).',
-        'a ρ id and id ρ c as in 2. But a ∘ c: (1, 2, 3) → (2, 3, 1) and c ∘ a: (1, 2, 3) → (3, 1, 2), so not a ρ c.',
-      ],
-      note:
-        'Same move as last week: plug in e to get information out of a statement that holds for all elements. So ρ is an equivalence relation exactly when G is commutative.',
-    },
+    // {
+    //   kind: 'solution',
+    //   reveal: true,
+    //   ref: 'Exercise 5',
+    //   title: 'Solutions',
+    //   steps: [
+    //     '1. Reflexive (Def. 3.13): a ∗ a = a ∗ a, so a ρ a.',
+    //     'Symmetric (Def. 3.15): a ρ b ⟺ a ∗ b = b ∗ a ⟺ b ∗ a = a ∗ b ⟺ b ρ a.',
+    //     '2. ⟸: if G is commutative, then a ρ b for all a, b. So ρ = G × G, which is transitive.',
+    //     '⟹: let a, c ∈ G. By G2, a ∗ e = a = e ∗ a, so a ρ e. In the same way e ρ c.',
+    //     'Transitivity (Def. 3.17) gives a ρ c, that is a ∗ c = c ∗ a. So G is commutative.',
+    //     '3. In S₃ (Example 5.12), take a: (1, 2, 3) → (2, 1, 3), b = id and c: (1, 2, 3) → (1, 3, 2).',
+    //     'a ρ id and id ρ c as in 2. But a ∘ c: (1, 2, 3) → (2, 3, 1) and c ∘ a: (1, 2, 3) → (3, 1, 2), so not a ρ c.',
+    //   ],
+    //   note:
+    //     'Same move as last week: plug in e to get information out of a statement that holds for all elements. So ρ is an equivalence relation exactly when G is commutative.',
+    // },
 
     // -- old exam ------------------------------------------------------------------------------
 
@@ -324,7 +324,7 @@ export const week09: Deck = {
         '(FS 22) Find a generator of ℤ*₁₄.',
         '(FS 22) Let x ∈ G with ord(x) = 27, and y = x⁹. Find the inverse of y as an expression in y.',
         '(HS 21) True or false: if G = ⟨g⟩ is an infinite cyclic group, then gⁱ ≠ gʲ for all i, j ∈ ℤ with i ≠ j.',
-        '(HS 22) Find a non-cyclic group G such that all proper subgroups H ≠ G are cyclic.',
+        // '(HS 22) Find a non-cyclic group G such that all proper subgroups H ≠ G are cyclic.',
       ],
       note: '6 minutes. 1 point each, the last one 2 points.',
     },
@@ -340,7 +340,7 @@ export const week09: Deck = {
         '3. For example 3: its powers are 3, 9, 13, 11, 5, 1, so ⟨3⟩ = ℤ*₁₄. (5 works too.)',
         '4. y² = x¹⁸ and y · y² = x²⁷ = e, so y⁻¹ = y².',
         '5. True. If gⁱ = gʲ with i < j, then $g^{j-i} = e$, so ord(g) is finite. Then $g^m = g^{R_{\\mathrm{ord}(g)}(m)}$ for all m (§5.3.5), so ⟨g⟩ has at most ord(g) elements. But G = ⟨g⟩ is infinite.',
-        '6. ℤ₂ × ℤ₂. Its proper subgroups are {(0, 0)} and the three {(0, 0), a} = ⟨a⟩ from last week. It is not cyclic: a ⊕ a = (0, 0) for every a, so ord(a) ≤ 2 < 4.',
+        // '6. ℤ₂ × ℤ₂. Its proper subgroups are {(0, 0)} and the three {(0, 0), a} = ⟨a⟩ from last week. It is not cyclic: a ⊕ a = (0, 0) for every a, so ord(a) ≤ 2 < 4.',
       ],
     },
 
@@ -362,7 +362,7 @@ export const week09: Deck = {
       ref: 'Exam 2',
       title: 'Solutions',
       steps: [
-        '1. (i) False. ℤ₂ × ℤ₂ is commutative but not cyclic (Exam 1, question 6).',
+        '1. (i) False. ℤ₂ × ℤ₂ is commutative but not cyclic',
         '(ii) True. Let G = ⟨g⟩ and a, b ∈ G. Then a = gⁱ and b = gʲ for some i, j ∈ ℤ.',
         'a · b = gⁱ · gʲ = gⁱ⁺ʲ = gʲ⁺ⁱ = gʲ · gⁱ = b · a.',
         '2. ℤ*₁₂ = {1, 5, 7, 11}, and every element squares to 1: 25 = 2 · 12 + 1, 49 = 4 · 12 + 1, 121 = 10 · 12 + 1.',
