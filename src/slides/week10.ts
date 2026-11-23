@@ -62,7 +62,7 @@ export const week10: Deck = {
         'Old exam questions',
       ],
       note:
-        'Timing: 3 intro · 4 recap · 3 recap · 7 division · 4 recap · 8 F[x]ₘ₍ₓ₎ (break here, about 30 min) · 3 recap · 7 secret sharing · 6 values · 16 old exams. That is about 61 min.',
+        'Timing: 3 intro · 4 recap · 5 recap with example · 7 division · 4 recap · 8 F[x]ₘ₍ₓ₎ (break here, about 30 min) · 3 recap · 7 secret sharing · 6 values · 16 old exams. That is about 63 min.',
     },
 
     // -- recap: zerodivisors, integral domains, fields -----------------------------------
@@ -76,7 +76,7 @@ export const week10: Deck = {
         'Example 5.41: if m is not prime, every non-zero element of ℤₘ that is not coprime to m is a zerodivisor.',
         'Def. 5.26: a field is a nontrivial commutative ring F in which every non-zero element is a unit, F* = F \\ {0}. Example 5.44: ℚ, ℝ, ℂ are fields, ℤ is not.',
         'Theorem 5.23: ℤₚ is a field if and only if p is prime. We write GF(p).',
-        'Theorem 5.24: a field is an integral domain. The proof shows that a unit u is never a zerodivisor: uv = 0 gives v = u⁻¹uv = u⁻¹0 = 0.',
+        'Theorem 5.24: a field is an integral domain.',
       ],
       note:
         '4 minutes. Board examples: in ℤ₁₂, 3 · 4 = 0, so 3 and 4 are zerodivisors, while 5 · 5 = 25 = 1 makes 5 a unit. Example 5.46 is a field with 4 elements. It is not ℤ₄, where 2 · 2 = 0.',
@@ -94,7 +94,24 @@ export const week10: Deck = {
         'Each step subtracts $a_m b_n^{-1} x^{m-n} \\cdot b(x)$, where $a_m$ and $b_n$ are the leading coefficients. So $b_n$ needs an inverse, which a field guarantees.',
       ],
       note:
-        '3 minutes. Example 5.42 in ℤ₇: (2x² + 3x + 1)(5x + 6) = 3x³ + 6x² + 2x + 6. Example 5.54 in GF(7): x³ + 2x² + 5x + 4 = (2x² + x + 1)(4x + 6) + (2x + 5).',
+        '3 minutes. Example 5.42 in ℤ₇: (2x² + 3x + 1)(5x + 6) = 3x³ + 6x² + 2x + 6. The division step is worked out on the next slide.',
+    },
+
+    {
+      kind: 'points',
+      title: 'One division, step by step (script Example 5.54)',
+      lead: 'In GF(7), divide a(x) = x³ + 2x² + 5x + 4 by b(x) = 2x² + x + 1. The leading coefficient of b(x) is 2, and $2^{-1} = 4$ since 2 · 4 = 8 = 1.',
+      reveal: true,
+      points: [
+        'Step 1. The leading term of a(x) is 1 · x³. Multiply b(x) by $1 \\cdot 2^{-1} \\cdot x^{3-2} = 4x$. Then the leading terms match: 4x · 2x² = 8x³ = x³.',
+        'Subtract: (x³ + 2x² + 5x + 4) − 4x · b(x) = (x³ + 2x² + 5x + 4) − (x³ + 4x² + 4x) = 5x² + x + 4. The x³ is gone.',
+        'Step 2. The leading term is now 5x². Multiply b(x) by $5 \\cdot 2^{-1} \\cdot x^{2-2} = 20 = 6$: 6 · b(x) = 5x² + 6x + 6.',
+        'Subtract: (5x² + x + 4) − (5x² + 6x + 6) = 2x + 5. Since deg(2x + 5) = 1 < 2 = deg b(x), we stop.',
+        'The multipliers add up to q(x) = 4x + 6, and what is left is r(x) = 2x + 5. So x³ + 2x² + 5x + 4 = (2x² + x + 1)(4x + 6) + (2x + 5).',
+        'In ℤ[x], step 1 already fails: we would need some c with c · 2 = 1.',
+      ],
+      note:
+        '2 minutes. Each step kills the current leading term, so the degree drops by at least 1. Exercise 1 is next and uses the same steps over ℤ₅.',
     },
 
     // -- division over Z_5 ---------------------------------------------------------------
