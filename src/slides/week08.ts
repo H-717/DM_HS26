@@ -30,6 +30,7 @@ export const week08: Deck = {
   topic: 'Groups',
   date: 'Mon 9 Nov 2026',
   sheet: 'Exercise sheet 8',
+  solutionsReleased: true,
 
   slides: [
     {

@@ -38,6 +38,7 @@ export const week10: Deck = {
   topic: 'Fields, Polynomials & Finite Fields',
   date: 'Mon 23 Nov 2026',
   sheet: 'Exercise sheet 10',
+  solutionsReleased: true,
 
   slides: [
     {

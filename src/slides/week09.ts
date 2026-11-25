@@ -39,6 +39,7 @@ export const week09: Deck = {
   topic: 'Cyclic Groups, RSA & Rings',
   date: 'Mon 16 Nov 2026',
   sheet: 'Exercise sheet 9',
+  solutionsReleased: true,
 
   slides: [
     {
